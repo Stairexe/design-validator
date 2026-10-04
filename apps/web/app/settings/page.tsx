@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardBody, CardHeader } from '@/components/ui/card';
+import { LIMITS } from '@/lib/server/limits';
 import { getRuntime } from '@/lib/server/runtime';
 
 export const metadata: Metadata = { title: 'Settings' };
@@ -44,6 +45,27 @@ export default function SettingsPage() {
         {deps.recommendationModel ? `Enabled (${deps.recommendationModel.model})` : 'Disabled'}
       </Status>,
       'ANTHROPIC_API_KEY enables optional explanations. Measured differences never depend on it.',
+    ],
+    [
+      'Access',
+      <Status key="gate" ok={Boolean(process.env['APP_ACCESS_PASSWORD'])}>
+        {process.env['APP_ACCESS_PASSWORD'] ? 'Password protected' : 'Open'}
+      </Status>,
+      'APP_ACCESS_PASSWORD requires a password for every page and API route.',
+    ],
+    [
+      'Limits',
+      <Status key="limits" ok>
+        {`${LIMITS.auditsPerHour}/h per client · ${LIMITS.concurrentAudits} concurrent · ${LIMITS.auditsPerDay}/day`}
+      </Status>,
+      'RATE_LIMIT_AUDITS_PER_HOUR, MAX_CONCURRENT_AUDITS, MAX_AUDITS_PER_DAY, RATE_LIMIT_AI_PER_HOUR.',
+    ],
+    [
+      'Retention',
+      <Status key="retention" ok>
+        {`${process.env['AUDIT_RETENTION_DAYS'] ?? '30'} days`}
+      </Status>,
+      'AUDIT_RETENTION_DAYS. Expired audits, issues and screenshots are deleted daily (cleanup worker or Vercel Cron).',
     ],
     [
       'Private network targets',

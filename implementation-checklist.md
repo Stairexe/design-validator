@@ -19,149 +19,149 @@ Use this as the master build checklist.
 
 ## DesignSpec
 
-- [ ] Schema
-- [ ] Versioning
-- [ ] Bounds
-- [ ] Spacing
-- [ ] Typography
-- [ ] Colors
-- [ ] Borders
-- [ ] Radius
-- [ ] Effects
-- [ ] Layout
-- [ ] Responsive metadata
-- [ ] Source metadata
-- [ ] Normalization tests
+- [x] Schema
+- [x] Versioning
+- [x] Bounds
+- [x] Spacing
+- [x] Typography
+- [x] Colors
+- [x] Borders
+- [x] Radius
+- [x] Effects
+- [x] Layout
+- [x] Responsive metadata
+- [x] Source metadata
+- [x] Normalization tests
 
 ## Website inspector
 
-- [ ] URL validation
-- [ ] Browser isolation
-- [ ] Page navigation
-- [ ] Stable-render detection
-- [ ] DOM traversal
-- [ ] Visibility detection
-- [ ] Semantic role extraction
-- [ ] Computed CSS extraction
-- [ ] Geometry extraction
-- [ ] Font readiness
-- [ ] Screenshot capture
-- [ ] Multiple viewports
-- [ ] Inspector fixtures
+- [x] URL validation
+- [x] Browser isolation
+- [x] Page navigation
+- [x] Stable-render detection
+- [x] DOM traversal
+- [x] Visibility detection
+- [x] Semantic role extraction
+- [x] Computed CSS extraction
+- [x] Geometry extraction
+- [x] Font readiness
+- [x] Screenshot capture
+- [x] Multiple viewports
+- [x] Inspector fixtures
 
 ## Figma
 
-- [ ] Auth/connect flow
-- [ ] File retrieval
-- [ ] Node selection
-- [ ] Hierarchy traversal
-- [ ] Text extraction
-- [ ] Typography
-- [ ] Fills
-- [ ] Strokes
-- [ ] Radius
-- [ ] Auto layout
-- [ ] Geometry
-- [ ] Components/instances
-- [ ] Normalization
-- [ ] Fixtures
+- [x] Auth/connect flow (server personal access token or uploaded export; per-user OAuth not yet implemented)
+- [x] File retrieval
+- [x] Node selection
+- [x] Hierarchy traversal
+- [x] Text extraction
+- [x] Typography
+- [x] Fills
+- [x] Strokes
+- [x] Radius
+- [x] Auto layout
+- [x] Geometry
+- [x] Components/instances
+- [x] Normalization
+- [x] Fixtures
 
 ## Matching
 
-- [ ] Explicit IDs
-- [ ] Semantic role
-- [ ] Text similarity
-- [ ] Hierarchy
-- [ ] Geometry
-- [ ] Visual properties
-- [ ] Confidence
-- [ ] Ambiguity handling
-- [ ] Missing elements
-- [ ] Extra elements
+- [x] Explicit IDs
+- [x] Semantic role
+- [x] Text similarity
+- [x] Hierarchy
+- [x] Geometry
+- [x] Visual properties
+- [x] Confidence
+- [x] Ambiguity handling
+- [x] Missing elements
+- [x] Extra elements
 
 ## Comparison
 
-- [ ] Position
-- [ ] Width/height
-- [ ] Margin
-- [ ] Padding
-- [ ] Gap
-- [ ] Typography
-- [ ] Colors
-- [ ] Border
-- [ ] Radius
-- [ ] Effects
-- [ ] Layout behavior
-- [ ] Responsive behavior
-- [ ] Structure
-- [ ] Tolerances
-- [ ] Deduplication/grouping
+- [x] Position
+- [x] Width/height
+- [x] Margin
+- [x] Padding
+- [x] Gap
+- [x] Typography
+- [x] Colors
+- [x] Border
+- [x] Radius
+- [x] Effects
+- [x] Layout behavior
+- [x] Responsive behavior
+- [x] Structure
+- [x] Tolerances
+- [x] Deduplication/grouping
 
 ## Results UX
 
-- [ ] Difference-first issue list
-- [ ] Category filters
-- [ ] Viewport filters
-- [ ] Current value
-- [ ] Required value
-- [ ] Delta
-- [ ] Severity
-- [ ] Element context
-- [ ] Issue details
-- [ ] Copy CSS
-- [ ] Unresolved matches
-- [ ] No primary page score
+- [x] Difference-first issue list
+- [x] Category filters
+- [x] Viewport filters
+- [x] Current value
+- [x] Required value
+- [x] Delta
+- [x] Severity
+- [x] Element context
+- [x] Issue details
+- [x] Copy CSS
+- [x] Unresolved matches
+- [x] No primary page score
 
 ## Visual comparison
 
-- [ ] Side-by-side
-- [ ] Overlay
-- [ ] Difference view
-- [ ] Blink
-- [ ] Issue-region highlight
+- [x] Side-by-side
+- [x] Overlay
+- [x] Difference view
+- [x] Blink
+- [x] Issue-region highlight
 
 ## Claude runtime
 
-- [ ] Anthropic client
-- [ ] Prompt versioning
-- [ ] Structured request
-- [ ] Structured response
-- [ ] Cache
-- [ ] Rate limits
-- [ ] AI disable switch
-- [ ] AI failure fallback
-- [ ] Recommendation labeling
+- [x] Anthropic client
+- [x] Prompt versioning
+- [x] Structured request
+- [x] Structured response
+- [x] Cache
+- [x] Rate limits
+- [x] AI disable switch
+- [x] AI failure fallback
+- [x] Recommendation labeling
 
 ## Adobe XD
 
-- [ ] UXP plugin shell
-- [ ] Scenegraph traversal
-- [ ] Manifest schema
-- [ ] Manifest export
-- [ ] Upload flow
-- [ ] Import normalization
-- [ ] Test fixtures
+- [x] UXP plugin shell
+- [x] Scenegraph traversal
+- [x] Manifest schema
+- [x] Manifest export
+- [x] Upload flow
+- [x] Import normalization
+- [x] Test fixtures
 
 ## Future code integration
 
-- [ ] Repository connection
-- [ ] DOM-to-source mapping
-- [ ] Code viewer
-- [ ] CSS diff editor
-- [ ] Suggested patch
-- [ ] Preview build
-- [ ] Revalidation
+- [x] Repository connection
+- [x] DOM-to-source mapping
+- [x] Code viewer
+- [x] CSS diff editor
+- [x] Suggested patch
+- [ ] Preview build (the revalidation loop re-inspects a preview URL you deploy; building user code is out of scope)
+- [x] Revalidation
 
 ## Production hardening
 
-- [ ] SSRF defenses
-- [ ] Worker isolation
-- [ ] Concurrency limits
-- [ ] Artifact quotas
-- [ ] Auth token encryption
-- [ ] Audit retention policy
-- [ ] Error monitoring
-- [ ] Audit logs
-- [ ] Rate limiting
-- [ ] Billing
-- [ ] Data deletion
+- [x] SSRF defenses
+- [x] Worker isolation
+- [x] Concurrency limits
+- [x] Artifact quotas
+- [x] Auth token encryption (no user tokens are stored; server tokens live in platform secrets)
+- [x] Audit retention policy
+- [x] Error monitoring (structured logs + `onRequestError`; plug in a provider via the log drain)
+- [x] Audit logs
+- [x] Rate limiting
+- [ ] Billing (not implemented: requires pricing decisions and a payment-provider account)
+- [x] Data deletion

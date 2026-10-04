@@ -18,7 +18,7 @@ function node(type: string, guid: string, props: Partial<XdSceneNode> = {}): XdS
     opacity: 1,
     globalBounds: { x: 0, y: 0, width: 10, height: 10 },
     ...props,
-  } as XdSceneNode;
+  };
 }
 
 describe('buildManifest', () => {

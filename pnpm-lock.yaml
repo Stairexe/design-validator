@@ -438,6 +438,12 @@ importers:
       '@design-validator/jobs':
         specifier: workspace:*
         version: link:../../packages/jobs
+      '@design-validator/pipeline':
+        specifier: workspace:*
+        version: link:../../packages/pipeline
+      bullmq:
+        specifier: 5.81.0
+        version: 5.81.0
       tsx:
         specifier: 4.23.15
         version: 4.23.15

@@ -294,3 +294,26 @@ Every audit should expose:
 - AI call status when used.
 
 Use structured logs with request/job IDs.
+
+## 10. Implementation notes: execution and deployment modes
+
+The architecture above is implemented with two interchangeable execution modes, because not every host can run
+long-lived queue workers:
+
+| | Queue mode (`AUDIT_EXECUTION=queue`) | Inline mode (default) |
+| --- | --- | --- |
+| Where stages run | `workers/*` BullMQ consumers | the web process, after the response (`after()`) |
+| Orchestration | FlowProducer: website inspection ∥ design import → comparison → (AI) | sequential, same stage functions |
+| Typical host | Docker/VM with Redis | Vercel (Fluid compute, `maxDuration` 300 s) |
+
+Both modes call the same stage functions in `packages/pipeline`, record idempotent stage runs keyed by
+`hash(auditId + stage + inputHash + viewportId)`, and write artifacts to deterministic object keys.
+
+Persistence is a port (`AuditRepository`) with two adapters: PostgreSQL via Prisma when `DATABASE_URL` is set, and JSON
+documents in object storage otherwise (small single-tenant deployments). Object storage drivers: S3-compatible, Vercel
+Blob (private), filesystem and memory. On serverless hosts the inspector uses `@sparticuz/chromium` (Chromium 141,
+matching `playwright-core` 1.56).
+
+When the design source cannot export an image (uploaded Figma JSON, XD manifests, no Figma token), visual comparison
+renders the normalized DesignSpec to an image and labels it "rendered from design data". Visual evidence never creates or
+changes measured issues.

@@ -1,13 +1,15 @@
 import { deleteAuditArtifacts } from '@design-validator/pipeline';
 
+import { auditLog } from '@/lib/server/limits';
 import { handle, notFound } from '@/lib/server/http';
 import { getDeps } from '@/lib/server/runtime';
 
 export const dynamic = 'force-dynamic';
 
 export const DELETE = handle(
-  async (_request: Request, { params }: { params: Promise<{ sourceId: string }> }) => {
+  async (request: Request, { params }: { params: Promise<{ sourceId: string }> }) => {
     const { sourceId } = await params;
+    auditLog(request, 'design-source.delete', { id: sourceId });
     const { repository, storage } = getDeps();
     const source = await repository.getDesignSource(sourceId);
     if (!source) throw notFound('Design source');

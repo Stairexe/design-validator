@@ -16,6 +16,8 @@ export { recommendAudit, recommendForIssue } from './recommendations';
 export type { IssueRecommendationResult } from './recommendations';
 export { diffAudits, differenceKey, revalidateAudit, revalidationSummary } from './revalidation';
 export type { RevalidationDiff } from './revalidation';
+export { purgeExpiredAudits } from './retention';
+export type { RetentionResult } from './retention';
 export { runAudit } from './run-audit';
 export { createRuntime } from './runtime';
 export type { PipelineRuntime } from './runtime';

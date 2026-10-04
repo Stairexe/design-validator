@@ -57,7 +57,7 @@ function showMessage(message: string): void {
   button.onclick = () => dialog.close();
   dialog.append(text, button);
   document.body.appendChild(dialog);
-  void dialog.showModal();
+  dialog.showModal();
 }
 
 module.exports = { commands: { exportManifest } };

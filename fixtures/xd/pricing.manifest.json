@@ -1,516 +1,516 @@
 {
- "manifestVersion": "1.0",
- "generator": {
-  "name": "design-validator-xd-plugin",
-  "version": "0.1.0"
- },
- "document": {
-  "name": "Pricing.xd",
-  "guid": "doc-pricing"
- },
- "exportedAt": "2026-10-01T00:00:00Z",
- "artboards": [
-  {
-   "guid": "ab-desktop",
-   "name": "Pricing / Desktop",
-   "width": 1440,
-   "height": 483,
-   "fill": {
-    "type": "color",
-    "color": "#ffffff",
-    "alpha": 1
-   },
-   "children": [
+  "manifestVersion": "1.0",
+  "generator": {
+    "name": "design-validator-xd-plugin",
+    "version": "0.1.0"
+  },
+  "document": {
+    "name": "Pricing.xd",
+    "guid": "doc-pricing"
+  },
+  "exportedAt": "2026-10-01T00:00:00Z",
+  "artboards": [
     {
-     "guid": "hero",
-     "name": "Hero",
-     "type": "Group",
-     "visible": true,
-     "opacity": 1,
-     "bounds": {
-      "x": 0,
-      "y": 0,
+      "guid": "ab-desktop",
+      "name": "Pricing / Desktop",
       "width": 1440,
-      "height": 292
-     },
-     "layout": {
-      "type": "stack",
-      "orientation": "vertical",
-      "spacing": 16,
-      "padding": {
-       "top": 64,
-       "right": 80,
-       "bottom": 64,
-       "left": 80
-      }
-     },
-     "children": [
-      {
-       "guid": "hero-title",
-       "name": "Hero title",
-       "type": "Text",
-       "visible": true,
-       "opacity": 1,
-       "bounds": {
-        "x": 80,
-        "y": 64,
-        "width": 354,
-        "height": 56
-       },
-       "text": {
-        "content": "Simple pricing",
-        "fontFamily": "Arial",
-        "fontStyle": "Bold",
-        "fontSize": 48,
-        "charSpacing": -10.4167,
-        "lineSpacing": 56,
-        "textAlign": "left",
-        "textTransform": "none",
-        "underline": false,
-        "strikethrough": false,
-        "color": "#111111",
-        "alpha": 1
-       }
-      },
-      {
-       "guid": "subtitle",
-       "name": "Subtitle",
-       "type": "Text",
-       "visible": true,
-       "opacity": 1,
-       "bounds": {
-        "x": 80,
-        "y": 136,
-        "width": 280,
-        "height": 28
-       },
-       "text": {
-        "content": "Pick the plan that fits your team.",
-        "fontFamily": "Arial",
-        "fontStyle": "Regular",
-        "fontSize": 18,
-        "charSpacing": 0,
-        "lineSpacing": 28,
-        "textAlign": "left",
-        "textTransform": "none",
-        "underline": false,
-        "strikethrough": false,
-        "color": "#222222",
-        "alpha": 1
-       }
-      },
-      {
-       "guid": "cta",
-       "name": "Button / Primary",
-       "type": "SymbolInstance",
-       "symbolName": "Button",
-       "visible": true,
-       "opacity": 1,
-       "bounds": {
-        "x": 80,
-        "y": 180,
-        "width": 141,
-        "height": 48
-       },
-       "fill": {
-        "type": "color",
-        "color": "#111111",
-        "alpha": 1
-       },
-       "cornerRadii": {
-        "topLeft": 12,
-        "topRight": 12,
-        "bottomRight": 12,
-        "bottomLeft": 12
-       },
-       "layout": {
-        "type": "stack",
-        "orientation": "horizontal",
-        "spacing": 8,
-        "padding": {
-         "top": 12,
-         "right": 24,
-         "bottom": 12,
-         "left": 24
-        }
-       },
-       "children": [
-        {
-         "guid": "cta-label",
-         "name": "Label",
-         "type": "Text",
-         "visible": true,
-         "opacity": 1,
-         "bounds": {
-          "x": 104,
-          "y": 192,
-          "width": 93,
-          "height": 24
-         },
-         "text": {
-          "content": "Get started",
-          "fontFamily": "Arial",
-          "fontStyle": "SemiBold",
-          "fontSize": 16,
-          "charSpacing": 0,
-          "lineSpacing": 24,
-          "textAlign": "left",
-          "textTransform": "none",
-          "underline": false,
-          "strikethrough": false,
-          "color": "#ffffff",
-          "alpha": 1
-         }
-        }
-       ]
-      }
-     ]
-    },
-    {
-     "guid": "cards",
-     "name": "Cards",
-     "type": "Group",
-     "visible": true,
-     "opacity": 1,
-     "bounds": {
-      "x": 0,
-      "y": 292,
-      "width": 1440,
-      "height": 191
-     },
-     "layout": {
-      "type": "stack",
-      "orientation": "horizontal",
-      "spacing": 24,
-      "padding": {
-       "top": 0,
-       "right": 80,
-       "bottom": 64,
-       "left": 80
-      }
-     },
-     "children": [
-      {
-       "guid": "card-1",
-       "name": "Card",
-       "type": "Group",
-       "visible": true,
-       "opacity": 1,
-       "bounds": {
-        "x": 80,
-        "y": 292,
-        "width": 410.6666666666667,
-        "height": 127
-       },
-       "fill": {
+      "height": 483,
+      "fill": {
         "type": "color",
         "color": "#ffffff",
         "alpha": 1
-       },
-       "stroke": {
-        "color": "#e4e4e7",
-        "alpha": 1,
-        "width": 1,
-        "enabled": true,
-        "dashed": false
-       },
-       "cornerRadii": {
-        "topLeft": 12,
-        "topRight": 12,
-        "bottomRight": 12,
-        "bottomLeft": 12
-       },
-       "shadow": {
-        "x": 0,
-        "y": 4,
-        "blur": 12,
-        "color": "#000000",
-        "alpha": 0.1,
-        "visible": true
-       },
-       "layout": {
-        "type": "stack",
-        "orientation": "vertical",
-        "spacing": 8,
-        "padding": {
-         "top": 24,
-         "right": 24,
-         "bottom": 24,
-         "left": 24
-        }
-       },
-       "children": [
-        {
-         "guid": "card-1-title",
-         "name": "Card title",
-         "type": "Text",
-         "visible": true,
-         "opacity": 1,
-         "bounds": {
-          "x": 105,
-          "y": 317,
-          "width": 360.6666666666667,
-          "height": 32
-         },
-         "text": {
-          "content": "Starter",
-          "fontFamily": "Arial",
-          "fontStyle": "Bold",
-          "fontSize": 24,
-          "charSpacing": 0,
-          "lineSpacing": 32,
-          "textAlign": "left",
-          "textTransform": "none",
-          "underline": false,
-          "strikethrough": false,
-          "color": "#222222",
-          "alpha": 1
-         }
-        },
-        {
-         "guid": "card-1-price",
-         "name": "Price",
-         "type": "Text",
-         "visible": true,
-         "opacity": 1,
-         "bounds": {
-          "x": 105,
-          "y": 357,
-          "width": 360.6666666666667,
-          "height": 37
-         },
-         "text": {
-          "content": "$9",
-          "fontFamily": "Arial",
-          "fontStyle": "Bold",
-          "fontSize": 32,
-          "charSpacing": 0,
-          "lineSpacing": 37,
-          "textAlign": "left",
-          "textTransform": "none",
-          "underline": false,
-          "strikethrough": false,
-          "color": "#222222",
-          "alpha": 1
-         }
-        }
-       ]
       },
-      {
-       "guid": "card-2",
-       "name": "Card",
-       "type": "Group",
-       "visible": true,
-       "opacity": 1,
-       "bounds": {
-        "x": 514.6666666666667,
-        "y": 292,
-        "width": 410.6666666666667,
-        "height": 127
-       },
-       "fill": {
-        "type": "color",
-        "color": "#ffffff",
-        "alpha": 1
-       },
-       "stroke": {
-        "color": "#e4e4e7",
-        "alpha": 1,
-        "width": 1,
-        "enabled": true,
-        "dashed": false
-       },
-       "cornerRadii": {
-        "topLeft": 12,
-        "topRight": 12,
-        "bottomRight": 12,
-        "bottomLeft": 12
-       },
-       "shadow": {
-        "x": 0,
-        "y": 4,
-        "blur": 12,
-        "color": "#000000",
-        "alpha": 0.1,
-        "visible": true
-       },
-       "layout": {
-        "type": "stack",
-        "orientation": "vertical",
-        "spacing": 8,
-        "padding": {
-         "top": 24,
-         "right": 24,
-         "bottom": 24,
-         "left": 24
-        }
-       },
-       "children": [
+      "children": [
         {
-         "guid": "card-2-title",
-         "name": "Card title",
-         "type": "Text",
-         "visible": true,
-         "opacity": 1,
-         "bounds": {
-          "x": 539.6666666666667,
-          "y": 317,
-          "width": 360.6666666666667,
-          "height": 32
-         },
-         "text": {
-          "content": "Team",
-          "fontFamily": "Arial",
-          "fontStyle": "Bold",
-          "fontSize": 24,
-          "charSpacing": 0,
-          "lineSpacing": 32,
-          "textAlign": "left",
-          "textTransform": "none",
-          "underline": false,
-          "strikethrough": false,
-          "color": "#222222",
-          "alpha": 1
-         }
+          "guid": "hero",
+          "name": "Hero",
+          "type": "Group",
+          "visible": true,
+          "opacity": 1,
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 292
+          },
+          "layout": {
+            "type": "stack",
+            "orientation": "vertical",
+            "spacing": 16,
+            "padding": {
+              "top": 64,
+              "right": 80,
+              "bottom": 64,
+              "left": 80
+            }
+          },
+          "children": [
+            {
+              "guid": "hero-title",
+              "name": "Hero title",
+              "type": "Text",
+              "visible": true,
+              "opacity": 1,
+              "bounds": {
+                "x": 80,
+                "y": 64,
+                "width": 354,
+                "height": 56
+              },
+              "text": {
+                "content": "Simple pricing",
+                "fontFamily": "Arial",
+                "fontStyle": "Bold",
+                "fontSize": 48,
+                "charSpacing": -10.4167,
+                "lineSpacing": 56,
+                "textAlign": "left",
+                "textTransform": "none",
+                "underline": false,
+                "strikethrough": false,
+                "color": "#111111",
+                "alpha": 1
+              }
+            },
+            {
+              "guid": "subtitle",
+              "name": "Subtitle",
+              "type": "Text",
+              "visible": true,
+              "opacity": 1,
+              "bounds": {
+                "x": 80,
+                "y": 136,
+                "width": 280,
+                "height": 28
+              },
+              "text": {
+                "content": "Pick the plan that fits your team.",
+                "fontFamily": "Arial",
+                "fontStyle": "Regular",
+                "fontSize": 18,
+                "charSpacing": 0,
+                "lineSpacing": 28,
+                "textAlign": "left",
+                "textTransform": "none",
+                "underline": false,
+                "strikethrough": false,
+                "color": "#222222",
+                "alpha": 1
+              }
+            },
+            {
+              "guid": "cta",
+              "name": "Button / Primary",
+              "type": "SymbolInstance",
+              "symbolName": "Button",
+              "visible": true,
+              "opacity": 1,
+              "bounds": {
+                "x": 80,
+                "y": 180,
+                "width": 141,
+                "height": 48
+              },
+              "fill": {
+                "type": "color",
+                "color": "#111111",
+                "alpha": 1
+              },
+              "cornerRadii": {
+                "topLeft": 12,
+                "topRight": 12,
+                "bottomRight": 12,
+                "bottomLeft": 12
+              },
+              "layout": {
+                "type": "stack",
+                "orientation": "horizontal",
+                "spacing": 8,
+                "padding": {
+                  "top": 12,
+                  "right": 24,
+                  "bottom": 12,
+                  "left": 24
+                }
+              },
+              "children": [
+                {
+                  "guid": "cta-label",
+                  "name": "Label",
+                  "type": "Text",
+                  "visible": true,
+                  "opacity": 1,
+                  "bounds": {
+                    "x": 104,
+                    "y": 192,
+                    "width": 93,
+                    "height": 24
+                  },
+                  "text": {
+                    "content": "Get started",
+                    "fontFamily": "Arial",
+                    "fontStyle": "SemiBold",
+                    "fontSize": 16,
+                    "charSpacing": 0,
+                    "lineSpacing": 24,
+                    "textAlign": "left",
+                    "textTransform": "none",
+                    "underline": false,
+                    "strikethrough": false,
+                    "color": "#ffffff",
+                    "alpha": 1
+                  }
+                }
+              ]
+            }
+          ]
         },
         {
-         "guid": "card-2-price",
-         "name": "Price",
-         "type": "Text",
-         "visible": true,
-         "opacity": 1,
-         "bounds": {
-          "x": 539.6666666666667,
-          "y": 357,
-          "width": 360.6666666666667,
-          "height": 37
-         },
-         "text": {
-          "content": "$29",
-          "fontFamily": "Arial",
-          "fontStyle": "Bold",
-          "fontSize": 32,
-          "charSpacing": 0,
-          "lineSpacing": 37,
-          "textAlign": "left",
-          "textTransform": "none",
-          "underline": false,
-          "strikethrough": false,
-          "color": "#222222",
-          "alpha": 1
-         }
+          "guid": "cards",
+          "name": "Cards",
+          "type": "Group",
+          "visible": true,
+          "opacity": 1,
+          "bounds": {
+            "x": 0,
+            "y": 292,
+            "width": 1440,
+            "height": 191
+          },
+          "layout": {
+            "type": "stack",
+            "orientation": "horizontal",
+            "spacing": 24,
+            "padding": {
+              "top": 0,
+              "right": 80,
+              "bottom": 64,
+              "left": 80
+            }
+          },
+          "children": [
+            {
+              "guid": "card-1",
+              "name": "Card",
+              "type": "Group",
+              "visible": true,
+              "opacity": 1,
+              "bounds": {
+                "x": 80,
+                "y": 292,
+                "width": 410.6666666666667,
+                "height": 127
+              },
+              "fill": {
+                "type": "color",
+                "color": "#ffffff",
+                "alpha": 1
+              },
+              "stroke": {
+                "color": "#e4e4e7",
+                "alpha": 1,
+                "width": 1,
+                "enabled": true,
+                "dashed": false
+              },
+              "cornerRadii": {
+                "topLeft": 12,
+                "topRight": 12,
+                "bottomRight": 12,
+                "bottomLeft": 12
+              },
+              "shadow": {
+                "x": 0,
+                "y": 4,
+                "blur": 12,
+                "color": "#000000",
+                "alpha": 0.1,
+                "visible": true
+              },
+              "layout": {
+                "type": "stack",
+                "orientation": "vertical",
+                "spacing": 8,
+                "padding": {
+                  "top": 24,
+                  "right": 24,
+                  "bottom": 24,
+                  "left": 24
+                }
+              },
+              "children": [
+                {
+                  "guid": "card-1-title",
+                  "name": "Card title",
+                  "type": "Text",
+                  "visible": true,
+                  "opacity": 1,
+                  "bounds": {
+                    "x": 105,
+                    "y": 317,
+                    "width": 360.6666666666667,
+                    "height": 32
+                  },
+                  "text": {
+                    "content": "Starter",
+                    "fontFamily": "Arial",
+                    "fontStyle": "Bold",
+                    "fontSize": 24,
+                    "charSpacing": 0,
+                    "lineSpacing": 32,
+                    "textAlign": "left",
+                    "textTransform": "none",
+                    "underline": false,
+                    "strikethrough": false,
+                    "color": "#222222",
+                    "alpha": 1
+                  }
+                },
+                {
+                  "guid": "card-1-price",
+                  "name": "Price",
+                  "type": "Text",
+                  "visible": true,
+                  "opacity": 1,
+                  "bounds": {
+                    "x": 105,
+                    "y": 357,
+                    "width": 360.6666666666667,
+                    "height": 37
+                  },
+                  "text": {
+                    "content": "$9",
+                    "fontFamily": "Arial",
+                    "fontStyle": "Bold",
+                    "fontSize": 32,
+                    "charSpacing": 0,
+                    "lineSpacing": 37,
+                    "textAlign": "left",
+                    "textTransform": "none",
+                    "underline": false,
+                    "strikethrough": false,
+                    "color": "#222222",
+                    "alpha": 1
+                  }
+                }
+              ]
+            },
+            {
+              "guid": "card-2",
+              "name": "Card",
+              "type": "Group",
+              "visible": true,
+              "opacity": 1,
+              "bounds": {
+                "x": 514.6666666666667,
+                "y": 292,
+                "width": 410.6666666666667,
+                "height": 127
+              },
+              "fill": {
+                "type": "color",
+                "color": "#ffffff",
+                "alpha": 1
+              },
+              "stroke": {
+                "color": "#e4e4e7",
+                "alpha": 1,
+                "width": 1,
+                "enabled": true,
+                "dashed": false
+              },
+              "cornerRadii": {
+                "topLeft": 12,
+                "topRight": 12,
+                "bottomRight": 12,
+                "bottomLeft": 12
+              },
+              "shadow": {
+                "x": 0,
+                "y": 4,
+                "blur": 12,
+                "color": "#000000",
+                "alpha": 0.1,
+                "visible": true
+              },
+              "layout": {
+                "type": "stack",
+                "orientation": "vertical",
+                "spacing": 8,
+                "padding": {
+                  "top": 24,
+                  "right": 24,
+                  "bottom": 24,
+                  "left": 24
+                }
+              },
+              "children": [
+                {
+                  "guid": "card-2-title",
+                  "name": "Card title",
+                  "type": "Text",
+                  "visible": true,
+                  "opacity": 1,
+                  "bounds": {
+                    "x": 539.6666666666667,
+                    "y": 317,
+                    "width": 360.6666666666667,
+                    "height": 32
+                  },
+                  "text": {
+                    "content": "Team",
+                    "fontFamily": "Arial",
+                    "fontStyle": "Bold",
+                    "fontSize": 24,
+                    "charSpacing": 0,
+                    "lineSpacing": 32,
+                    "textAlign": "left",
+                    "textTransform": "none",
+                    "underline": false,
+                    "strikethrough": false,
+                    "color": "#222222",
+                    "alpha": 1
+                  }
+                },
+                {
+                  "guid": "card-2-price",
+                  "name": "Price",
+                  "type": "Text",
+                  "visible": true,
+                  "opacity": 1,
+                  "bounds": {
+                    "x": 539.6666666666667,
+                    "y": 357,
+                    "width": 360.6666666666667,
+                    "height": 37
+                  },
+                  "text": {
+                    "content": "$29",
+                    "fontFamily": "Arial",
+                    "fontStyle": "Bold",
+                    "fontSize": 32,
+                    "charSpacing": 0,
+                    "lineSpacing": 37,
+                    "textAlign": "left",
+                    "textTransform": "none",
+                    "underline": false,
+                    "strikethrough": false,
+                    "color": "#222222",
+                    "alpha": 1
+                  }
+                }
+              ]
+            },
+            {
+              "guid": "card-3",
+              "name": "Card",
+              "type": "Group",
+              "visible": true,
+              "opacity": 1,
+              "bounds": {
+                "x": 949.3333333333334,
+                "y": 292,
+                "width": 410.6666666666667,
+                "height": 127
+              },
+              "fill": {
+                "type": "color",
+                "color": "#ffffff",
+                "alpha": 1
+              },
+              "stroke": {
+                "color": "#e4e4e7",
+                "alpha": 1,
+                "width": 1,
+                "enabled": true,
+                "dashed": false
+              },
+              "cornerRadii": {
+                "topLeft": 12,
+                "topRight": 12,
+                "bottomRight": 12,
+                "bottomLeft": 12
+              },
+              "shadow": {
+                "x": 0,
+                "y": 4,
+                "blur": 12,
+                "color": "#000000",
+                "alpha": 0.1,
+                "visible": true
+              },
+              "layout": {
+                "type": "stack",
+                "orientation": "vertical",
+                "spacing": 8,
+                "padding": {
+                  "top": 24,
+                  "right": 24,
+                  "bottom": 24,
+                  "left": 24
+                }
+              },
+              "children": [
+                {
+                  "guid": "card-3-title",
+                  "name": "Card title",
+                  "type": "Text",
+                  "visible": true,
+                  "opacity": 1,
+                  "bounds": {
+                    "x": 974.3333333333334,
+                    "y": 317,
+                    "width": 360.6666666666667,
+                    "height": 32
+                  },
+                  "text": {
+                    "content": "Enterprise",
+                    "fontFamily": "Arial",
+                    "fontStyle": "Bold",
+                    "fontSize": 24,
+                    "charSpacing": 0,
+                    "lineSpacing": 32,
+                    "textAlign": "left",
+                    "textTransform": "none",
+                    "underline": false,
+                    "strikethrough": false,
+                    "color": "#222222",
+                    "alpha": 1
+                  }
+                },
+                {
+                  "guid": "card-3-price",
+                  "name": "Price",
+                  "type": "Text",
+                  "visible": true,
+                  "opacity": 1,
+                  "bounds": {
+                    "x": 974.3333333333334,
+                    "y": 357,
+                    "width": 360.6666666666667,
+                    "height": 37
+                  },
+                  "text": {
+                    "content": "$99",
+                    "fontFamily": "Arial",
+                    "fontStyle": "Bold",
+                    "fontSize": 32,
+                    "charSpacing": 0,
+                    "lineSpacing": 37,
+                    "textAlign": "left",
+                    "textTransform": "none",
+                    "underline": false,
+                    "strikethrough": false,
+                    "color": "#222222",
+                    "alpha": 1
+                  }
+                }
+              ]
+            }
+          ]
         }
-       ]
-      },
-      {
-       "guid": "card-3",
-       "name": "Card",
-       "type": "Group",
-       "visible": true,
-       "opacity": 1,
-       "bounds": {
-        "x": 949.3333333333334,
-        "y": 292,
-        "width": 410.6666666666667,
-        "height": 127
-       },
-       "fill": {
-        "type": "color",
-        "color": "#ffffff",
-        "alpha": 1
-       },
-       "stroke": {
-        "color": "#e4e4e7",
-        "alpha": 1,
-        "width": 1,
-        "enabled": true,
-        "dashed": false
-       },
-       "cornerRadii": {
-        "topLeft": 12,
-        "topRight": 12,
-        "bottomRight": 12,
-        "bottomLeft": 12
-       },
-       "shadow": {
-        "x": 0,
-        "y": 4,
-        "blur": 12,
-        "color": "#000000",
-        "alpha": 0.1,
-        "visible": true
-       },
-       "layout": {
-        "type": "stack",
-        "orientation": "vertical",
-        "spacing": 8,
-        "padding": {
-         "top": 24,
-         "right": 24,
-         "bottom": 24,
-         "left": 24
-        }
-       },
-       "children": [
-        {
-         "guid": "card-3-title",
-         "name": "Card title",
-         "type": "Text",
-         "visible": true,
-         "opacity": 1,
-         "bounds": {
-          "x": 974.3333333333334,
-          "y": 317,
-          "width": 360.6666666666667,
-          "height": 32
-         },
-         "text": {
-          "content": "Enterprise",
-          "fontFamily": "Arial",
-          "fontStyle": "Bold",
-          "fontSize": 24,
-          "charSpacing": 0,
-          "lineSpacing": 32,
-          "textAlign": "left",
-          "textTransform": "none",
-          "underline": false,
-          "strikethrough": false,
-          "color": "#222222",
-          "alpha": 1
-         }
-        },
-        {
-         "guid": "card-3-price",
-         "name": "Price",
-         "type": "Text",
-         "visible": true,
-         "opacity": 1,
-         "bounds": {
-          "x": 974.3333333333334,
-          "y": 357,
-          "width": 360.6666666666667,
-          "height": 37
-         },
-         "text": {
-          "content": "$99",
-          "fontFamily": "Arial",
-          "fontStyle": "Bold",
-          "fontSize": 32,
-          "charSpacing": 0,
-          "lineSpacing": 37,
-          "textAlign": "left",
-          "textTransform": "none",
-          "underline": false,
-          "strikethrough": false,
-          "color": "#222222",
-          "alpha": 1
-         }
-        }
-       ]
-      }
-     ]
+      ]
     }
-   ]
-  }
- ]
+  ]
 }

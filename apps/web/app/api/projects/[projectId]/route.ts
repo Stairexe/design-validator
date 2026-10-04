@@ -1,6 +1,7 @@
 import { deleteProject } from '@design-validator/pipeline';
 
 import { updateProjectSchema } from '@/lib/api-schemas';
+import { auditLog } from '@/lib/server/limits';
 import { handle, json, notFound, parseBody } from '@/lib/server/http';
 import { getDeps } from '@/lib/server/runtime';
 
@@ -33,8 +34,9 @@ export const PATCH = handle(async (request: Request, { params }: Context) => {
   return json({ project });
 });
 
-export const DELETE = handle(async (_request: Request, { params }: Context) => {
+export const DELETE = handle(async (request: Request, { params }: Context) => {
   const { projectId } = await params;
+  auditLog(request, 'project.delete', { id: projectId });
   if (!(await deleteProject(getDeps(), projectId))) throw notFound('Project');
   return new Response(null, { status: 204 });
 });

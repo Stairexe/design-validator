@@ -4,6 +4,7 @@ import { createAudit } from '@design-validator/pipeline';
 
 import { createAuditSchema } from '@/lib/api-schemas';
 import { compact } from '@/lib/objects';
+import { auditLog, enforceAuditCapacity } from '@/lib/server/limits';
 import { handle, json, notFound, parseBody } from '@/lib/server/http';
 import { getDeps, startAudit } from '@/lib/server/runtime';
 
@@ -22,6 +23,7 @@ export const GET = handle(async (request: Request) => {
 });
 
 export const POST = handle(async (request: Request) => {
+  await enforceAuditCapacity(request);
   const body = await parseBody(request, createAuditSchema);
   const deps = getDeps();
   const audit = await createAudit(deps, {
@@ -45,5 +47,6 @@ export const POST = handle(async (request: Request) => {
   const source = await deps.repository.getDesignSource(audit.designSourceId);
   if (!source) throw notFound('Design source');
   await startAudit(audit, source, randomUUID());
+  auditLog(request, 'audit.create', { auditId: audit.id, projectId: audit.projectId });
   return json({ auditId: audit.id, status: 'queued' }, { status: 202 });
 });

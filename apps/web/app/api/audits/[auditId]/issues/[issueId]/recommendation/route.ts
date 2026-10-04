@@ -1,5 +1,6 @@
 import { recommendForIssue } from '@design-validator/pipeline';
 
+import { LIMITS, rateLimit } from '@/lib/server/limits';
 import { handle, json } from '@/lib/server/http';
 import { getDeps } from '@/lib/server/runtime';
 
@@ -12,9 +13,10 @@ export const maxDuration = 120;
  */
 export const POST = handle(
   async (
-    _request: Request,
+    request: Request,
     { params }: { params: Promise<{ auditId: string; issueId: string }> },
   ) => {
+    rateLimit(request, 'ai', LIMITS.aiPerHour, 60 * 60 * 1000);
     const { auditId, issueId } = await params;
     return json({ recommendation: await recommendForIssue(getDeps(), auditId, issueId) });
   },

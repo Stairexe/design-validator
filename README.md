@@ -99,27 +99,46 @@ The first release supports:
 
 Adobe XD, source-code mapping, GitHub patches, and autonomous re-validation are planned after the MVP.
 
+## Status
+
+All phases in `phases.md` are implemented: website inspection, Figma and Adobe XD import, deterministic matching and
+comparison, the difference-first results UI, visual comparison, optional Claude recommendations, source-code mapping,
+re-validation and production hardening. Not implemented: billing, per-user Figma OAuth, and automatically building a
+user's code for re-validation (re-validate against a preview URL you deploy instead).
+
 ## Development
 
-Requirements: Node.js 22.12+ (`.nvmrc`), pnpm 10 (`corepack enable`), Docker for local services.
+Requirements: Node.js 22.12+ (`.nvmrc`), pnpm 10 (`corepack enable`). Docker is optional (local services).
 
 ```bash
-pnpm install                 # also generates the Prisma client
-cp .env.example .env         # fill in local values; .env is git-ignored
-docker compose up -d         # PostgreSQL, Redis, MinIO
-pnpm db:migrate:deploy       # apply database migrations
-pnpm dev                     # web app (http://localhost:3000) and all workers
+pnpm install                      # also generates the Prisma client
+cp .env.example .env              # minimal local setup:
+                                  #   STORAGE_DRIVER=filesystem, INSPECTOR_ALLOW_PRIVATE_HOSTS=true, DATABASE_URL= (empty)
+pnpm --filter @design-validator/web exec playwright install chromium   # browser for the inspector
+pnpm --filter @design-validator/web dev                                # http://localhost:3000 → "Run sample audit"
 ```
+
+With PostgreSQL, Redis and MinIO (`docker compose up -d`, then `pnpm db:migrate:deploy`) set `DATABASE_URL`,
+`STORAGE_DRIVER=s3` and `AUDIT_EXECUTION=queue`, and run `pnpm dev` to start the web app and every worker.
 
 | Command | Purpose |
 | --- | --- |
 | `pnpm lint` / `pnpm format:check` | ESLint (type-aware) and Prettier |
 | `pnpm typecheck` | `tsc --noEmit` in every workspace package |
-| `pnpm test` | Vitest unit tests; database/Redis integration tests also run when `DATABASE_URL` / `REDIS_URL` are set |
+| `pnpm test` | Vitest: unit, Chromium integration, regression fixtures; PostgreSQL/Redis tests run when `DATABASE_URL` / `REDIS_URL` are set |
 | `pnpm build` | Production build of the web app |
-| `pnpm test:e2e` | Playwright tests against the production build (run `pnpm build` first) |
-| `pnpm db:migrate` | Create and apply a migration during development |
-| `pnpm db:check` | Verify the migrated database matches `schema.prisma` |
+| `pnpm test:e2e` | Playwright end-to-end tests against the production build (run `pnpm build` first) |
+| `pnpm db:migrate` / `pnpm db:check` | Create migrations / verify the migrated database matches `schema.prisma` |
 | `pnpm validate` | Format check, lint, typecheck, test and build |
 
-Environment variables are validated at startup by `packages/config`; every runtime reads the root `.env`. See `file-structure.md` for package responsibilities and `tests/repository/boundaries.test.ts` for the enforced dependency rules between packages.
+## Deployment
+
+**Vercel** (inline mode): project root `apps/web`; set `STORAGE_DRIVER=vercel-blob` with a private Blob store
+(`BLOB_READ_WRITE_TOKEN`), and optionally `DATABASE_URL` (Postgres), `FIGMA_ACCESS_TOKEN`, `ANTHROPIC_API_KEY`,
+`APP_ACCESS_PASSWORD` and `CRON_SECRET` (daily retention via `apps/web/vercel.json`).
+
+**Containers/VMs** (queue mode): run the web app plus the seven `workers/*` processes with PostgreSQL, Redis and
+S3-compatible storage.
+
+Environment variables are validated at startup; see `.env.example`. Package responsibilities are in `file-structure.md`;
+the enforced dependency rules are in `tests/repository/boundaries.test.ts`.

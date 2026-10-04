@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@design-validator/jobs": "workspace:*",
+    "@design-validator/pipeline": "workspace:*",
+    "bullmq": "5.81.0",
     "tsx": "4.23.15"
   },
   "devDependencies": {

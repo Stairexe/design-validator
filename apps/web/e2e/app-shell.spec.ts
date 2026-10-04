@@ -34,3 +34,14 @@ test('health endpoint reports ok', async ({ request }) => {
   expect(response.ok()).toBe(true);
   expect(await response.json()).toEqual({ status: 'ok', service: 'web' });
 });
+
+test('responses carry security headers', async ({ request }) => {
+  const response = await request.get('/api/health');
+  expect(response.headers()['x-frame-options']).toBe('DENY');
+  expect(response.headers()['x-content-type-options']).toBe('nosniff');
+  expect(response.headers()['content-security-policy']).toContain("frame-ancestors 'none'");
+});
+
+test('cron cleanup requires its secret', async ({ request }) => {
+  expect((await request.get('/api/cron/cleanup')).status()).toBe(401);
+});

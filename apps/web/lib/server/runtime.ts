@@ -41,7 +41,15 @@ export async function startAudit(
     await enqueueAudit(globalState.__designValidatorRedis, audit, source.kind, correlationId);
     return;
   }
+  const counter = ((
+    globalThis as typeof globalThis & { __designValidatorRunning?: { count: number } }
+  ).__designValidatorRunning ??= { count: 0 });
+  counter.count++;
   after(async () => {
-    await runAudit(deps, audit.id);
+    try {
+      await runAudit(deps, audit.id);
+    } finally {
+      counter.count--;
+    }
   });
 }

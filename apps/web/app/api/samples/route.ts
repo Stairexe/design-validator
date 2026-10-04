@@ -7,6 +7,7 @@ import {
   createSampleDesignSource,
 } from '@design-validator/pipeline';
 
+import { auditLog, enforceAuditCapacity } from '@/lib/server/limits';
 import { handle, json } from '@/lib/server/http';
 import { getDeps, startAudit } from '@/lib/server/runtime';
 
@@ -18,6 +19,7 @@ export const maxDuration = 300;
  * Figma design, and an audit across desktop and mobile.
  */
 export const POST = handle(async (request: Request) => {
+  await enforceAuditCapacity(request);
   const deps = getDeps();
   const origin = process.env['APP_URL'] ?? new URL(request.url).origin;
   const project = await deps.repository.createProject({
@@ -31,5 +33,6 @@ export const POST = handle(async (request: Request) => {
     viewports: SAMPLE_VIEWPORTS,
   });
   await startAudit(audit, source, randomUUID());
+  auditLog(request, 'sample.create', { auditId: audit.id });
   return json({ projectId: project.id, auditId: audit.id }, { status: 202 });
 });
