@@ -17,6 +17,8 @@ export interface PipelineDependencies {
   fetch?: typeof fetch;
   /** Claude, when ANTHROPIC_API_KEY is configured. Optional by design. */
   recommendationModel?: RecommendationModel | undefined;
+  /** Headers sent only to specific origins during inspection (e.g. Vercel protection bypass for the app itself). */
+  inspectionOriginHeaders?: Record<string, Record<string, string>> | undefined;
   /** Optional GitHub token for source mapping (raises rate limits). */
   githubToken?: string | undefined;
 }

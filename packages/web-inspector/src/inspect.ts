@@ -20,6 +20,12 @@ export interface InspectionOptions extends UrlPolicy {
   maxElements?: number;
   /** Full-page screenshots are clipped to this height (px) to bound memory. */
   maxScreenshotHeight?: number;
+  /**
+   * Extra request headers sent only to the listed origins (exact match), e.g. a
+   * hosting provider's protection-bypass header for the app's own deployment.
+   * Never sent to any other origin.
+   */
+  originHeaders?: Record<string, Record<string, string>>;
 }
 
 export interface ViewportInspection {
@@ -84,7 +90,7 @@ async function navigate(page: Page, url: string, timeoutMs: number): Promise<num
 async function createIsolatedContext(
   browser: Browser,
   viewport: DesignViewport,
-  policy: UrlPolicy,
+  policy: UrlPolicy & Pick<InspectionOptions, 'originHeaders'>,
 ): Promise<BrowserContext> {
   // Fresh context per inspection: no cookies, storage or credentials are shared.
   const context = await browser.newContext({
@@ -101,8 +107,12 @@ async function createIsolatedContext(
   await context.addInitScript('globalThis.__name = globalThis.__name || ((fn) => fn);');
   const guard = createRequestGuard(policy);
   await context.route('**/*', async (route) => {
-    if (await guard(route.request().url())) {
-      await route.continue();
+    const url = route.request().url();
+    if (await guard(url)) {
+      const extra = policy.originHeaders?.[new URL(url).origin];
+      await route.continue(
+        extra ? { headers: { ...route.request().headers(), ...extra } } : undefined,
+      );
     } else {
       await route.abort('blockedbyclient');
     }

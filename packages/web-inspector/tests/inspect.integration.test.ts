@@ -162,3 +162,41 @@ describe('renderHtmlToPng', { timeout: 60_000 }, () => {
     expect([view.getUint32(16), view.getUint32(20)]).toEqual([300, 500]);
   });
 });
+
+describe('originHeaders', { timeout: 60_000 }, () => {
+  it('sends extra headers only to the listed origin', async () => {
+    const { createServer } = await import('node:http');
+    const seen: (string | undefined)[] = [];
+    const server = createServer((request, response) => {
+      seen.push(request.headers['x-bypass'] as string | undefined);
+      response
+        .writeHead(200, { 'content-type': 'text/html' })
+        .end('<html><body><p>Hello</p></body></html>');
+    });
+    await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
+    const address = server.address();
+    if (!address || typeof address === 'string') throw new Error('no address');
+    const origin = `http://127.0.0.1:${address.port}`;
+    try {
+      await inspectWebsite({
+        url: `${origin}/`,
+        viewports: [desktop],
+        browserProvider: localBrowserProvider(),
+        options: { allowPrivateHosts: true, originHeaders: { [origin]: { 'x-bypass': 's3cret' } } },
+      });
+      await inspectWebsite({
+        url: `${origin}/`,
+        viewports: [desktop],
+        browserProvider: localBrowserProvider(),
+        options: {
+          allowPrivateHosts: true,
+          originHeaders: { 'https://other.example': { 'x-bypass': 's3cret' } },
+        },
+      });
+    } finally {
+      await new Promise((resolve) => server.close(resolve));
+    }
+    expect(seen[0]).toBe('s3cret');
+    expect(seen.at(-1)).toBeUndefined();
+  });
+});

@@ -25,7 +25,10 @@ export async function runWebsiteInspection(
         url: audit.websiteUrl,
         viewports: [viewport],
         browserProvider: deps.browserProvider,
-        options: { allowPrivateHosts: deps.allowPrivateHosts },
+        options: {
+          allowPrivateHosts: deps.allowPrivateHosts,
+          ...(deps.inspectionOriginHeaders ? { originHeaders: deps.inspectionOriginHeaders } : {}),
+        },
       });
       if (!inspection) throw new Error('Inspection returned no result.');
       const specKey = artifactKeys.websiteSpec(audit.id, viewport.id);

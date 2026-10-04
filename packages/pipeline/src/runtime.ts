@@ -25,6 +25,26 @@ const runtimeSchema = z.object({
   GITHUB_TOKEN: z.string().min(1).optional(),
 });
 
+/**
+ * On Vercel with "Protection Bypass for Automation" enabled, lets the inspector
+ * open this deployment's own protected URLs (e.g. the bundled sample page).
+ * The secret is attached only to these exact origins.
+ */
+function vercelSelfHeaders(
+  env: NodeJS.ProcessEnv,
+): Record<string, Record<string, string>> | undefined {
+  const secret = env['VERCEL_AUTOMATION_BYPASS_SECRET'];
+  if (!secret) return undefined;
+  const hosts = [
+    env['VERCEL_URL'],
+    env['VERCEL_BRANCH_URL'],
+    env['VERCEL_PROJECT_PRODUCTION_URL'],
+  ].filter((host): host is string => Boolean(host));
+  return Object.fromEntries(
+    hosts.map((host) => [`https://${host}`, { 'x-vercel-protection-bypass': secret }]),
+  );
+}
+
 export interface PipelineRuntime {
   deps: PipelineDependencies;
   execution: 'inline' | 'queue';
@@ -65,6 +85,7 @@ export function createRuntime(
       allowPrivateHosts: config.INSPECTOR_ALLOW_PRIVATE_HOSTS === 'true',
       figmaAccessToken: config.FIGMA_ACCESS_TOKEN,
       githubToken: config.GITHUB_TOKEN,
+      inspectionOriginHeaders: vercelSelfHeaders(env),
       recommendationModel: config.ANTHROPIC_API_KEY
         ? createClaudeModel({ apiKey: config.ANTHROPIC_API_KEY, model: config.ANTHROPIC_MODEL })
         : undefined,
