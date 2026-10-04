@@ -1,6 +1,7 @@
 import type { DesignSpec, DesignViewport } from '@design-validator/design-spec';
 import type { Browser, BrowserContext, Page } from 'playwright-core';
 
+import { loginWallMessage, redirectWarning } from './auth-wall';
 import type { BrowserProvider } from './browser';
 import { extractDom } from './dom';
 import { InspectorError } from './errors';
@@ -26,6 +27,17 @@ export interface InspectionOptions extends UrlPolicy {
    * Never sent to any other origin.
    */
   originHeaders?: Record<string, Record<string, string>>;
+  /**
+   * Responses served in place of the network for these exact URLs, e.g. the
+   * app's own bundled sample page, which can sit behind deployment protection.
+   * The page still renders in the browser; only the document fetch is local.
+   */
+  documentOverrides?: Record<string, DocumentOverride>;
+}
+
+export interface DocumentOverride {
+  body: string;
+  contentType?: string;
 }
 
 export interface ViewportInspection {
@@ -90,7 +102,7 @@ async function navigate(page: Page, url: string, timeoutMs: number): Promise<num
 async function createIsolatedContext(
   browser: Browser,
   viewport: DesignViewport,
-  policy: UrlPolicy & Pick<InspectionOptions, 'originHeaders'>,
+  policy: UrlPolicy & Pick<InspectionOptions, 'originHeaders' | 'documentOverrides'>,
 ): Promise<BrowserContext> {
   // Fresh context per inspection: no cookies, storage or credentials are shared.
   const context = await browser.newContext({
@@ -108,7 +120,14 @@ async function createIsolatedContext(
   const guard = createRequestGuard(policy);
   await context.route('**/*', async (route) => {
     const url = route.request().url();
-    if (await guard(url)) {
+    const override = policy.documentOverrides?.[url];
+    if (override) {
+      await route.fulfill({
+        status: 200,
+        contentType: override.contentType ?? 'text/html; charset=utf-8',
+        body: override.body,
+      });
+    } else if (await guard(url)) {
       const extra = policy.originHeaders?.[new URL(url).origin];
       await route.continue(
         extra ? { headers: { ...route.request().headers(), ...extra } } : undefined,
@@ -134,6 +153,8 @@ async function inspectViewport(
       url,
       options.navigationTimeoutMs ?? DEFAULTS.navigationTimeoutMs,
     );
+    const wall = loginWallMessage(url, page.url());
+    if (wall) throw new InspectorError('AUTH_REQUIRED', wall);
     const stability = await waitForStablePage(page, { ...DEFAULT_STABILITY, ...options.stability });
 
     const extraction = await page.evaluate(extractDom, {
@@ -142,6 +163,8 @@ async function inspectViewport(
     });
 
     const warnings: string[] = [];
+    const redirected = redirectWarning(url, page.url());
+    if (redirected) warnings.push(redirected);
     if (extraction.truncated)
       warnings.push(
         `Element limit reached; only the first ${extraction.elements.length} elements were captured.`,

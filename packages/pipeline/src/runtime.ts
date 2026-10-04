@@ -45,6 +45,30 @@ function vercelSelfHeaders(
   );
 }
 
+/** Origins this deployment answers on: APP_URL plus Vercel's system URLs. */
+function selfOrigins(env: NodeJS.ProcessEnv): string[] {
+  const origins = [env['APP_URL']];
+  for (const host of [
+    env['VERCEL_URL'],
+    env['VERCEL_BRANCH_URL'],
+    env['VERCEL_PROJECT_PRODUCTION_URL'],
+  ]) {
+    if (host) origins.push(`https://${host}`);
+  }
+  return [
+    ...new Set(
+      origins.flatMap((value) => {
+        if (!value) return [];
+        try {
+          return [new URL(value).origin];
+        } catch {
+          return [];
+        }
+      }),
+    ),
+  ];
+}
+
 export interface PipelineRuntime {
   deps: PipelineDependencies;
   /** `memory` means data does not survive restarts or span server instances. */
@@ -98,6 +122,7 @@ export function createRuntime(
       figmaAccessToken: config.FIGMA_ACCESS_TOKEN,
       githubToken: config.GITHUB_TOKEN,
       inspectionOriginHeaders: vercelSelfHeaders(env),
+      selfOrigins: selfOrigins(env),
       recommendationModel: config.ANTHROPIC_API_KEY
         ? createClaudeModel({ apiKey: config.ANTHROPIC_API_KEY, model: config.ANTHROPIC_MODEL })
         : undefined,

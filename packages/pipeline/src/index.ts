@@ -21,7 +21,12 @@ export type { RetentionResult } from './retention';
 export { runAudit } from './run-audit';
 export { createRuntime } from './runtime';
 export type { PipelineRuntime } from './runtime';
-export { SAMPLE_FILE_KEY, SAMPLE_PAGE_PATH, SAMPLE_VIEWPORTS } from './sample';
+export {
+  SAMPLE_FILE_KEY,
+  SAMPLE_PAGE_PATH,
+  SAMPLE_VIEWPORTS,
+  sampleDocumentOverrides,
+} from './sample';
 export { locateIssueSource } from './source-mapping';
 export type { IssueSourceResult } from './source-mapping';
 export { regenerateVisualDiff } from './stages/visual';

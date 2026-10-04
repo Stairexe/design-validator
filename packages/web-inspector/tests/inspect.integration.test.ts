@@ -44,6 +44,25 @@ describe('inspectWebsite (Chromium integration)', { timeout: 90_000 }, () => {
     }
   });
 
+  it('serves document overrides without touching the network', async () => {
+    const url = `${server.url}/not-on-the-server.html`;
+    const [result] = await inspectWebsite({
+      url,
+      viewports: [desktop],
+      browserProvider: localBrowserProvider(),
+      options: {
+        allowPrivateHosts: true,
+        documentOverrides: {
+          [url]: { body: '<!doctype html><h1 style="margin:40px">Served locally</h1>' },
+        },
+      },
+    });
+    expect(result?.httpStatus).toBe(200);
+    expect(
+      result?.spec.pages[0]?.elements.some((element) => element.text === 'Served locally'),
+    ).toBe(true);
+  });
+
   it('captures resolved spacing, radius and colours (CSS variables resolved)', () => {
     const cta = find(results[0], (e) => e.source.classNames?.includes('primary-cta') ?? false);
     expect(cta).toMatchObject({

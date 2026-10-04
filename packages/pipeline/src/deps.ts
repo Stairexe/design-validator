@@ -21,4 +21,6 @@ export interface PipelineDependencies {
   inspectionOriginHeaders?: Record<string, Record<string, string>> | undefined;
   /** Optional GitHub token for source mapping (raises rate limits). */
   githubToken?: string | undefined;
+  /** This deployment's own origins (e.g. `https://app.example.com`); the bundled sample page is served locally for them. */
+  selfOrigins?: readonly string[] | undefined;
 }

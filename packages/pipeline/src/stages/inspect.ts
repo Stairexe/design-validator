@@ -2,6 +2,7 @@ import type { AuditRecord } from '@design-validator/database';
 import { inspectWebsite } from '@design-validator/web-inspector';
 
 import { artifactKeys, putJson } from '../artifacts';
+import { sampleDocumentOverrides } from '../sample';
 import type { PipelineDependencies } from '../deps';
 import { withStageRun } from './stage-run';
 
@@ -12,6 +13,7 @@ export async function runWebsiteInspection(
   onViewport?: (index: number) => Promise<void>,
 ): Promise<string[]> {
   const warnings: string[] = [];
+  const documentOverrides = sampleDocumentOverrides(audit.websiteUrl, deps.selfOrigins);
   for (const [index, config] of audit.viewports.entries()) {
     const viewport = {
       id: config.id,
@@ -28,6 +30,7 @@ export async function runWebsiteInspection(
         options: {
           allowPrivateHosts: deps.allowPrivateHosts,
           ...(deps.inspectionOriginHeaders ? { originHeaders: deps.inspectionOriginHeaders } : {}),
+          ...(documentOverrides ? { documentOverrides } : {}),
         },
       });
       if (!inspection) throw new Error('Inspection returned no result.');
