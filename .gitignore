@@ -1,1 +1,45 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Builds and caches
+.next/
+out/
+dist/
+build/
+coverage/
+.turbo/
+.eslintcache
+*.tsbuildinfo
+next-env.d.ts
+
+# Generated code
+packages/database/src/generated/
+
+# Test output
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Environment files (secrets). Only the committed example is allowed.
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Local data
+.data/
+*.local
+
+# OS / editor
 .DS_Store
+._*
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
