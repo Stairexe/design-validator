@@ -1,0 +1,32 @@
+{
+  "name": "@design-validator/pipeline",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@design-validator/comparator": "workspace:*",
+    "@design-validator/config": "workspace:*",
+    "@design-validator/database": "workspace:*",
+    "@design-validator/design-spec": "workspace:*",
+    "@design-validator/figma-parser": "workspace:*",
+    "@design-validator/jobs": "workspace:*",
+    "@design-validator/matcher": "workspace:*",
+    "@design-validator/storage": "workspace:*",
+    "@design-validator/visual-diff": "workspace:*",
+    "@design-validator/web-inspector": "workspace:*",
+    "@design-validator/xd-parser": "workspace:*",
+    "bullmq": "5.81.0",
+    "ioredis": "5.11.1",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "typescript": "5.9.3"
+  }
+}

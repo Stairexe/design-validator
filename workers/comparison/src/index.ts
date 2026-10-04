@@ -1,5 +1,7 @@
 import { QUEUE_NAMES, bootStageWorker } from '@design-validator/jobs';
+import { createRuntime, stageProcessors } from '@design-validator/pipeline';
 
-import { processComparison } from './processor';
+const { deps } = createRuntime(process.env, 'worker-comparison');
+const processors = stageProcessors(deps);
 
-bootStageWorker(QUEUE_NAMES.comparison, processComparison);
+bootStageWorker(QUEUE_NAMES.comparison, processors.comparison);

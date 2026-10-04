@@ -1,5 +1,7 @@
 import { QUEUE_NAMES, bootStageWorker } from '@design-validator/jobs';
+import { createRuntime, stageProcessors } from '@design-validator/pipeline';
 
-import { processXdImport } from './processor';
+const { deps } = createRuntime(process.env, 'worker-xd-import');
+const processors = stageProcessors(deps);
 
-bootStageWorker(QUEUE_NAMES.xdImport, processXdImport);
+bootStageWorker(QUEUE_NAMES.xdImport, processors.designImport);

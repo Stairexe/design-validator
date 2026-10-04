@@ -1,5 +1,8 @@
 import { QUEUE_NAMES, bootStageWorker } from '@design-validator/jobs';
+import { createRuntime } from '@design-validator/pipeline';
 
-import { processVisualDiff } from './processor';
+import { createVisualDiffProcessor } from './processor';
 
-bootStageWorker(QUEUE_NAMES.visualDiff, processVisualDiff);
+const { deps } = createRuntime(process.env, 'worker-visual-diff');
+
+bootStageWorker(QUEUE_NAMES.visualDiff, createVisualDiffProcessor(deps));

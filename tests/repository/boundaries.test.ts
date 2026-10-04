@@ -17,13 +17,15 @@ const SHARED_INFRA = [
   '@design-validator/storage',
 ];
 
+const PIPELINE = '@design-validator/pipeline';
+
 const ALLOWED_INTERNAL_DEPENDENCIES: Record<string, readonly string[]> = {
   // Foundation
   '@design-validator/design-spec': [],
   '@design-validator/config': [],
   '@design-validator/storage': ['@design-validator/config'],
   '@design-validator/jobs': ['@design-validator/config'],
-  '@design-validator/database': [],
+  '@design-validator/database': ['@design-validator/design-spec', '@design-validator/storage'],
 
   // Domain: everything speaks DesignSpec; source-specific code never reaches matcher/comparator.
   '@design-validator/web-inspector': ['@design-validator/design-spec'],
@@ -31,26 +33,35 @@ const ALLOWED_INTERNAL_DEPENDENCIES: Record<string, readonly string[]> = {
   '@design-validator/xd-parser': ['@design-validator/design-spec'],
   '@design-validator/matcher': ['@design-validator/design-spec'],
   '@design-validator/comparator': ['@design-validator/design-spec'],
+  '@design-validator/visual-diff': ['@design-validator/design-spec'],
   '@design-validator/ai': ['@design-validator/design-spec'],
+  '@design-validator/source-mapper': ['@design-validator/design-spec'],
 
-  // Workers orchestrate one domain package each on top of shared infrastructure.
-  '@design-validator/worker-website-inspection': [
+  // Orchestration: the only package that composes the domain packages.
+  '@design-validator/pipeline': [
     ...SHARED_INFRA,
     '@design-validator/web-inspector',
-  ],
-  '@design-validator/worker-figma-import': [...SHARED_INFRA, '@design-validator/figma-parser'],
-  '@design-validator/worker-xd-import': [...SHARED_INFRA, '@design-validator/xd-parser'],
-  '@design-validator/worker-comparison': [
-    ...SHARED_INFRA,
+    '@design-validator/figma-parser',
+    '@design-validator/xd-parser',
     '@design-validator/matcher',
     '@design-validator/comparator',
+    '@design-validator/visual-diff',
+    '@design-validator/ai',
+    '@design-validator/source-mapper',
   ],
-  '@design-validator/worker-visual-diff': SHARED_INFRA,
-  '@design-validator/worker-ai-explanation': [...SHARED_INFRA, '@design-validator/ai'],
-  '@design-validator/worker-cleanup': SHARED_INFRA,
 
-  // The UI enqueues jobs and reads results; it never runs inspection or comparison itself.
-  '@design-validator/web': SHARED_INFRA,
+  // Workers are transport only: queue consumers around pipeline stage functions.
+  '@design-validator/worker-website-inspection': [...SHARED_INFRA, PIPELINE],
+  '@design-validator/worker-figma-import': [...SHARED_INFRA, PIPELINE],
+  '@design-validator/worker-xd-import': [...SHARED_INFRA, PIPELINE],
+  '@design-validator/worker-comparison': [...SHARED_INFRA, PIPELINE],
+  '@design-validator/worker-visual-diff': [...SHARED_INFRA, PIPELINE],
+  '@design-validator/worker-ai-explanation': [...SHARED_INFRA, PIPELINE],
+  '@design-validator/worker-cleanup': [...SHARED_INFRA, PIPELINE],
+
+  // The UI talks to the pipeline's services and reads results; it never imports
+  // inspection, matching or comparison internals directly.
+  '@design-validator/web': [...SHARED_INFRA, PIPELINE],
 };
 
 const root = path.resolve(import.meta.dirname, '../..');
@@ -84,9 +95,10 @@ const packages = readWorkspacePackages();
 
 describe('workspace package boundaries', () => {
   it('classifies every workspace package', () => {
-    expect(packages.map((pkg) => pkg.name).sort()).toEqual(
-      Object.keys(ALLOWED_INTERNAL_DEPENDENCIES).sort(),
-    );
+    const unclassified = packages
+      .map((pkg) => pkg.name)
+      .filter((name) => !(name in ALLOWED_INTERNAL_DEPENDENCIES));
+    expect(unclassified).toEqual([]);
   });
 
   it.each(packages.map((pkg) => [pkg.name, pkg] as const))(

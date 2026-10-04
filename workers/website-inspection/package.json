@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@design-validator/jobs": "workspace:*",
+    "@design-validator/pipeline": "workspace:*",
     "tsx": "4.23.15"
   },
   "devDependencies": {

@@ -1,10 +1,18 @@
-import { UnrecoverableError, type StageProcessor } from '@design-validator/jobs';
+import { PipelineError, type StageProcessor } from '@design-validator/jobs';
+import { regenerateVisualDiff, type PipelineDependencies } from '@design-validator/pipeline';
 
 /**
- * Produces side-by-side, overlay and difference images for measured issues.
- *
- * Placeholder until Phase 7 — Visual Comparison (see phases.md). Jobs fail without retry so a
- * prematurely enqueued audit surfaces immediately instead of hanging.
+ * Regenerates visual evidence for an existing audit (e.g. after a Figma image
+ * export becomes available). Regular audits build it in the comparison stage.
  */
-export const processVisualDiff: StageProcessor = () =>
-  Promise.reject(new UnrecoverableError('visual-diff is not implemented yet (Phase 7)'));
+export function createVisualDiffProcessor(deps: PipelineDependencies): StageProcessor {
+  return async ({ envelope }) => {
+    const summary = await regenerateVisualDiff(deps, envelope.auditId);
+    if (!summary)
+      throw new PipelineError(
+        'VISUAL_DIFF_FAILED',
+        `Audit ${envelope.auditId} cannot produce visual evidence.`,
+      );
+    return summary;
+  };
+}
