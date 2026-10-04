@@ -1,12 +1,18 @@
 import {
   DeleteObjectCommand,
   GetObjectCommand,
+  ListObjectsV2Command,
   NoSuchKey,
   PutObjectCommand,
 } from '@aws-sdk/client-s3';
+import { mkdtempSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
+
 import { describe, expect, it } from 'vitest';
 
 import {
+  FileSystemObjectStorage,
   MemoryObjectStorage,
   S3ObjectStorage,
   createObjectStorage,
@@ -31,6 +37,14 @@ function behavesLikeObjectStorage(name: string, create: () => ObjectStorage) {
       expect(stored).not.toBeNull();
       expect(new TextDecoder().decode(stored?.body)).toBe('{"ok":true}');
       expect(stored?.contentType).toBe('application/json');
+    });
+
+    it('lists keys by prefix in order', async () => {
+      const storage = create();
+      for (const key of ['db/b.json', 'db/a.json', 'other/c.json']) {
+        await storage.put({ key, body: bytes('x'), contentType: 'application/json' });
+      }
+      expect(await storage.list('db/')).toEqual(['db/a.json', 'db/b.json']);
     });
 
     it('returns null for missing keys and deletes idempotently', async () => {
@@ -63,6 +77,13 @@ function fakeS3(): S3Sender {
         ContentType: stored.contentType,
       });
     }
+    if (command instanceof ListObjectsV2Command) {
+      const prefix = command.input.Prefix ?? '';
+      return Promise.resolve({
+        Contents: [...objects.keys()].filter((k) => k.startsWith(prefix)).map((Key) => ({ Key })),
+        IsTruncated: false,
+      });
+    }
     if (command instanceof DeleteObjectCommand) {
       objects.delete(String(command.input.Key));
       return Promise.resolve({});
@@ -73,6 +94,19 @@ function fakeS3(): S3Sender {
 }
 
 behavesLikeObjectStorage('MemoryObjectStorage', () => new MemoryObjectStorage());
+behavesLikeObjectStorage(
+  'FileSystemObjectStorage',
+  () => new FileSystemObjectStorage(mkdtempSync(path.join(tmpdir(), 'dv-storage-'))),
+);
+
+describe('FileSystemObjectStorage', () => {
+  it('rejects keys escaping the root', async () => {
+    const storage = new FileSystemObjectStorage(mkdtempSync(path.join(tmpdir(), 'dv-storage-')));
+    await expect(
+      storage.put({ key: '../escape.txt', body: bytes('x'), contentType: 'text/plain' }),
+    ).rejects.toThrow(/escapes/);
+  });
+});
 behavesLikeObjectStorage('S3ObjectStorage', () => new S3ObjectStorage(fakeS3(), 'bucket'));
 
 describe('createObjectStorage', () => {
@@ -94,6 +128,10 @@ describe('objectKey', () => {
     expect(objectKey('audits', 'audit_1', 'desktop', 'screenshot.png')).toBe(
       'audits/audit_1/desktop/screenshot.png',
     );
+  });
+
+  it('allows Figma-style node IDs', () => {
+    expect(objectKey('audits', 'a1', '1:2')).toBe('audits/a1/1:2');
   });
 
   it.each(['', '..', '../x', 'a/b', '.hidden', 'a..b'])('rejects %j', (segment) => {

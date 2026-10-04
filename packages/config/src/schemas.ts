@@ -27,6 +27,14 @@ export const storageEnvSchema = z.discriminatedUnion('STORAGE_DRIVER', [
     STORAGE_DRIVER: z.literal('memory'),
   }),
   z.object({
+    STORAGE_DRIVER: z.literal('filesystem'),
+    STORAGE_DIR: z.string().min(1).default('.data/storage'),
+  }),
+  z.object({
+    STORAGE_DRIVER: z.literal('vercel-blob'),
+    BLOB_READ_WRITE_TOKEN: z.string().min(1),
+  }),
+  z.object({
     STORAGE_DRIVER: z.literal('s3'),
     S3_BUCKET: z.string().min(1),
     S3_REGION: z.string().min(1),

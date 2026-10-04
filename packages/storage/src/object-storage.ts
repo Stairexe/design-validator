@@ -19,9 +19,11 @@ export interface ObjectStorage {
   get(key: string): Promise<StoredObject | null>;
   /** Deleting a missing key is not an error, so retries stay idempotent. */
   delete(key: string): Promise<void>;
+  /** All keys starting with `prefix`, sorted ascending. */
+  list(prefix: string): Promise<string[]>;
 }
 
-const SAFE_SEGMENT = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
+const SAFE_SEGMENT = /^[A-Za-z0-9][A-Za-z0-9._:-]*$/;
 
 /**
  * Builds an object key from trusted path segments, rejecting anything that

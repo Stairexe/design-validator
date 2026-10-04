@@ -18,4 +18,10 @@ export class MemoryObjectStorage implements ObjectStorage {
     this.#objects.delete(key);
     return Promise.resolve();
   }
+
+  list(prefix: string): Promise<string[]> {
+    return Promise.resolve(
+      [...this.#objects.keys()].filter((key) => key.startsWith(prefix)).sort(),
+    );
+  }
 }

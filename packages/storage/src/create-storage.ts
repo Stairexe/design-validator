@@ -1,14 +1,22 @@
 import { S3Client } from '@aws-sdk/client-s3';
 import type { StorageEnv } from '@design-validator/config';
 
+import { FileSystemObjectStorage } from './filesystem-storage';
 import { MemoryObjectStorage } from './memory-storage';
 import type { ObjectStorage } from './object-storage';
 import { S3ObjectStorage } from './s3-storage';
+import { VercelBlobObjectStorage } from './vercel-blob-storage';
 
 /** Creates the configured storage driver from validated environment values. */
 export function createObjectStorage(env: StorageEnv): ObjectStorage {
   if (env.STORAGE_DRIVER === 'memory') {
     return new MemoryObjectStorage();
+  }
+  if (env.STORAGE_DRIVER === 'filesystem') {
+    return new FileSystemObjectStorage(env.STORAGE_DIR);
+  }
+  if (env.STORAGE_DRIVER === 'vercel-blob') {
+    return new VercelBlobObjectStorage(env.BLOB_READ_WRITE_TOKEN);
   }
 
   const credentials =
