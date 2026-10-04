@@ -1,2 +1,11 @@
-// Package boundary only. Implementation arrives in Phase 8 — Claude Recommendation Layer (see phases.md).
-export {};
+export { recommendationCacheKey } from './cache';
+export { DEFAULT_MODEL, createClaudeModel } from './client';
+export type { RecommendationModel } from './client';
+export { AiProviderError } from './errors';
+export type { AiErrorReason } from './errors';
+export { explainIssueGroup } from './issue-explanations';
+export { buildIssueGroupPayload, sameElementGroup } from './payload';
+export type { IssueGroupPayload } from './payload';
+export { PROMPT_VERSION, SYSTEM_PROMPT } from './prompts';
+export { recommendationOutputSchema } from './schema';
+export type { AIRecommendation, GroupRecommendation, RecommendationOutput } from './schema';

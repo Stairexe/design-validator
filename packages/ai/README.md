@@ -4,4 +4,4 @@ Anthropic integration: explains already-measured differences, groups related iss
 
 **Boundary:** Never measures or alters `current`, `required` or `delta`. AI failure must not fail a deterministic audit.
 
-**Status:** package boundary only. Implemented in Phase 8 — Claude Recommendation Layer (see `phases.md`).
+**Status:** implemented (Phase 8). Model `claude-opus-5-5` by default (`ANTHROPIC_MODEL` overrides), schema-constrained output, server-side refusal fallbacks (`fallbacks: "default"`), cached by audit input + element + issue set + prompt version + model.

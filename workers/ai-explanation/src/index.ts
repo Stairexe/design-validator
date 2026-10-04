@@ -1,5 +1,6 @@
 import { QUEUE_NAMES, bootStageWorker } from '@design-validator/jobs';
+import { createRuntime, stageProcessors } from '@design-validator/pipeline';
 
-import { processAiExplanation } from './processor';
+const { deps } = createRuntime(process.env, 'worker-ai-explanation');
 
-bootStageWorker(QUEUE_NAMES.aiExplanation, processAiExplanation);
+bootStageWorker(QUEUE_NAMES.aiExplanation, stageProcessors(deps).aiExplanation);
