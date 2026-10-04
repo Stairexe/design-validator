@@ -439,7 +439,7 @@ Do not start this phase until the comparison engine is trustworthy.
 
 Use separate Cloud Sessions for bounded tasks.
 
-Suggested sequence:
+Suggested sequence (session numbers are one higher than phase numbers: `01 foundation` is Phase 0, `02 DesignSpec` is Phase 1, and so on):
 
 ```text
 01 foundation

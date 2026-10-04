@@ -98,3 +98,28 @@ The first release supports:
 11. Optional Claude-generated explanation and CSS guidance.
 
 Adobe XD, source-code mapping, GitHub patches, and autonomous re-validation are planned after the MVP.
+
+## Development
+
+Requirements: Node.js 22.12+ (`.nvmrc`), pnpm 10 (`corepack enable`), Docker for local services.
+
+```bash
+pnpm install                 # also generates the Prisma client
+cp .env.example .env         # fill in local values; .env is git-ignored
+docker compose up -d         # PostgreSQL, Redis, MinIO
+pnpm db:migrate:deploy       # apply database migrations
+pnpm dev                     # web app (http://localhost:3000) and all workers
+```
+
+| Command | Purpose |
+| --- | --- |
+| `pnpm lint` / `pnpm format:check` | ESLint (type-aware) and Prettier |
+| `pnpm typecheck` | `tsc --noEmit` in every workspace package |
+| `pnpm test` | Vitest unit tests; database/Redis integration tests also run when `DATABASE_URL` / `REDIS_URL` are set |
+| `pnpm build` | Production build of the web app |
+| `pnpm test:e2e` | Playwright tests against the production build (run `pnpm build` first) |
+| `pnpm db:migrate` | Create and apply a migration during development |
+| `pnpm db:check` | Verify the migrated database matches `schema.prisma` |
+| `pnpm validate` | Format check, lint, typecheck, test and build |
+
+Environment variables are validated at startup by `packages/config`; every runtime reads the root `.env`. See `file-structure.md` for package responsibilities and `tests/repository/boundaries.test.ts` for the enforced dependency rules between packages.

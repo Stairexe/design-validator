@@ -100,9 +100,13 @@ design-validator/
 │   │   │   └── index.ts
 │   │   └── tests/
 │   │
-│   └── database/
-│       ├── prisma/
-│       └── src/
+│   ├── database/
+│   │   ├── prisma/
+│   │   └── src/
+│   │
+│   ├── config/          # environment-variable schemas and validation
+│   ├── jobs/            # queue names, audit stages, job envelope, worker bootstrap
+│   └── storage/         # S3-compatible object storage abstraction
 │
 ├── workers/
 │   ├── website-inspection/
@@ -130,15 +134,20 @@ design-validator/
 │   ├── xd/
 │   └── expected-reports/
 │
+├── tests/
+│   └── repository/      # cross-package checks (boundaries, shared vocabularies)
 ├── scripts/
-├── docs/
 ├── .github/
 │   └── workflows/
-├── CLAUDE.md
-├── README.md
+├── *.md                 # project documentation (kept at the root; see below)
+├── .env.example
+├── docker-compose.yml   # local PostgreSQL, Redis and MinIO
+├── eslint.config.mjs
 ├── package.json
 ├── pnpm-workspace.yaml
-└── turbo.json
+├── tsconfig.base.json
+├── turbo.json
+└── vitest.config.ts
 ```
 
 ## Responsibility boundaries
@@ -175,6 +184,22 @@ Measure differences only.
 
 Explain already-measured differences and produce suggestions.
 
+### `packages/database`
+
+Prisma schema, migrations and client factory. Durable metadata only; large artifacts go to object storage.
+
+### `packages/config`
+
+Composable environment-variable schemas. Every runtime validates the variables it needs at startup.
+
+### `packages/jobs`
+
+Transport contracts shared by the web app and workers: queue names, audit stages, the job envelope, idempotency keys, typed failure codes and the BullMQ worker bootstrap.
+
+### `packages/storage`
+
+`ObjectStorage` interface with S3-compatible and in-memory implementations.
+
 ### `workers`
 
 Long-running orchestration. Keep transport details separate from domain packages.
@@ -182,3 +207,13 @@ Long-running orchestration. Keep transport details separate from domain packages
 ### `fixtures`
 
 Deterministic regression data. Every important comparator behavior should eventually have a fixture.
+
+## Foundation decisions (Phase 0)
+
+These deviate from or extend the tree above; each has a reason.
+
+- **`packages/config`, `packages/jobs`, `packages/storage` were added.** The architecture requires environment validation, a queue shared by the web app and seven workers, and object storage, but the tree had no home for them. Putting them in `apps/web` would couple workers to the UI; putting them in each worker would duplicate them.
+- **Documentation stays at the repository root** rather than `docs/`, because `CLAUDE.md` and the session prompts reference root paths.
+- **Internal packages are consumed as TypeScript source** (`exports` → `src/index.ts`) instead of being pre-built. Next.js compiles them for the web app and workers run through `tsx`, so there is no package build ordering to maintain. Revisit when deploying workers (Phase 12).
+- **Allowed dependencies between packages are enforced by `tests/repository/boundaries.test.ts`.** Changing that matrix is an architectural decision and must be documented.
+- **Environment:** one git-ignored root `.env` (template: `.env.example`) is read by Next.js (`next.config.ts`), the Prisma CLI (`prisma.config.ts`) and workers (`--env-file-if-exists`).

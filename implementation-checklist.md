@@ -4,18 +4,18 @@ Use this as the master build checklist.
 
 ## Foundation
 
-- [ ] Monorepo initialized
-- [ ] TypeScript strict
-- [ ] Formatting/linting
-- [ ] Unit test runner
-- [ ] E2E runner
-- [ ] CI
-- [ ] PostgreSQL
-- [ ] Prisma
-- [ ] Redis
-- [ ] BullMQ
-- [ ] Object storage adapter
-- [ ] Environment variable validation
+- [x] Monorepo initialized
+- [x] TypeScript strict
+- [x] Formatting/linting
+- [x] Unit test runner
+- [x] E2E runner
+- [x] CI
+- [x] PostgreSQL
+- [x] Prisma
+- [x] Redis
+- [x] BullMQ
+- [x] Object storage adapter
+- [x] Environment variable validation
 
 ## DesignSpec
 

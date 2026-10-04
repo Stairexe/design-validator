@@ -200,10 +200,12 @@ website-inspection
 figma-import
 xd-import
 comparison
-screenshot-diff
+visual-diff
 ai-explanation
 cleanup
 ```
+
+Each queue is consumed by the `workers/` package of the same name. (`visual-diff` was previously listed here as `screenshot-diff`; it was renamed to match `workers/visual-diff` and the `VISUAL_DIFF` audit stage.)
 
 Each job should be idempotent by `auditId + stage + inputHash`.
 
