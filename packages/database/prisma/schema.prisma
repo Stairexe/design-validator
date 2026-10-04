@@ -1,0 +1,151 @@
+// Design Validator relational model.
+//
+// Durable metadata only (architecture.md, "Storage"). Screenshots, normalized
+// DesignSpec snapshots and full report JSON live in object storage; rows keep
+// the object key. There is deliberately no score column anywhere: audits
+// produce differences, not page-quality scores.
+//
+// Validation issues and AI recommendations are added with the comparison
+// engine (Phase 5) and recommendation layer (Phase 8), once their value
+// representation is finalised.
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "esm"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// Mirrors AUDIT_STATUSES in @design-validator/jobs (checked by a repository test).
+enum AuditStatus {
+  QUEUED
+  INSPECTING_WEBSITE
+  IMPORTING_DESIGN
+  NORMALIZING
+  MATCHING
+  COMPARING
+  VISUAL_DIFF
+  AI_RECOMMENDATIONS
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum StageRunStatus {
+  PENDING
+  RUNNING
+  SUCCEEDED
+  FAILED
+  SKIPPED
+}
+
+enum DesignSourceType {
+  FIGMA
+  ADOBE_XD
+}
+
+model User {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  name      String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  projects  Project[]
+}
+
+model Project {
+  id            String         @id @default(cuid())
+  name          String
+  /// Canonical website URL. Validated server-side before any inspection.
+  websiteUrl    String
+  ownerId       String
+  owner         User           @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  designSources DesignSource[]
+  audits        Audit[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([ownerId])
+}
+
+/// A design revision to validate against. Provider credentials are never stored here.
+model DesignSource {
+  id                String           @id @default(cuid())
+  projectId         String
+  project           Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  type              DesignSourceType
+  name              String
+  /// Figma file URL, when applicable.
+  uri               String?
+  /// Provider identifier, e.g. the Figma file key.
+  externalId        String?
+  /// Provider revision/version, when known.
+  revision          String?
+  /// Object-storage key of an uploaded Adobe XD plugin manifest.
+  manifestObjectKey String?
+  audits            Audit[]
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  @@index([projectId])
+}
+
+model Audit {
+  id             String          @id @default(cuid())
+  projectId      String
+  project        Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  designSourceId String
+  designSource   DesignSource    @relation(fields: [designSourceId], references: [id], onDelete: Restrict)
+  /// URL as submitted for this audit (the project URL may change later).
+  websiteUrl     String
+  /// Target page/frame/node in the design source.
+  targetNodeId   String?
+  status         AuditStatus     @default(QUEUED)
+  /// Requested viewports, e.g. [{ "id": "desktop", "width": 1440, "height": 900 }].
+  viewports      Json
+  /// Tolerances and feature flags (visual diff, AI recommendations).
+  settings       Json
+  /// Hash of the audit inputs; part of every stage idempotency key.
+  inputHash      String
+  /// Typed failure code (PipelineFailureCode) when status is FAILED.
+  failureCode    String?
+  failureMessage String?
+  stageRuns      AuditStageRun[]
+  queuedAt       DateTime        @default(now())
+  startedAt      DateTime?
+  completedAt    DateTime?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  @@index([projectId, createdAt])
+  @@index([status])
+}
+
+/// One unit of stage work (optionally per viewport). The idempotency key makes
+/// retries update the same row instead of duplicating work.
+model AuditStageRun {
+  id             String         @id @default(cuid())
+  auditId        String
+  audit          Audit          @relation(fields: [auditId], references: [id], onDelete: Cascade)
+  /// Non-terminal AuditStatus value naming the stage.
+  stage          AuditStatus
+  viewportId     String?
+  idempotencyKey String         @unique
+  status         StageRunStatus @default(PENDING)
+  attempt        Int            @default(1)
+  failureCode    String?
+  failureMessage String?
+  /// Stage observability counters, e.g. { "elementCount": 412 }.
+  metrics        Json?
+  /// Object-storage keys produced by the stage (spec snapshot, screenshot, ...).
+  artifactKeys   Json?
+  startedAt      DateTime?
+  finishedAt     DateTime?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@index([auditId, stage])
+}
