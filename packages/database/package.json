@@ -16,6 +16,8 @@
     "db:studio": "prisma studio"
   },
   "dependencies": {
+    "@design-validator/design-spec": "workspace:*",
+    "@design-validator/storage": "workspace:*",
     "@prisma/adapter-pg": "7.10.0",
     "@prisma/client": "7.10.0",
     "pg": "8.23.1"

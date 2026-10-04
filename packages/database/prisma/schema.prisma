@@ -5,9 +5,8 @@
 // the object key. There is deliberately no score column anywhere: audits
 // produce differences, not page-quality scores.
 //
-// Validation issues and AI recommendations are added with the comparison
-// engine (Phase 5) and recommendation layer (Phase 8), once their value
-// representation is finalised.
+// Issue rows keep searchable columns plus the full ValidationIssue JSON
+// (packages/design-spec); the complete report JSON lives in object storage.
 
 generator client {
   provider     = "prisma-client"
@@ -57,12 +56,15 @@ model User {
 }
 
 model Project {
-  id            String         @id @default(cuid())
-  name          String
+  id               String         @id @default(cuid())
+  name             String
   /// Canonical website URL. Validated server-side before any inspection.
-  websiteUrl    String
-  ownerId       String
-  owner         User           @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  websiteUrl       String
+  /// Optional until multi-user accounts exist; single-workspace deployments leave it empty.
+  ownerId          String?
+  owner            User?          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  /// Source repository for code mapping (Phase 10), e.g. { provider, owner, repo, ref }.
+  sourceRepository Json?
   designSources DesignSource[]
   audits        Audit[]
   createdAt     DateTime       @default(now())
@@ -84,8 +86,10 @@ model DesignSource {
   externalId        String?
   /// Provider revision/version, when known.
   revision          String?
-  /// Object-storage key of an uploaded Adobe XD plugin manifest.
-  manifestObjectKey String?
+  /// Selectable target frames/artboards: [{ nodeId, name, width, height }].
+  frames            Json              @default("[]")
+  /// Object-storage key of an uploaded Figma nodes export or Adobe XD manifest.
+  uploadObjectKey   String?
   audits            Audit[]
   createdAt         DateTime         @default(now())
   updatedAt         DateTime         @updatedAt
@@ -98,7 +102,7 @@ model Audit {
   projectId      String
   project        Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
   designSourceId String
-  designSource   DesignSource    @relation(fields: [designSourceId], references: [id], onDelete: Restrict)
+  designSource   DesignSource    @relation(fields: [designSourceId], references: [id], onDelete: Cascade)
   /// URL as submitted for this audit (the project URL may change later).
   websiteUrl     String
   /// Target page/frame/node in the design source.
@@ -110,10 +114,21 @@ model Audit {
   settings       Json
   /// Hash of the audit inputs; part of every stage idempotency key.
   inputHash      String
+  /// Latest progress event: { stage, message, progress }.
+  progress        Json?
   /// Typed failure code (PipelineFailureCode) when status is FAILED.
-  failureCode    String?
-  failureMessage String?
-  stageRuns      AuditStageRun[]
+  failureCode     String?
+  failureMessage  String?
+  /// Difference counts per category (navigation aid, not a score).
+  counts          Json?
+  issueCount      Int              @default(0)
+  unresolvedCount Int              @default(0)
+  warnings        Json             @default("[]")
+  /// Audit this one re-validates (Phase 11).
+  parentAuditId   String?
+  stageRuns       AuditStageRun[]
+  issues          Issue[]
+  recommendations Recommendation[]
   queuedAt       DateTime        @default(now())
   startedAt      DateTime?
   completedAt    DateTime?
@@ -148,4 +163,43 @@ model AuditStageRun {
   updatedAt      DateTime       @updatedAt
 
   @@index([auditId, stage])
+}
+
+/// One measured difference. `data` holds the full ValidationIssue; the other
+/// columns exist for filtering.
+model Issue {
+  id               String  @id @default(cuid())
+  auditId          String
+  audit            Audit   @relation(fields: [auditId], references: [id], onDelete: Cascade)
+  /// Deterministic ValidationIssue.id (stable across re-comparisons).
+  issueId          String
+  viewportId       String
+  category         String
+  severity         String
+  status           String
+  property         String
+  elementName      String
+  designId         String?
+  implementationId String?
+  position         Int
+  data             Json
+
+  @@unique([auditId, issueId])
+  @@index([auditId, viewportId, category])
+}
+
+/// Cached AI recommendation for an issue group. Never alters measured values.
+model Recommendation {
+  id            String   @id @default(cuid())
+  /// hash(audit input + element + issue set + prompt version + model)
+  cacheKey      String   @unique
+  auditId       String
+  audit         Audit    @relation(fields: [auditId], references: [id], onDelete: Cascade)
+  issueIds      Json
+  payload       Json
+  model         String
+  promptVersion String
+  createdAt     DateTime @default(now())
+
+  @@index([auditId])
 }
