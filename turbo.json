@@ -6,7 +6,32 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
+      "passThroughEnv": [
+        "ENABLE_EXPERIMENTAL_COREPACK",
+        "NODE_ENV",
+        "LOG_LEVEL",
+        "APP_URL",
+        "APP_ACCESS_PASSWORD",
+        "CRON_SECRET",
+        "AUDIT_EXECUTION",
+        "DATABASE_URL",
+        "REDIS_URL",
+        "STORAGE_DRIVER",
+        "STORAGE_DIR",
+        "S3_*",
+        "BLOB_*",
+        "INSPECTOR_ALLOW_PRIVATE_HOSTS",
+        "CHROMIUM_EXECUTABLE_PATH",
+        "RATE_LIMIT_*",
+        "MAX_CONCURRENT_AUDITS",
+        "MAX_AUDITS_PER_DAY",
+        "AUDIT_RETENTION_DAYS",
+        "FIGMA_ACCESS_TOKEN",
+        "ANTHROPIC_API_KEY",
+        "ANTHROPIC_MODEL",
+        "GITHUB_TOKEN"
+      ]
     },
     "typecheck": {
       "dependsOn": ["^typecheck"],
