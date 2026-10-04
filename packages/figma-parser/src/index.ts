@@ -1,2 +1,10 @@
-// Package boundary only. Implementation arrives in Phase 3 — Figma Importer (see phases.md).
-export {};
+export { FigmaClient } from './client';
+export type { FigmaClientOptions, FigmaFrameSummary, FigmaPageSummary } from './client';
+export { FigmaError } from './errors';
+export type { FigmaErrorCode } from './errors';
+export type { FigmaNode, FigmaNodesResponse } from './figma-types';
+export { importFigmaDesign } from './import';
+export { figmaToDesignSpec } from './normalize';
+export type { FigmaNormalizeInput, FigmaTarget } from './normalize';
+export { parseFigmaUrl } from './url';
+export type { FigmaFileReference } from './url';

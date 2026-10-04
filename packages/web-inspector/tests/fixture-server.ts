@@ -22,6 +22,11 @@ export async function startFixtureServer(): Promise<{ url: string; close: () => 
   if (!address || typeof address === 'string') throw new Error('no address');
   return {
     url: `http://127.0.0.1:${address.port}`,
-    close: () => new Promise((resolve) => server.close(() => { resolve(); })),
+    close: () =>
+      new Promise((resolve) =>
+        server.close(() => {
+          resolve();
+        }),
+      ),
   };
 }

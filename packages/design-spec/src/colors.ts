@@ -124,7 +124,9 @@ export function parseColor(input: string | null | undefined): ColorValue | null 
       return null;
     }
     if (hex.length <= 4) {
-      hex = Array.from(hex).map((char) => char + char).join('');
+      hex = Array.from(hex)
+        .map((char) => char + char)
+        .join('');
     }
     const alpha = hex.length === 8 ? Number.parseInt(hex.slice(6, 8), 16) / 255 : 1;
     return { hex: `#${hex.slice(0, 6)}`, alpha: roundAlpha(alpha) };
