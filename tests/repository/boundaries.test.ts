@@ -62,6 +62,9 @@ const ALLOWED_INTERNAL_DEPENDENCIES: Record<string, readonly string[]> = {
   // The UI talks to the pipeline's services and reads results; it never imports
   // inspection, matching or comparison internals directly.
   '@design-validator/web': [...SHARED_INFRA, PIPELINE],
+
+  // Runs inside Adobe XD; shares only the manifest contract (types) with the server.
+  '@design-validator/adobe-xd-plugin': ['@design-validator/xd-parser'],
 };
 
 const root = path.resolve(import.meta.dirname, '../..');
@@ -76,7 +79,7 @@ interface WorkspacePackage {
 }
 
 function readWorkspacePackages(): WorkspacePackage[] {
-  return ['apps', 'packages', 'workers'].flatMap((group) =>
+  return ['apps', 'packages', 'workers', 'plugins'].flatMap((group) =>
     readdirSync(path.join(root, group), { withFileTypes: true })
       .filter((entry) => entry.isDirectory())
       .map((entry) => path.join(group, entry.name))

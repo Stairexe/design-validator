@@ -5,6 +5,7 @@ export default defineConfig({
     include: [
       'packages/*/tests/**/*.test.ts',
       'workers/*/tests/**/*.test.ts',
+      'plugins/*/tests/**/*.test.ts',
       'tests/**/*.test.ts',
     ],
     environment: 'node',

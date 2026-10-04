@@ -1,0 +1,16 @@
+{
+  "name": "@design-validator/adobe-xd-plugin",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/main.ts --bundle --format=cjs --platform=neutral --target=es2019 --external:scenegraph --external:application --external:uxp --outfile=dist/main.js && cp manifest.json dist/manifest.json",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@design-validator/xd-parser": "workspace:*",
+    "@types/node": "22.20.5",
+    "esbuild": "0.28.2",
+    "typescript": "5.9.3"
+  }
+}
