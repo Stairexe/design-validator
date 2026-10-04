@@ -47,6 +47,8 @@ function vercelSelfHeaders(
 
 export interface PipelineRuntime {
   deps: PipelineDependencies;
+  /** `memory` means data does not survive restarts or span server instances. */
+  storageDriver: 'memory' | 'filesystem' | 's3' | 'vercel-blob';
   execution: 'inline' | 'queue';
   redisUrl: string | undefined;
 }
@@ -66,15 +68,25 @@ export function createRuntime(
   service = 'pipeline',
 ): PipelineRuntime {
   const config = parseEnv(runtimeSchema, env);
-  const storage = env['STORAGE_DRIVER']
-    ? createObjectStorage(parseEnv(storageEnvSchema, env))
-    : // No storage configured: in-process memory (single-process development only).
-      (globalStore.__designValidatorMemoryStorage ??= new MemoryObjectStorage());
+  // Explicit driver wins; a connected Vercel Blob store is picked up automatically;
+  // otherwise in-process memory (temporary: single-process development only).
+  const storageEnv = env['STORAGE_DRIVER']
+    ? env
+    : env['BLOB_READ_WRITE_TOKEN']
+      ? { ...env, STORAGE_DRIVER: 'vercel-blob' }
+      : null;
+  const storageDriver = storageEnv
+    ? parseEnv(storageEnvSchema, storageEnv).STORAGE_DRIVER
+    : 'memory';
+  const storage = storageEnv
+    ? createObjectStorage(parseEnv(storageEnvSchema, storageEnv))
+    : (globalStore.__designValidatorMemoryStorage ??= new MemoryObjectStorage());
   const execution = config.AUDIT_EXECUTION ?? 'inline';
   if (execution === 'queue' && !config.REDIS_URL) {
     throw new Error('AUDIT_EXECUTION=queue requires REDIS_URL.');
   }
   return {
+    storageDriver,
     execution,
     redisUrl: config.REDIS_URL,
     deps: {

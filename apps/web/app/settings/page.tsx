@@ -16,7 +16,7 @@ function Status({ ok, children }: { ok: boolean; children: string }) {
 
 /** Deployment configuration status. Shows whether secrets are set, never their values. */
 export default function SettingsPage() {
-  const { deps, execution } = getRuntime();
+  const { deps, execution, storageDriver } = getRuntime();
   const rows: [string, React.ReactNode, string][] = [
     [
       'Persistence',
@@ -24,6 +24,13 @@ export default function SettingsPage() {
         {deps.repository.kind === 'postgres' ? 'PostgreSQL' : 'Object-storage documents'}
       </Status>,
       'Set DATABASE_URL to use PostgreSQL.',
+    ],
+    [
+      'Artifact storage',
+      <Status key="storage" ok={storageDriver !== 'memory'}>
+        {storageDriver === 'memory' ? 'Memory (temporary)' : storageDriver}
+      </Status>,
+      'STORAGE_DRIVER, or connect a Vercel Blob store (detected automatically from BLOB_READ_WRITE_TOKEN).',
     ],
     [
       'Audit execution',
