@@ -4,7 +4,7 @@ import path from 'node:path';
 import { validateDesignSpec, type DesignElement } from '@design-validator/design-spec';
 import { describe, expect, it } from 'vitest';
 
-import { figmaToDesignSpec, type FigmaNodesResponse } from '../src';
+import { FIGMA_PRICING_TARGETS, figmaToDesignSpec, type FigmaNodesResponse } from '../src';
 
 const fixture = JSON.parse(
   readFileSync(
@@ -16,10 +16,7 @@ const fixture = JSON.parse(
 const spec = figmaToDesignSpec({
   fileKey: 'FIXTURE',
   response: fixture,
-  targets: [
-    { nodeId: '1:2', viewport: { id: 'desktop', width: 1440, height: 900 } },
-    { nodeId: '5:2', viewport: { id: 'mobile', width: 390, height: 844 } },
-  ],
+  targets: FIGMA_PRICING_TARGETS,
 });
 const desktop = spec.pages[0]?.elements ?? [];
 const byId = (id: string, elements: DesignElement[] = desktop) => elements.find((e) => e.id === id);
@@ -105,6 +102,16 @@ describe('figmaToDesignSpec', () => {
     expect(byId('2:4')?.source.rawReference).toBe('figma://file/FIXTURE/node/2:4');
     expect(byId('2:4')?.source.sourcePath).toBe('Pricing / Desktop/Hero/Button / Primary');
   });
+});
+
+it('matches the committed normalized fixture (run scripts/capture-figma-fixture.ts after changes)', () => {
+  const committed: unknown = JSON.parse(
+    readFileSync(
+      path.resolve(import.meta.dirname, '../../../fixtures/figma/pricing.spec.json'),
+      'utf8',
+    ),
+  );
+  expect(committed).toEqual(spec);
 });
 
 describe('figma edge cases', () => {

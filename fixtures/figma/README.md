@@ -1,7 +1,7 @@
 # Figma fixtures
 
 `pricing.nodes.json` is a hand-built `GET /v1/files/:key/nodes?ids=1:2,5:2` response for a pricing page
-(`1:2` desktop frame, `5:2` mobile frame). It mirrors `fixtures/websites/pricing.html` with deliberate differences:
+(`1:2` desktop frame, `5:2` mobile frame with stacked cards). It mirrors `fixtures/websites/pricing.html` with deliberate differences:
 
 | Element | Website | Design |
 | --- | --- | --- |

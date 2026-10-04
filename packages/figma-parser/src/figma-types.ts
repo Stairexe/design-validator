@@ -50,6 +50,7 @@ export interface FigmaTypeStyle {
   lineHeightUnit?: 'PIXELS' | 'FONT_SIZE_%' | 'INTRINSIC_%';
   textCase?: 'ORIGINAL' | 'UPPER' | 'LOWER' | 'TITLE' | 'SMALL_CAPS' | 'SMALL_CAPS_FORCED';
   textDecoration?: 'NONE' | 'UNDERLINE' | 'STRIKETHROUGH';
+  textAutoResize?: 'NONE' | 'HEIGHT' | 'WIDTH_AND_HEIGHT' | 'TRUNCATE';
 }
 
 export interface FigmaNode {

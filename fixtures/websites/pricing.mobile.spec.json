@@ -1,0 +1,1642 @@
+{
+  "schemaVersion": "1.0.0",
+  "source": {
+    "type": "website",
+    "uri": "http://fixture.local/pricing.html",
+    "name": "Fixture Pricing"
+  },
+  "document": {
+    "id": "http://fixture.local/pricing.html",
+    "name": "Fixture Pricing",
+    "width": 390,
+    "height": 2039
+  },
+  "viewports": [
+    {
+      "id": "mobile",
+      "width": 390,
+      "height": 844
+    }
+  ],
+  "pages": [
+    {
+      "id": "page-mobile",
+      "name": "http://fixture.local/pricing.html @ 390×844",
+      "viewportId": "mobile",
+      "width": 390,
+      "height": 2039,
+      "rootIds": ["dom-0"],
+      "elements": [
+        {
+          "id": "dom-0",
+          "name": "body",
+          "type": "container",
+          "role": "container",
+          "parentId": null,
+          "childIds": ["dom-1", "dom-6", "dom-16"],
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 1999
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "block",
+            "position": "static",
+            "flexDirection": "row",
+            "alignItems": "normal",
+            "justifyContent": "normal",
+            "flexWrap": "nowrap",
+            "gridTemplateColumns": "none",
+            "gridTemplateRows": "none",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "margin": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "padding": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "rowGap": 0,
+            "columnGap": 0
+          },
+          "colors": {
+            "text": null,
+            "background": {
+              "hex": "#ffffff",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 0,
+            "topRight": 0,
+            "bottomRight": 0,
+            "bottomLeft": 0
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null,
+            "transform": null
+          },
+          "source": {
+            "provider": "website",
+            "sourceId": "dom-0",
+            "sourcePath": "/body[0]",
+            "selector": "body",
+            "originalType": "body",
+            "classNames": [],
+            "attributes": {}
+          }
+        },
+        {
+          "id": "dom-1",
+          "name": "section.hero",
+          "type": "section",
+          "role": "section",
+          "parentId": "dom-0",
+          "childIds": ["dom-2", "dom-3", "dom-4", "dom-5"],
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 246
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "flex",
+            "position": "static",
+            "flexDirection": "column",
+            "alignItems": "flex-start",
+            "justifyContent": "normal",
+            "flexWrap": "nowrap",
+            "gridTemplateColumns": "none",
+            "gridTemplateRows": "none",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "margin": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "padding": {
+              "top": 32,
+              "right": 20,
+              "bottom": 32,
+              "left": 20
+            },
+            "gap": 16,
+            "rowGap": 16,
+            "columnGap": 16
+          },
+          "colors": {
+            "text": null,
+            "background": null
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 0,
+            "topRight": 0,
+            "bottomRight": 0,
+            "bottomLeft": 0
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null,
+            "transform": null
+          },
+          "source": {
+            "provider": "website",
+            "sourceId": "dom-1",
+            "sourcePath": "/body[0]/section[1]",
+            "selector": "body > section:nth-of-type(1)",
+            "originalType": "section",
+            "classNames": ["hero"],
+            "attributes": {
+              "data-testid": "hero"
+            }
+          }
+        },
+        {
+          "id": "dom-2",
+          "name": "h1#hero-title \"Simple pricing\"",
+          "type": "text",
+          "role": "heading",
+          "parentId": "dom-1",
+          "childIds": [],
+          "text": "Simple pricing",
+          "bounds": {
+            "x": 20,
+            "y": 32,
+            "width": 213.48,
+            "height": 40
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "block",
+            "position": "static",
+            "flexDirection": "row",
+            "alignItems": "normal",
+            "justifyContent": "normal",
+            "flexWrap": "nowrap",
+            "gridTemplateColumns": "none",
+            "gridTemplateRows": "none",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "margin": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "padding": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "rowGap": 0,
+            "columnGap": 0
+          },
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 32,
+            "fontWeight": 700,
+            "lineHeight": 40,
+            "letterSpacing": -0.5,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#111111",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#111111",
+              "alpha": 1
+            },
+            "background": null
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 0,
+            "topRight": 0,
+            "bottomRight": 0,
+            "bottomLeft": 0
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null,
+            "transform": null
+          },
+          "source": {
+            "provider": "website",
+            "sourceId": "dom-2",
+            "sourcePath": "/body[0]/section[1]/h1[2]",
+            "selector": "#hero-title",
+            "originalType": "h1",
+            "classNames": [],
+            "attributes": {
+              "id": "hero-title"
+            }
+          }
+        },
+        {
+          "id": "dom-3",
+          "name": "p \"Pick the plan that fits your team.\"",
+          "type": "text",
+          "role": "paragraph",
+          "parentId": "dom-1",
+          "childIds": [],
+          "text": "Pick the plan that fits your team.",
+          "bounds": {
+            "x": 20,
+            "y": 88,
+            "width": 256.13,
+            "height": 28
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "block",
+            "position": "static",
+            "flexDirection": "row",
+            "alignItems": "normal",
+            "justifyContent": "normal",
+            "flexWrap": "nowrap",
+            "gridTemplateColumns": "none",
+            "gridTemplateRows": "none",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "margin": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "padding": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "rowGap": 0,
+            "columnGap": 0
+          },
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 18,
+            "fontWeight": 400,
+            "lineHeight": 28,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            },
+            "background": null
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 0,
+            "topRight": 0,
+            "bottomRight": 0,
+            "bottomLeft": 0
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null,
+            "transform": null
+          },
+          "source": {
+            "provider": "website",
+            "sourceId": "dom-3",
+            "sourcePath": "/body[0]/section[1]/p[3]",
+            "selector": "body > section:nth-of-type(1) > p",
+            "originalType": "p",
+            "classNames": [],
+            "attributes": {}
+          }
+        },
+        {
+          "id": "dom-4",
+          "name": "button.primary-cta \"Get started\"",
+          "type": "button",
+          "role": "button",
+          "parentId": "dom-1",
+          "childIds": [],
+          "text": "Get started",
+          "bounds": {
+            "x": 20,
+            "y": 132,
+            "width": 124.47,
+            "height": 48
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "block",
+            "position": "static",
+            "flexDirection": "row",
+            "alignItems": "normal",
+            "justifyContent": "normal",
+            "flexWrap": "nowrap",
+            "gridTemplateColumns": "none",
+            "gridTemplateRows": "none",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "margin": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "padding": {
+              "top": 12,
+              "right": 20,
+              "bottom": 12,
+              "left": 20
+            },
+            "rowGap": 0,
+            "columnGap": 0
+          },
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": 600,
+            "lineHeight": 24,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "center",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#ffffff",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#ffffff",
+              "alpha": 1
+            },
+            "background": {
+              "hex": "#111111",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 8,
+            "topRight": 8,
+            "bottomRight": 8,
+            "bottomLeft": 8
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null,
+            "transform": null
+          },
+          "source": {
+            "provider": "website",
+            "sourceId": "dom-4",
+            "sourcePath": "/body[0]/section[1]/button[4]",
+            "selector": "body > section:nth-of-type(1) > button",
+            "originalType": "button",
+            "classNames": ["primary-cta"],
+            "attributes": {
+              "type": "button"
+            }
+          }
+        },
+        {
+          "id": "dom-5",
+          "name": "span.hidden-on-desktop \"Swipe to compare\"",
+          "type": "text",
+          "role": "paragraph",
+          "parentId": "dom-1",
+          "childIds": [],
+          "text": "Swipe to compare",
+          "bounds": {
+            "x": 20,
+            "y": 196,
+            "width": 128.06,
+            "height": 18
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "block",
+            "position": "static",
+            "flexDirection": "row",
+            "alignItems": "normal",
+            "justifyContent": "normal",
+            "flexWrap": "nowrap",
+            "gridTemplateColumns": "none",
+            "gridTemplateRows": "none",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "margin": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "padding": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "rowGap": 0,
+            "columnGap": 0
+          },
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": "normal",
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            },
+            "background": null
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 0,
+            "topRight": 0,
+            "bottomRight": 0,
+            "bottomLeft": 0
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null,
+            "transform": null
+          },
+          "source": {
+            "provider": "website",
+            "sourceId": "dom-5",
+            "sourcePath": "/body[0]/section[1]/span[5]",
+            "selector": "body > section:nth-of-type(1) > span",
+            "originalType": "span",
+            "classNames": ["hidden-on-desktop"],
+            "attributes": {}
+          }
+        },
+        {
+          "id": "dom-6",
+          "name": "section.cards",
+          "type": "section",
+          "role": "section",
+          "parentId": "dom-0",
+          "childIds": ["dom-7", "dom-10", "dom-13"],
+          "bounds": {
+            "x": 0,
+            "y": 246,
+            "width": 390,
+            "height": 453
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "grid",
+            "position": "static",
+            "flexDirection": "row",
+            "alignItems": "normal",
+            "justifyContent": "normal",
+            "flexWrap": "nowrap",
+            "gridTemplateColumns": "350px",
+            "gridTemplateRows": "127px 127px 127px",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "margin": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "padding": {
+              "top": 0,
+              "right": 20,
+              "bottom": 32,
+              "left": 20
+            },
+            "gap": 20,
+            "rowGap": 20,
+            "columnGap": 20
+          },
+          "colors": {
+            "text": null,
+            "background": null
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 0,
+            "topRight": 0,
+            "bottomRight": 0,
+            "bottomLeft": 0
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null,
+            "transform": null
+          },
+          "source": {
+            "provider": "website",
+            "sourceId": "dom-6",
+            "sourcePath": "/body[0]/section[6]",
+            "selector": "body > section:nth-of-type(2)",
+            "originalType": "section",
+            "classNames": ["cards"],
+            "attributes": {}
+          }
+        },
+        {
+          "id": "dom-7",
+          "name": "article.card",
+          "type": "section",
+          "role": "section",
+          "parentId": "dom-6",
+          "childIds": ["dom-8", "dom-9"],
+          "bounds": {
+            "x": 20,
+            "y": 246,
+            "width": 350,
+            "height": 127
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "block",
+            "position": "static",
+            "flexDirection": "row",
+            "alignItems": "normal",
+            "justifyContent": "normal",
+            "flexWrap": "nowrap",
+            "gridTemplateColumns": "none",
+            "gridTemplateRows": "none",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "margin": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "padding": {
+              "top": 24,
+              "right": 24,
+              "bottom": 24,
+              "left": 24
+            },
+            "rowGap": 0,
+            "columnGap": 0
+          },
+          "colors": {
+            "text": null,
+            "background": null
+          },
+          "border": {
+            "width": {
+              "top": 1,
+              "right": 1,
+              "bottom": 1,
+              "left": 1
+            },
+            "style": "solid",
+            "color": {
+              "hex": "#e4e4e7",
+              "alpha": 1
+            }
+          },
+          "radius": {
+            "topLeft": 12,
+            "topRight": 12,
+            "bottomRight": 12,
+            "bottomLeft": 12
+          },
+          "effects": {
+            "shadows": [
+              {
+                "x": 0,
+                "y": 4,
+                "blur": 12,
+                "spread": 0,
+                "color": {
+                  "hex": "#000000",
+                  "alpha": 0.1
+                },
+                "inset": false
+              }
+            ],
+            "opacity": 1,
+            "filter": null,
+            "transform": null
+          },
+          "source": {
+            "provider": "website",
+            "sourceId": "dom-7",
+            "sourcePath": "/body[0]/section[6]/article[7]",
+            "selector": "body > section:nth-of-type(2) > article:nth-of-type(1)",
+            "originalType": "article",
+            "classNames": ["card"],
+            "attributes": {}
+          }
+        },
+        {
+          "id": "dom-8",
+          "name": "h2 \"Starter\"",
+          "type": "text",
+          "role": "heading",
+          "parentId": "dom-7",
+          "childIds": [],
+          "text": "Starter",
+          "bounds": {
+            "x": 45,
+            "y": 271,
+            "width": 300,
+            "height": 32
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "block",
+            "position": "static",
+            "flexDirection": "row",
+            "alignItems": "normal",
+            "justifyContent": "normal",
+            "flexWrap": "nowrap",
+            "gridTemplateColumns": "none",
+            "gridTemplateRows": "none",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "margin": {
+              "top": 0,
+              "right": 0,
+              "bottom": 8,
+              "left": 0
+            },
+            "padding": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "rowGap": 0,
+            "columnGap": 0
+          },
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 24,
+            "fontWeight": 700,
+            "lineHeight": 32,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            },
+            "background": null
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 0,
+            "topRight": 0,
+            "bottomRight": 0,
+            "bottomLeft": 0
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null,
+            "transform": null
+          },
+          "source": {
+            "provider": "website",
+            "sourceId": "dom-8",
+            "sourcePath": "/body[0]/section[6]/article[7]/h2[8]",
+            "selector": "body > section:nth-of-type(2) > article:nth-of-type(1) > h2",
+            "originalType": "h2",
+            "classNames": [],
+            "attributes": {}
+          }
+        },
+        {
+          "id": "dom-9",
+          "name": "p.price \"$9\"",
+          "type": "text",
+          "role": "paragraph",
+          "parentId": "dom-7",
+          "childIds": [],
+          "text": "$9",
+          "bounds": {
+            "x": 45,
+            "y": 311,
+            "width": 300,
+            "height": 37
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "block",
+            "position": "static",
+            "flexDirection": "row",
+            "alignItems": "normal",
+            "justifyContent": "normal",
+            "flexWrap": "nowrap",
+            "gridTemplateColumns": "none",
+            "gridTemplateRows": "none",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "margin": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "padding": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "rowGap": 0,
+            "columnGap": 0
+          },
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 32,
+            "fontWeight": 700,
+            "lineHeight": "normal",
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            },
+            "background": null
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 0,
+            "topRight": 0,
+            "bottomRight": 0,
+            "bottomLeft": 0
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null,
+            "transform": null
+          },
+          "source": {
+            "provider": "website",
+            "sourceId": "dom-9",
+            "sourcePath": "/body[0]/section[6]/article[7]/p[9]",
+            "selector": "body > section:nth-of-type(2) > article:nth-of-type(1) > p",
+            "originalType": "p",
+            "classNames": ["price"],
+            "attributes": {}
+          }
+        },
+        {
+          "id": "dom-10",
+          "name": "article.card",
+          "type": "section",
+          "role": "section",
+          "parentId": "dom-6",
+          "childIds": ["dom-11", "dom-12"],
+          "bounds": {
+            "x": 20,
+            "y": 393,
+            "width": 350,
+            "height": 127
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "block",
+            "position": "static",
+            "flexDirection": "row",
+            "alignItems": "normal",
+            "justifyContent": "normal",
+            "flexWrap": "nowrap",
+            "gridTemplateColumns": "none",
+            "gridTemplateRows": "none",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "margin": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "padding": {
+              "top": 24,
+              "right": 24,
+              "bottom": 24,
+              "left": 24
+            },
+            "rowGap": 0,
+            "columnGap": 0
+          },
+          "colors": {
+            "text": null,
+            "background": null
+          },
+          "border": {
+            "width": {
+              "top": 1,
+              "right": 1,
+              "bottom": 1,
+              "left": 1
+            },
+            "style": "solid",
+            "color": {
+              "hex": "#e4e4e7",
+              "alpha": 1
+            }
+          },
+          "radius": {
+            "topLeft": 12,
+            "topRight": 12,
+            "bottomRight": 12,
+            "bottomLeft": 12
+          },
+          "effects": {
+            "shadows": [
+              {
+                "x": 0,
+                "y": 4,
+                "blur": 12,
+                "spread": 0,
+                "color": {
+                  "hex": "#000000",
+                  "alpha": 0.1
+                },
+                "inset": false
+              }
+            ],
+            "opacity": 1,
+            "filter": null,
+            "transform": null
+          },
+          "source": {
+            "provider": "website",
+            "sourceId": "dom-10",
+            "sourcePath": "/body[0]/section[6]/article[10]",
+            "selector": "body > section:nth-of-type(2) > article:nth-of-type(2)",
+            "originalType": "article",
+            "classNames": ["card"],
+            "attributes": {}
+          }
+        },
+        {
+          "id": "dom-11",
+          "name": "h2 \"Team\"",
+          "type": "text",
+          "role": "heading",
+          "parentId": "dom-10",
+          "childIds": [],
+          "text": "Team",
+          "bounds": {
+            "x": 45,
+            "y": 418,
+            "width": 300,
+            "height": 32
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "block",
+            "position": "static",
+            "flexDirection": "row",
+            "alignItems": "normal",
+            "justifyContent": "normal",
+            "flexWrap": "nowrap",
+            "gridTemplateColumns": "none",
+            "gridTemplateRows": "none",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "margin": {
+              "top": 0,
+              "right": 0,
+              "bottom": 8,
+              "left": 0
+            },
+            "padding": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "rowGap": 0,
+            "columnGap": 0
+          },
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 24,
+            "fontWeight": 700,
+            "lineHeight": 32,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            },
+            "background": null
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 0,
+            "topRight": 0,
+            "bottomRight": 0,
+            "bottomLeft": 0
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null,
+            "transform": null
+          },
+          "source": {
+            "provider": "website",
+            "sourceId": "dom-11",
+            "sourcePath": "/body[0]/section[6]/article[10]/h2[11]",
+            "selector": "body > section:nth-of-type(2) > article:nth-of-type(2) > h2",
+            "originalType": "h2",
+            "classNames": [],
+            "attributes": {}
+          }
+        },
+        {
+          "id": "dom-12",
+          "name": "p.price \"$29\"",
+          "type": "text",
+          "role": "paragraph",
+          "parentId": "dom-10",
+          "childIds": [],
+          "text": "$29",
+          "bounds": {
+            "x": 45,
+            "y": 458,
+            "width": 300,
+            "height": 37
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "block",
+            "position": "static",
+            "flexDirection": "row",
+            "alignItems": "normal",
+            "justifyContent": "normal",
+            "flexWrap": "nowrap",
+            "gridTemplateColumns": "none",
+            "gridTemplateRows": "none",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "margin": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "padding": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "rowGap": 0,
+            "columnGap": 0
+          },
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 32,
+            "fontWeight": 700,
+            "lineHeight": "normal",
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            },
+            "background": null
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 0,
+            "topRight": 0,
+            "bottomRight": 0,
+            "bottomLeft": 0
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null,
+            "transform": null
+          },
+          "source": {
+            "provider": "website",
+            "sourceId": "dom-12",
+            "sourcePath": "/body[0]/section[6]/article[10]/p[12]",
+            "selector": "body > section:nth-of-type(2) > article:nth-of-type(2) > p",
+            "originalType": "p",
+            "classNames": ["price"],
+            "attributes": {}
+          }
+        },
+        {
+          "id": "dom-13",
+          "name": "article.card",
+          "type": "section",
+          "role": "section",
+          "parentId": "dom-6",
+          "childIds": ["dom-14", "dom-15"],
+          "bounds": {
+            "x": 20,
+            "y": 540,
+            "width": 350,
+            "height": 127
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "block",
+            "position": "static",
+            "flexDirection": "row",
+            "alignItems": "normal",
+            "justifyContent": "normal",
+            "flexWrap": "nowrap",
+            "gridTemplateColumns": "none",
+            "gridTemplateRows": "none",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "margin": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "padding": {
+              "top": 24,
+              "right": 24,
+              "bottom": 24,
+              "left": 24
+            },
+            "rowGap": 0,
+            "columnGap": 0
+          },
+          "colors": {
+            "text": null,
+            "background": null
+          },
+          "border": {
+            "width": {
+              "top": 1,
+              "right": 1,
+              "bottom": 1,
+              "left": 1
+            },
+            "style": "solid",
+            "color": {
+              "hex": "#e4e4e7",
+              "alpha": 1
+            }
+          },
+          "radius": {
+            "topLeft": 12,
+            "topRight": 12,
+            "bottomRight": 12,
+            "bottomLeft": 12
+          },
+          "effects": {
+            "shadows": [
+              {
+                "x": 0,
+                "y": 4,
+                "blur": 12,
+                "spread": 0,
+                "color": {
+                  "hex": "#000000",
+                  "alpha": 0.1
+                },
+                "inset": false
+              }
+            ],
+            "opacity": 1,
+            "filter": null,
+            "transform": null
+          },
+          "source": {
+            "provider": "website",
+            "sourceId": "dom-13",
+            "sourcePath": "/body[0]/section[6]/article[13]",
+            "selector": "body > section:nth-of-type(2) > article:nth-of-type(3)",
+            "originalType": "article",
+            "classNames": ["card"],
+            "attributes": {}
+          }
+        },
+        {
+          "id": "dom-14",
+          "name": "h2 \"Enterprise\"",
+          "type": "text",
+          "role": "heading",
+          "parentId": "dom-13",
+          "childIds": [],
+          "text": "Enterprise",
+          "bounds": {
+            "x": 45,
+            "y": 565,
+            "width": 300,
+            "height": 32
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "block",
+            "position": "static",
+            "flexDirection": "row",
+            "alignItems": "normal",
+            "justifyContent": "normal",
+            "flexWrap": "nowrap",
+            "gridTemplateColumns": "none",
+            "gridTemplateRows": "none",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "margin": {
+              "top": 0,
+              "right": 0,
+              "bottom": 8,
+              "left": 0
+            },
+            "padding": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "rowGap": 0,
+            "columnGap": 0
+          },
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 24,
+            "fontWeight": 700,
+            "lineHeight": 32,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            },
+            "background": null
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 0,
+            "topRight": 0,
+            "bottomRight": 0,
+            "bottomLeft": 0
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null,
+            "transform": null
+          },
+          "source": {
+            "provider": "website",
+            "sourceId": "dom-14",
+            "sourcePath": "/body[0]/section[6]/article[13]/h2[14]",
+            "selector": "body > section:nth-of-type(2) > article:nth-of-type(3) > h2",
+            "originalType": "h2",
+            "classNames": [],
+            "attributes": {}
+          }
+        },
+        {
+          "id": "dom-15",
+          "name": "p.price \"$99\"",
+          "type": "text",
+          "role": "paragraph",
+          "parentId": "dom-13",
+          "childIds": [],
+          "text": "$99",
+          "bounds": {
+            "x": 45,
+            "y": 605,
+            "width": 300,
+            "height": 37
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "block",
+            "position": "static",
+            "flexDirection": "row",
+            "alignItems": "normal",
+            "justifyContent": "normal",
+            "flexWrap": "nowrap",
+            "gridTemplateColumns": "none",
+            "gridTemplateRows": "none",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "margin": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "padding": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "rowGap": 0,
+            "columnGap": 0
+          },
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 32,
+            "fontWeight": 700,
+            "lineHeight": "normal",
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            },
+            "background": null
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 0,
+            "topRight": 0,
+            "bottomRight": 0,
+            "bottomLeft": 0
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null,
+            "transform": null
+          },
+          "source": {
+            "provider": "website",
+            "sourceId": "dom-15",
+            "sourcePath": "/body[0]/section[6]/article[13]/p[15]",
+            "selector": "body > section:nth-of-type(2) > article:nth-of-type(3) > p",
+            "originalType": "p",
+            "classNames": ["price"],
+            "attributes": {}
+          }
+        },
+        {
+          "id": "dom-16",
+          "name": "Decorative",
+          "type": "image",
+          "role": "image",
+          "parentId": "dom-0",
+          "childIds": [],
+          "bounds": {
+            "x": 80,
+            "y": 1899,
+            "width": 200,
+            "height": 100
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "block",
+            "position": "static",
+            "flexDirection": "row",
+            "alignItems": "normal",
+            "justifyContent": "normal",
+            "flexWrap": "nowrap",
+            "gridTemplateColumns": "none",
+            "gridTemplateRows": "none",
+            "overflow": "clip"
+          },
+          "spacing": {
+            "margin": {
+              "top": 1200,
+              "right": 80,
+              "bottom": 40,
+              "left": 80
+            },
+            "padding": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "rowGap": 0,
+            "columnGap": 0
+          },
+          "colors": {
+            "text": null,
+            "background": null
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 0,
+            "topRight": 0,
+            "bottomRight": 0,
+            "bottomLeft": 0
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null,
+            "transform": null
+          },
+          "source": {
+            "provider": "website",
+            "sourceId": "dom-16",
+            "sourcePath": "/body[0]/img[16]",
+            "selector": "body > img",
+            "originalType": "img",
+            "classNames": ["lazy"],
+            "attributes": {
+              "alt": "Decorative"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "truncated": false,
+    "stylesheets": [],
+    "finalUrl": "http://fixture.local/pricing.html",
+    "httpStatus": 200,
+    "stability": {
+      "networkIdle": true,
+      "fontsReady": true,
+      "imagesLoaded": true,
+      "layoutSettled": true,
+      "scrolledForLazyContent": true,
+      "animationsDisabled": true,
+      "elapsedMs": 1160
+    }
+  }
+}

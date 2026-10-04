@@ -4,7 +4,7 @@ export { FigmaError } from './errors';
 export type { FigmaErrorCode } from './errors';
 export type { FigmaNode, FigmaNodesResponse } from './figma-types';
 export { importFigmaDesign } from './import';
-export { figmaToDesignSpec } from './normalize';
+export { FIGMA_PRICING_TARGETS, figmaToDesignSpec } from './normalize';
 export type { FigmaNormalizeInput, FigmaTarget } from './normalize';
 export { parseFigmaUrl } from './url';
 export type { FigmaFileReference } from './url';

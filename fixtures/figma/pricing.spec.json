@@ -1,0 +1,2393 @@
+{
+  "schemaVersion": "1.0.0",
+  "source": {
+    "type": "figma",
+    "id": "FIXTURE",
+    "name": "Pricing (fixture)",
+    "uri": "https://www.figma.com/design/FIXTURE",
+    "version": "1"
+  },
+  "document": {
+    "id": "FIXTURE",
+    "name": "Pricing (fixture)"
+  },
+  "viewports": [
+    {
+      "id": "desktop",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "id": "mobile",
+      "width": 390,
+      "height": 844
+    }
+  ],
+  "pages": [
+    {
+      "id": "1:2",
+      "name": "Pricing / Desktop",
+      "viewportId": "desktop",
+      "width": 1440,
+      "height": 483,
+      "rootIds": ["1:2"],
+      "elements": [
+        {
+          "id": "1:2",
+          "name": "Pricing / Desktop",
+          "type": "frame",
+          "role": "section",
+          "parentId": null,
+          "childIds": ["2:1", "3:0"],
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 483
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {},
+          "spacing": {},
+          "colors": {
+            "background": {
+              "hex": "#ffffff",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 0,
+            "topRight": 0,
+            "bottomRight": 0,
+            "bottomLeft": 0
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "1:2",
+            "sourcePath": "Pricing / Desktop",
+            "originalType": "FRAME",
+            "rawReference": "figma://file/FIXTURE/node/1:2"
+          }
+        },
+        {
+          "id": "2:1",
+          "name": "Hero",
+          "type": "container",
+          "role": "container",
+          "parentId": "1:2",
+          "childIds": ["2:2", "2:3", "2:4"],
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 292
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "flex",
+            "flexDirection": "column",
+            "alignItems": "flex-start",
+            "justifyContent": "flex-start",
+            "flexWrap": "nowrap",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "padding": {
+              "top": 64,
+              "right": 80,
+              "bottom": 64,
+              "left": 80
+            },
+            "gap": 16,
+            "rowGap": 16,
+            "columnGap": null
+          },
+          "colors": {
+            "background": null
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 0,
+            "topRight": 0,
+            "bottomRight": 0,
+            "bottomLeft": 0
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "2:1",
+            "sourcePath": "Pricing / Desktop/Hero",
+            "originalType": "FRAME",
+            "rawReference": "figma://file/FIXTURE/node/2:1"
+          }
+        },
+        {
+          "id": "2:2",
+          "name": "Hero title",
+          "type": "text",
+          "role": "heading",
+          "parentId": "2:1",
+          "childIds": [],
+          "text": "Simple pricing",
+          "bounds": {
+            "x": 80,
+            "y": 64,
+            "width": 354,
+            "height": 56
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {},
+          "spacing": {},
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 48,
+            "fontWeight": 700,
+            "lineHeight": 56,
+            "letterSpacing": -0.5,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#111111",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#111111",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": null,
+            "topRight": null,
+            "bottomRight": null,
+            "bottomLeft": null
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "2:2",
+            "sourcePath": "Pricing / Desktop/Hero/Hero title",
+            "originalType": "TEXT",
+            "rawReference": "figma://file/FIXTURE/node/2:2"
+          }
+        },
+        {
+          "id": "2:3",
+          "name": "Subtitle",
+          "type": "text",
+          "role": "paragraph",
+          "parentId": "2:1",
+          "childIds": [],
+          "text": "Pick the plan that fits your team.",
+          "bounds": {
+            "x": 80,
+            "y": 136,
+            "width": 280,
+            "height": 28
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {},
+          "spacing": {},
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 18,
+            "fontWeight": 400,
+            "lineHeight": 28,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": null,
+            "topRight": null,
+            "bottomRight": null,
+            "bottomLeft": null
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "2:3",
+            "sourcePath": "Pricing / Desktop/Hero/Subtitle",
+            "originalType": "TEXT",
+            "rawReference": "figma://file/FIXTURE/node/2:3"
+          }
+        },
+        {
+          "id": "2:4",
+          "name": "Button / Primary",
+          "type": "button",
+          "role": "button",
+          "parentId": "2:1",
+          "childIds": ["2:5"],
+          "bounds": {
+            "x": 80,
+            "y": 180,
+            "width": 141,
+            "height": 48
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "flex",
+            "flexDirection": "row",
+            "alignItems": "center",
+            "justifyContent": "center",
+            "flexWrap": "nowrap",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "padding": {
+              "top": 12,
+              "right": 24,
+              "bottom": 12,
+              "left": 24
+            },
+            "gap": 8,
+            "rowGap": null,
+            "columnGap": 8
+          },
+          "colors": {
+            "background": {
+              "hex": "#111111",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 12,
+            "topRight": 12,
+            "bottomRight": 12,
+            "bottomLeft": 12
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "2:4",
+            "sourcePath": "Pricing / Desktop/Hero/Button / Primary",
+            "originalType": "INSTANCE",
+            "rawReference": "figma://file/FIXTURE/node/2:4",
+            "attributes": {
+              "component": "Button"
+            }
+          }
+        },
+        {
+          "id": "2:5",
+          "name": "Label",
+          "type": "text",
+          "role": "label",
+          "parentId": "2:4",
+          "childIds": [],
+          "text": "Get started",
+          "bounds": {
+            "x": 104,
+            "y": 192,
+            "width": 93,
+            "height": 24
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {},
+          "spacing": {},
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": 600,
+            "lineHeight": 24,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": null,
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#ffffff",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#ffffff",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": null,
+            "topRight": null,
+            "bottomRight": null,
+            "bottomLeft": null
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "2:5",
+            "sourcePath": "Pricing / Desktop/Hero/Button / Primary/Label",
+            "originalType": "TEXT",
+            "rawReference": "figma://file/FIXTURE/node/2:5"
+          }
+        },
+        {
+          "id": "3:0",
+          "name": "Cards",
+          "type": "container",
+          "role": "container",
+          "parentId": "1:2",
+          "childIds": ["3:1", "3:2", "3:3"],
+          "bounds": {
+            "x": 0,
+            "y": 292,
+            "width": 1440,
+            "height": 191
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "flex",
+            "flexDirection": "row",
+            "alignItems": "flex-start",
+            "justifyContent": "flex-start",
+            "flexWrap": "nowrap",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "padding": {
+              "top": 0,
+              "right": 80,
+              "bottom": 64,
+              "left": 80
+            },
+            "gap": 24,
+            "rowGap": null,
+            "columnGap": 24
+          },
+          "colors": {
+            "background": null
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 0,
+            "topRight": 0,
+            "bottomRight": 0,
+            "bottomLeft": 0
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "3:0",
+            "sourcePath": "Pricing / Desktop/Cards",
+            "originalType": "FRAME",
+            "rawReference": "figma://file/FIXTURE/node/3:0"
+          }
+        },
+        {
+          "id": "3:1",
+          "name": "Card",
+          "type": "container",
+          "role": "card",
+          "parentId": "3:0",
+          "childIds": ["3:11", "3:12"],
+          "bounds": {
+            "x": 80,
+            "y": 292,
+            "width": 410.67,
+            "height": 127
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "flex",
+            "flexDirection": "column",
+            "alignItems": "flex-start",
+            "justifyContent": "flex-start",
+            "flexWrap": "nowrap",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "padding": {
+              "top": 24,
+              "right": 24,
+              "bottom": 24,
+              "left": 24
+            },
+            "gap": 8,
+            "rowGap": 8,
+            "columnGap": null
+          },
+          "colors": {
+            "background": {
+              "hex": "#ffffff",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 1,
+              "right": 1,
+              "bottom": 1,
+              "left": 1
+            },
+            "style": "solid",
+            "color": {
+              "hex": "#e4e4e7",
+              "alpha": 1
+            }
+          },
+          "radius": {
+            "topLeft": 12,
+            "topRight": 12,
+            "bottomRight": 12,
+            "bottomLeft": 12
+          },
+          "effects": {
+            "shadows": [
+              {
+                "x": 0,
+                "y": 4,
+                "blur": 12,
+                "spread": 0,
+                "color": {
+                  "hex": "#000000",
+                  "alpha": 0.1
+                },
+                "inset": false
+              }
+            ],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "3:1",
+            "sourcePath": "Pricing / Desktop/Cards/Card",
+            "originalType": "FRAME",
+            "rawReference": "figma://file/FIXTURE/node/3:1"
+          }
+        },
+        {
+          "id": "3:11",
+          "name": "Card title",
+          "type": "text",
+          "role": "heading",
+          "parentId": "3:1",
+          "childIds": [],
+          "text": "Starter",
+          "bounds": {
+            "x": 105,
+            "y": 317,
+            "width": 360.67,
+            "height": 32
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {},
+          "spacing": {},
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 24,
+            "fontWeight": 700,
+            "lineHeight": 32,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": null,
+            "topRight": null,
+            "bottomRight": null,
+            "bottomLeft": null
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "3:11",
+            "sourcePath": "Pricing / Desktop/Cards/Card/Card title",
+            "originalType": "TEXT",
+            "rawReference": "figma://file/FIXTURE/node/3:11"
+          }
+        },
+        {
+          "id": "3:12",
+          "name": "Price",
+          "type": "text",
+          "role": "heading",
+          "parentId": "3:1",
+          "childIds": [],
+          "text": "$9",
+          "bounds": {
+            "x": 105,
+            "y": 357,
+            "width": 360.67,
+            "height": 37
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {},
+          "spacing": {},
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 32,
+            "fontWeight": 700,
+            "lineHeight": 37,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": null,
+            "topRight": null,
+            "bottomRight": null,
+            "bottomLeft": null
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "3:12",
+            "sourcePath": "Pricing / Desktop/Cards/Card/Price",
+            "originalType": "TEXT",
+            "rawReference": "figma://file/FIXTURE/node/3:12"
+          }
+        },
+        {
+          "id": "3:2",
+          "name": "Card",
+          "type": "container",
+          "role": "card",
+          "parentId": "3:0",
+          "childIds": ["3:21", "3:22"],
+          "bounds": {
+            "x": 514.67,
+            "y": 292,
+            "width": 410.67,
+            "height": 127
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "flex",
+            "flexDirection": "column",
+            "alignItems": "flex-start",
+            "justifyContent": "flex-start",
+            "flexWrap": "nowrap",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "padding": {
+              "top": 24,
+              "right": 24,
+              "bottom": 24,
+              "left": 24
+            },
+            "gap": 8,
+            "rowGap": 8,
+            "columnGap": null
+          },
+          "colors": {
+            "background": {
+              "hex": "#ffffff",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 1,
+              "right": 1,
+              "bottom": 1,
+              "left": 1
+            },
+            "style": "solid",
+            "color": {
+              "hex": "#e4e4e7",
+              "alpha": 1
+            }
+          },
+          "radius": {
+            "topLeft": 12,
+            "topRight": 12,
+            "bottomRight": 12,
+            "bottomLeft": 12
+          },
+          "effects": {
+            "shadows": [
+              {
+                "x": 0,
+                "y": 4,
+                "blur": 12,
+                "spread": 0,
+                "color": {
+                  "hex": "#000000",
+                  "alpha": 0.1
+                },
+                "inset": false
+              }
+            ],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "3:2",
+            "sourcePath": "Pricing / Desktop/Cards/Card",
+            "originalType": "FRAME",
+            "rawReference": "figma://file/FIXTURE/node/3:2"
+          }
+        },
+        {
+          "id": "3:21",
+          "name": "Card title",
+          "type": "text",
+          "role": "heading",
+          "parentId": "3:2",
+          "childIds": [],
+          "text": "Team",
+          "bounds": {
+            "x": 539.67,
+            "y": 317,
+            "width": 360.67,
+            "height": 32
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {},
+          "spacing": {},
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 24,
+            "fontWeight": 700,
+            "lineHeight": 32,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": null,
+            "topRight": null,
+            "bottomRight": null,
+            "bottomLeft": null
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "3:21",
+            "sourcePath": "Pricing / Desktop/Cards/Card/Card title",
+            "originalType": "TEXT",
+            "rawReference": "figma://file/FIXTURE/node/3:21"
+          }
+        },
+        {
+          "id": "3:22",
+          "name": "Price",
+          "type": "text",
+          "role": "heading",
+          "parentId": "3:2",
+          "childIds": [],
+          "text": "$29",
+          "bounds": {
+            "x": 539.67,
+            "y": 357,
+            "width": 360.67,
+            "height": 37
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {},
+          "spacing": {},
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 32,
+            "fontWeight": 700,
+            "lineHeight": 37,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": null,
+            "topRight": null,
+            "bottomRight": null,
+            "bottomLeft": null
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "3:22",
+            "sourcePath": "Pricing / Desktop/Cards/Card/Price",
+            "originalType": "TEXT",
+            "rawReference": "figma://file/FIXTURE/node/3:22"
+          }
+        },
+        {
+          "id": "3:3",
+          "name": "Card",
+          "type": "container",
+          "role": "card",
+          "parentId": "3:0",
+          "childIds": ["3:31", "3:32"],
+          "bounds": {
+            "x": 949.33,
+            "y": 292,
+            "width": 410.67,
+            "height": 127
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "flex",
+            "flexDirection": "column",
+            "alignItems": "flex-start",
+            "justifyContent": "flex-start",
+            "flexWrap": "nowrap",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "padding": {
+              "top": 24,
+              "right": 24,
+              "bottom": 24,
+              "left": 24
+            },
+            "gap": 8,
+            "rowGap": 8,
+            "columnGap": null
+          },
+          "colors": {
+            "background": {
+              "hex": "#ffffff",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 1,
+              "right": 1,
+              "bottom": 1,
+              "left": 1
+            },
+            "style": "solid",
+            "color": {
+              "hex": "#e4e4e7",
+              "alpha": 1
+            }
+          },
+          "radius": {
+            "topLeft": 12,
+            "topRight": 12,
+            "bottomRight": 12,
+            "bottomLeft": 12
+          },
+          "effects": {
+            "shadows": [
+              {
+                "x": 0,
+                "y": 4,
+                "blur": 12,
+                "spread": 0,
+                "color": {
+                  "hex": "#000000",
+                  "alpha": 0.1
+                },
+                "inset": false
+              }
+            ],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "3:3",
+            "sourcePath": "Pricing / Desktop/Cards/Card",
+            "originalType": "FRAME",
+            "rawReference": "figma://file/FIXTURE/node/3:3"
+          }
+        },
+        {
+          "id": "3:31",
+          "name": "Card title",
+          "type": "text",
+          "role": "heading",
+          "parentId": "3:3",
+          "childIds": [],
+          "text": "Enterprise",
+          "bounds": {
+            "x": 974.33,
+            "y": 317,
+            "width": 360.67,
+            "height": 32
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {},
+          "spacing": {},
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 24,
+            "fontWeight": 700,
+            "lineHeight": 32,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": null,
+            "topRight": null,
+            "bottomRight": null,
+            "bottomLeft": null
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "3:31",
+            "sourcePath": "Pricing / Desktop/Cards/Card/Card title",
+            "originalType": "TEXT",
+            "rawReference": "figma://file/FIXTURE/node/3:31"
+          }
+        },
+        {
+          "id": "3:32",
+          "name": "Price",
+          "type": "text",
+          "role": "heading",
+          "parentId": "3:3",
+          "childIds": [],
+          "text": "$99",
+          "bounds": {
+            "x": 974.33,
+            "y": 357,
+            "width": 360.67,
+            "height": 37
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {},
+          "spacing": {},
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 32,
+            "fontWeight": 700,
+            "lineHeight": 37,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": null,
+            "topRight": null,
+            "bottomRight": null,
+            "bottomLeft": null
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "3:32",
+            "sourcePath": "Pricing / Desktop/Cards/Card/Price",
+            "originalType": "TEXT",
+            "rawReference": "figma://file/FIXTURE/node/3:32"
+          }
+        }
+      ]
+    },
+    {
+      "id": "5:2",
+      "name": "Pricing / Mobile",
+      "viewportId": "mobile",
+      "width": 390,
+      "height": 707,
+      "rootIds": ["5:2"],
+      "elements": [
+        {
+          "id": "5:2",
+          "name": "Pricing / Mobile",
+          "type": "frame",
+          "role": "section",
+          "parentId": null,
+          "childIds": ["6:1", "7:0"],
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 707
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {},
+          "spacing": {},
+          "colors": {
+            "background": {
+              "hex": "#ffffff",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 0,
+            "topRight": 0,
+            "bottomRight": 0,
+            "bottomLeft": 0
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "5:2",
+            "sourcePath": "Pricing / Mobile",
+            "originalType": "FRAME",
+            "rawReference": "figma://file/FIXTURE/node/5:2"
+          }
+        },
+        {
+          "id": "6:1",
+          "name": "Hero",
+          "type": "container",
+          "role": "container",
+          "parentId": "5:2",
+          "childIds": ["6:2", "6:3", "6:4", "6:6"],
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 246
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "flex",
+            "flexDirection": "column",
+            "alignItems": "flex-start",
+            "justifyContent": "flex-start",
+            "flexWrap": "nowrap",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "padding": {
+              "top": 32,
+              "right": 20,
+              "bottom": 32,
+              "left": 20
+            },
+            "gap": 16,
+            "rowGap": 16,
+            "columnGap": null
+          },
+          "colors": {
+            "background": null
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 0,
+            "topRight": 0,
+            "bottomRight": 0,
+            "bottomLeft": 0
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "6:1",
+            "sourcePath": "Pricing / Mobile/Hero",
+            "originalType": "FRAME",
+            "rawReference": "figma://file/FIXTURE/node/6:1"
+          }
+        },
+        {
+          "id": "6:2",
+          "name": "Hero title",
+          "type": "text",
+          "role": "heading",
+          "parentId": "6:1",
+          "childIds": [],
+          "text": "Simple pricing",
+          "bounds": {
+            "x": 20,
+            "y": 32,
+            "width": 240,
+            "height": 40
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {},
+          "spacing": {},
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 32,
+            "fontWeight": 700,
+            "lineHeight": 40,
+            "letterSpacing": -0.5,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#111111",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#111111",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": null,
+            "topRight": null,
+            "bottomRight": null,
+            "bottomLeft": null
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "6:2",
+            "sourcePath": "Pricing / Mobile/Hero/Hero title",
+            "originalType": "TEXT",
+            "rawReference": "figma://file/FIXTURE/node/6:2"
+          }
+        },
+        {
+          "id": "6:3",
+          "name": "Subtitle",
+          "type": "text",
+          "role": "paragraph",
+          "parentId": "6:1",
+          "childIds": [],
+          "text": "Pick the plan that fits your team.",
+          "bounds": {
+            "x": 20,
+            "y": 88,
+            "width": 280,
+            "height": 28
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {},
+          "spacing": {},
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 18,
+            "fontWeight": 400,
+            "lineHeight": 28,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": null,
+            "topRight": null,
+            "bottomRight": null,
+            "bottomLeft": null
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "6:3",
+            "sourcePath": "Pricing / Mobile/Hero/Subtitle",
+            "originalType": "TEXT",
+            "rawReference": "figma://file/FIXTURE/node/6:3"
+          }
+        },
+        {
+          "id": "6:4",
+          "name": "Button / Primary",
+          "type": "button",
+          "role": "button",
+          "parentId": "6:1",
+          "childIds": ["6:5"],
+          "bounds": {
+            "x": 20,
+            "y": 132,
+            "width": 141,
+            "height": 48
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "flex",
+            "flexDirection": "row",
+            "alignItems": "flex-start",
+            "justifyContent": "flex-start",
+            "flexWrap": "nowrap",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "padding": {
+              "top": 12,
+              "right": 24,
+              "bottom": 12,
+              "left": 24
+            },
+            "gap": 0,
+            "rowGap": null,
+            "columnGap": 0
+          },
+          "colors": {
+            "background": {
+              "hex": "#111111",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 12,
+            "topRight": 12,
+            "bottomRight": 12,
+            "bottomLeft": 12
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "6:4",
+            "sourcePath": "Pricing / Mobile/Hero/Button / Primary",
+            "originalType": "INSTANCE",
+            "rawReference": "figma://file/FIXTURE/node/6:4",
+            "attributes": {
+              "component": "Button"
+            }
+          }
+        },
+        {
+          "id": "6:5",
+          "name": "Label",
+          "type": "text",
+          "role": "label",
+          "parentId": "6:4",
+          "childIds": [],
+          "text": "Get started",
+          "bounds": {
+            "x": 44,
+            "y": 144,
+            "width": 93,
+            "height": 24
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {},
+          "spacing": {},
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": 600,
+            "lineHeight": 24,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": null,
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#ffffff",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#ffffff",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": null,
+            "topRight": null,
+            "bottomRight": null,
+            "bottomLeft": null
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "6:5",
+            "sourcePath": "Pricing / Mobile/Hero/Button / Primary/Label",
+            "originalType": "TEXT",
+            "rawReference": "figma://file/FIXTURE/node/6:5"
+          }
+        },
+        {
+          "id": "6:6",
+          "name": "Hint",
+          "type": "text",
+          "role": "paragraph",
+          "parentId": "6:1",
+          "childIds": [],
+          "text": "Swipe to compare",
+          "bounds": {
+            "x": 20,
+            "y": 196,
+            "width": 130,
+            "height": 18
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {},
+          "spacing": {},
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": 400,
+            "lineHeight": 18,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": null,
+            "topRight": null,
+            "bottomRight": null,
+            "bottomLeft": null
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "6:6",
+            "sourcePath": "Pricing / Mobile/Hero/Hint",
+            "originalType": "TEXT",
+            "rawReference": "figma://file/FIXTURE/node/6:6"
+          }
+        },
+        {
+          "id": "7:0",
+          "name": "Cards",
+          "type": "container",
+          "role": "container",
+          "parentId": "5:2",
+          "childIds": ["7:1", "7:2", "7:3"],
+          "bounds": {
+            "x": 0,
+            "y": 246,
+            "width": 390,
+            "height": 461
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "flex",
+            "flexDirection": "column",
+            "alignItems": "flex-start",
+            "justifyContent": "flex-start",
+            "flexWrap": "nowrap",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "padding": {
+              "top": 0,
+              "right": 20,
+              "bottom": 32,
+              "left": 20
+            },
+            "gap": 24,
+            "rowGap": 24,
+            "columnGap": null
+          },
+          "colors": {
+            "background": null
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": 0,
+            "topRight": 0,
+            "bottomRight": 0,
+            "bottomLeft": 0
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "7:0",
+            "sourcePath": "Pricing / Mobile/Cards",
+            "originalType": "FRAME",
+            "rawReference": "figma://file/FIXTURE/node/7:0"
+          }
+        },
+        {
+          "id": "7:1",
+          "name": "Card",
+          "type": "container",
+          "role": "card",
+          "parentId": "7:0",
+          "childIds": ["7:11", "7:12"],
+          "bounds": {
+            "x": 20,
+            "y": 246,
+            "width": 350,
+            "height": 127
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "flex",
+            "flexDirection": "column",
+            "alignItems": "flex-start",
+            "justifyContent": "flex-start",
+            "flexWrap": "nowrap",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "padding": {
+              "top": 24,
+              "right": 24,
+              "bottom": 24,
+              "left": 24
+            },
+            "gap": 8,
+            "rowGap": 8,
+            "columnGap": null
+          },
+          "colors": {
+            "background": {
+              "hex": "#ffffff",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 1,
+              "right": 1,
+              "bottom": 1,
+              "left": 1
+            },
+            "style": "solid",
+            "color": {
+              "hex": "#e4e4e7",
+              "alpha": 1
+            }
+          },
+          "radius": {
+            "topLeft": 12,
+            "topRight": 12,
+            "bottomRight": 12,
+            "bottomLeft": 12
+          },
+          "effects": {
+            "shadows": [
+              {
+                "x": 0,
+                "y": 4,
+                "blur": 12,
+                "spread": 0,
+                "color": {
+                  "hex": "#000000",
+                  "alpha": 0.1
+                },
+                "inset": false
+              }
+            ],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "7:1",
+            "sourcePath": "Pricing / Mobile/Cards/Card",
+            "originalType": "FRAME",
+            "rawReference": "figma://file/FIXTURE/node/7:1"
+          }
+        },
+        {
+          "id": "7:11",
+          "name": "Card title",
+          "type": "text",
+          "role": "heading",
+          "parentId": "7:1",
+          "childIds": [],
+          "text": "Starter",
+          "bounds": {
+            "x": 45,
+            "y": 271,
+            "width": 300,
+            "height": 32
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {},
+          "spacing": {},
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 24,
+            "fontWeight": 700,
+            "lineHeight": 32,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": null,
+            "topRight": null,
+            "bottomRight": null,
+            "bottomLeft": null
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "7:11",
+            "sourcePath": "Pricing / Mobile/Cards/Card/Card title",
+            "originalType": "TEXT",
+            "rawReference": "figma://file/FIXTURE/node/7:11"
+          }
+        },
+        {
+          "id": "7:12",
+          "name": "Price",
+          "type": "text",
+          "role": "heading",
+          "parentId": "7:1",
+          "childIds": [],
+          "text": "$9",
+          "bounds": {
+            "x": 45,
+            "y": 311,
+            "width": 300,
+            "height": 37
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {},
+          "spacing": {},
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 32,
+            "fontWeight": 700,
+            "lineHeight": 37,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": null,
+            "topRight": null,
+            "bottomRight": null,
+            "bottomLeft": null
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "7:12",
+            "sourcePath": "Pricing / Mobile/Cards/Card/Price",
+            "originalType": "TEXT",
+            "rawReference": "figma://file/FIXTURE/node/7:12"
+          }
+        },
+        {
+          "id": "7:2",
+          "name": "Card",
+          "type": "container",
+          "role": "card",
+          "parentId": "7:0",
+          "childIds": ["7:21", "7:22"],
+          "bounds": {
+            "x": 20,
+            "y": 397,
+            "width": 350,
+            "height": 127
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "flex",
+            "flexDirection": "column",
+            "alignItems": "flex-start",
+            "justifyContent": "flex-start",
+            "flexWrap": "nowrap",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "padding": {
+              "top": 24,
+              "right": 24,
+              "bottom": 24,
+              "left": 24
+            },
+            "gap": 8,
+            "rowGap": 8,
+            "columnGap": null
+          },
+          "colors": {
+            "background": {
+              "hex": "#ffffff",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 1,
+              "right": 1,
+              "bottom": 1,
+              "left": 1
+            },
+            "style": "solid",
+            "color": {
+              "hex": "#e4e4e7",
+              "alpha": 1
+            }
+          },
+          "radius": {
+            "topLeft": 12,
+            "topRight": 12,
+            "bottomRight": 12,
+            "bottomLeft": 12
+          },
+          "effects": {
+            "shadows": [
+              {
+                "x": 0,
+                "y": 4,
+                "blur": 12,
+                "spread": 0,
+                "color": {
+                  "hex": "#000000",
+                  "alpha": 0.1
+                },
+                "inset": false
+              }
+            ],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "7:2",
+            "sourcePath": "Pricing / Mobile/Cards/Card",
+            "originalType": "FRAME",
+            "rawReference": "figma://file/FIXTURE/node/7:2"
+          }
+        },
+        {
+          "id": "7:21",
+          "name": "Card title",
+          "type": "text",
+          "role": "heading",
+          "parentId": "7:2",
+          "childIds": [],
+          "text": "Team",
+          "bounds": {
+            "x": 45,
+            "y": 422,
+            "width": 300,
+            "height": 32
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {},
+          "spacing": {},
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 24,
+            "fontWeight": 700,
+            "lineHeight": 32,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": null,
+            "topRight": null,
+            "bottomRight": null,
+            "bottomLeft": null
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "7:21",
+            "sourcePath": "Pricing / Mobile/Cards/Card/Card title",
+            "originalType": "TEXT",
+            "rawReference": "figma://file/FIXTURE/node/7:21"
+          }
+        },
+        {
+          "id": "7:22",
+          "name": "Price",
+          "type": "text",
+          "role": "heading",
+          "parentId": "7:2",
+          "childIds": [],
+          "text": "$29",
+          "bounds": {
+            "x": 45,
+            "y": 462,
+            "width": 300,
+            "height": 37
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {},
+          "spacing": {},
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 32,
+            "fontWeight": 700,
+            "lineHeight": 37,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": null,
+            "topRight": null,
+            "bottomRight": null,
+            "bottomLeft": null
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "7:22",
+            "sourcePath": "Pricing / Mobile/Cards/Card/Price",
+            "originalType": "TEXT",
+            "rawReference": "figma://file/FIXTURE/node/7:22"
+          }
+        },
+        {
+          "id": "7:3",
+          "name": "Card",
+          "type": "container",
+          "role": "card",
+          "parentId": "7:0",
+          "childIds": ["7:31", "7:32"],
+          "bounds": {
+            "x": 20,
+            "y": 548,
+            "width": 350,
+            "height": 127
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {
+            "display": "flex",
+            "flexDirection": "column",
+            "alignItems": "flex-start",
+            "justifyContent": "flex-start",
+            "flexWrap": "nowrap",
+            "overflow": "visible"
+          },
+          "spacing": {
+            "padding": {
+              "top": 24,
+              "right": 24,
+              "bottom": 24,
+              "left": 24
+            },
+            "gap": 8,
+            "rowGap": 8,
+            "columnGap": null
+          },
+          "colors": {
+            "background": {
+              "hex": "#ffffff",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 1,
+              "right": 1,
+              "bottom": 1,
+              "left": 1
+            },
+            "style": "solid",
+            "color": {
+              "hex": "#e4e4e7",
+              "alpha": 1
+            }
+          },
+          "radius": {
+            "topLeft": 12,
+            "topRight": 12,
+            "bottomRight": 12,
+            "bottomLeft": 12
+          },
+          "effects": {
+            "shadows": [
+              {
+                "x": 0,
+                "y": 4,
+                "blur": 12,
+                "spread": 0,
+                "color": {
+                  "hex": "#000000",
+                  "alpha": 0.1
+                },
+                "inset": false
+              }
+            ],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "7:3",
+            "sourcePath": "Pricing / Mobile/Cards/Card",
+            "originalType": "FRAME",
+            "rawReference": "figma://file/FIXTURE/node/7:3"
+          }
+        },
+        {
+          "id": "7:31",
+          "name": "Card title",
+          "type": "text",
+          "role": "heading",
+          "parentId": "7:3",
+          "childIds": [],
+          "text": "Enterprise",
+          "bounds": {
+            "x": 45,
+            "y": 573,
+            "width": 300,
+            "height": 32
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {},
+          "spacing": {},
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 24,
+            "fontWeight": 700,
+            "lineHeight": 32,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": null,
+            "topRight": null,
+            "bottomRight": null,
+            "bottomLeft": null
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "7:31",
+            "sourcePath": "Pricing / Mobile/Cards/Card/Card title",
+            "originalType": "TEXT",
+            "rawReference": "figma://file/FIXTURE/node/7:31"
+          }
+        },
+        {
+          "id": "7:32",
+          "name": "Price",
+          "type": "text",
+          "role": "heading",
+          "parentId": "7:3",
+          "childIds": [],
+          "text": "$99",
+          "bounds": {
+            "x": 45,
+            "y": 613,
+            "width": 300,
+            "height": 37
+          },
+          "visibility": {
+            "visible": true
+          },
+          "layout": {},
+          "spacing": {},
+          "typography": {
+            "fontFamily": "Arial",
+            "fontSize": 32,
+            "fontWeight": 700,
+            "lineHeight": 37,
+            "letterSpacing": 0,
+            "textTransform": "none",
+            "textAlign": "left",
+            "textDecoration": "none",
+            "fontStyle": "normal",
+            "color": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "colors": {
+            "text": {
+              "hex": "#222222",
+              "alpha": 1
+            }
+          },
+          "border": {
+            "width": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "style": "none",
+            "color": null
+          },
+          "radius": {
+            "topLeft": null,
+            "topRight": null,
+            "bottomRight": null,
+            "bottomLeft": null
+          },
+          "effects": {
+            "shadows": [],
+            "opacity": 1,
+            "filter": null
+          },
+          "source": {
+            "provider": "figma",
+            "sourceId": "7:32",
+            "sourcePath": "Pricing / Mobile/Cards/Card/Price",
+            "originalType": "TEXT",
+            "rawReference": "figma://file/FIXTURE/node/7:32"
+          }
+        }
+      ]
+    }
+  ],
+  "tokens": [],
+  "metadata": {
+    "lastModified": "2026-10-01T00:00:00Z"
+  }
+}

@@ -150,7 +150,11 @@ function typography(node: FigmaNode): TypographyProperties | undefined {
     lineHeight,
     letterSpacing: style.letterSpacing === undefined ? null : roundPx(style.letterSpacing),
     textTransform: textCase[style.textCase ?? ''] ?? 'none',
-    textAlign: align[style.textAlignHorizontal ?? 'LEFT'] ?? 'left',
+    // Auto-width text hugs its content, so its alignment has no visible effect.
+    textAlign:
+      style.textAutoResize === 'WIDTH_AND_HEIGHT'
+        ? null
+        : (align[style.textAlignHorizontal ?? 'LEFT'] ?? 'left'),
     textDecoration: decoration[style.textDecoration ?? ''] ?? 'none',
     fontStyle: style.italic ? 'italic' : 'normal',
     color: paintColor(solid(node.fills)),
@@ -424,3 +428,9 @@ export function figmaToDesignSpec({ fileKey, response, targets }: FigmaNormalize
     metadata: { lastModified: response.lastModified ?? null },
   };
 }
+
+/** Targets used by the repository's pricing fixture (fixtures/figma). */
+export const FIGMA_PRICING_TARGETS: FigmaTarget[] = [
+  { nodeId: '1:2', viewport: { id: 'desktop', width: 1440, height: 900 } },
+  { nodeId: '5:2', viewport: { id: 'mobile', width: 390, height: 844 } },
+];

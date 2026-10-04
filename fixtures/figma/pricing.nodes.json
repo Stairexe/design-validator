@@ -170,7 +170,8 @@
                       "lineHeightPx": 24,
                       "lineHeightUnit": "PIXELS",
                       "letterSpacing": 0,
-                      "textAlignHorizontal": "LEFT"
+                      "textAlignHorizontal": "LEFT",
+                      "textAutoResize": "WIDTH_AND_HEIGHT"
                     }
                   }
                 ]
@@ -590,7 +591,7 @@
           "x": 3000,
           "y": 2000,
           "width": 390,
-          "height": 735
+          "height": 707
         },
         "fills": [
           {
@@ -612,7 +613,7 @@
               "x": 3000,
               "y": 2000,
               "width": 390,
-              "height": 274
+              "height": 246
             },
             "layoutMode": "VERTICAL",
             "itemSpacing": 16,
@@ -662,7 +663,7 @@
                   "x": 3020,
                   "y": 2088,
                   "width": 280,
-                  "height": 56
+                  "height": 28
                 },
                 "fills": [
                   {
@@ -692,7 +693,7 @@
                 "componentId": "9:1",
                 "absoluteBoundingBox": {
                   "x": 3020,
-                  "y": 2160,
+                  "y": 2132,
                   "width": 141,
                   "height": 48
                 },
@@ -721,7 +722,7 @@
                     "characters": "Get started",
                     "absoluteBoundingBox": {
                       "x": 3044,
-                      "y": 2172,
+                      "y": 2144,
                       "width": 93,
                       "height": 24
                     },
@@ -743,7 +744,8 @@
                       "lineHeightPx": 24,
                       "lineHeightUnit": "PIXELS",
                       "letterSpacing": 0,
-                      "textAlignHorizontal": "LEFT"
+                      "textAlignHorizontal": "LEFT",
+                      "textAutoResize": "WIDTH_AND_HEIGHT"
                     }
                   }
                 ]
@@ -755,7 +757,7 @@
                 "characters": "Swipe to compare",
                 "absoluteBoundingBox": {
                   "x": 3020,
-                  "y": 2224,
+                  "y": 2196,
                   "width": 130,
                   "height": 18
                 },
@@ -779,6 +781,400 @@
                   "letterSpacing": 0,
                   "textAlignHorizontal": "LEFT"
                 }
+              }
+            ]
+          },
+          {
+            "id": "7:0",
+            "name": "Cards",
+            "type": "FRAME",
+            "absoluteBoundingBox": {
+              "x": 3000,
+              "y": 2246,
+              "width": 390,
+              "height": 461
+            },
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 24,
+            "paddingTop": 0,
+            "paddingRight": 20,
+            "paddingBottom": 32,
+            "paddingLeft": 20,
+            "children": [
+              {
+                "id": "7:1",
+                "name": "Card",
+                "type": "FRAME",
+                "absoluteBoundingBox": {
+                  "x": 3020,
+                  "y": 2246,
+                  "width": 350,
+                  "height": 127
+                },
+                "layoutMode": "VERTICAL",
+                "itemSpacing": 8,
+                "paddingTop": 24,
+                "paddingRight": 24,
+                "paddingBottom": 24,
+                "paddingLeft": 24,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "color": {
+                      "r": 1.0,
+                      "g": 1.0,
+                      "b": 1.0,
+                      "a": 1
+                    }
+                  }
+                ],
+                "strokes": [
+                  {
+                    "type": "SOLID",
+                    "color": {
+                      "r": 0.8941176470588236,
+                      "g": 0.8941176470588236,
+                      "b": 0.9058823529411765,
+                      "a": 1
+                    }
+                  }
+                ],
+                "strokeWeight": 1,
+                "cornerRadius": 12,
+                "effects": [
+                  {
+                    "type": "DROP_SHADOW",
+                    "visible": true,
+                    "radius": 12,
+                    "spread": 0,
+                    "offset": {
+                      "x": 0,
+                      "y": 4
+                    },
+                    "color": {
+                      "r": 0,
+                      "g": 0,
+                      "b": 0,
+                      "a": 0.1
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "id": "7:11",
+                    "name": "Card title",
+                    "type": "TEXT",
+                    "characters": "Starter",
+                    "absoluteBoundingBox": {
+                      "x": 3045,
+                      "y": 2271,
+                      "width": 300,
+                      "height": 32
+                    },
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": {
+                          "r": 0.13333333333333333,
+                          "g": 0.13333333333333333,
+                          "b": 0.13333333333333333,
+                          "a": 1
+                        }
+                      }
+                    ],
+                    "style": {
+                      "fontFamily": "Arial",
+                      "fontWeight": 700,
+                      "fontSize": 24,
+                      "lineHeightPx": 32,
+                      "lineHeightUnit": "PIXELS",
+                      "letterSpacing": 0,
+                      "textAlignHorizontal": "LEFT"
+                    }
+                  },
+                  {
+                    "id": "7:12",
+                    "name": "Price",
+                    "type": "TEXT",
+                    "characters": "$9",
+                    "absoluteBoundingBox": {
+                      "x": 3045,
+                      "y": 2311,
+                      "width": 300,
+                      "height": 37
+                    },
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": {
+                          "r": 0.13333333333333333,
+                          "g": 0.13333333333333333,
+                          "b": 0.13333333333333333,
+                          "a": 1
+                        }
+                      }
+                    ],
+                    "style": {
+                      "fontFamily": "Arial",
+                      "fontWeight": 700,
+                      "fontSize": 32,
+                      "lineHeightPx": 37,
+                      "lineHeightUnit": "PIXELS",
+                      "letterSpacing": 0,
+                      "textAlignHorizontal": "LEFT"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "7:2",
+                "name": "Card",
+                "type": "FRAME",
+                "absoluteBoundingBox": {
+                  "x": 3020,
+                  "y": 2397,
+                  "width": 350,
+                  "height": 127
+                },
+                "layoutMode": "VERTICAL",
+                "itemSpacing": 8,
+                "paddingTop": 24,
+                "paddingRight": 24,
+                "paddingBottom": 24,
+                "paddingLeft": 24,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "color": {
+                      "r": 1.0,
+                      "g": 1.0,
+                      "b": 1.0,
+                      "a": 1
+                    }
+                  }
+                ],
+                "strokes": [
+                  {
+                    "type": "SOLID",
+                    "color": {
+                      "r": 0.8941176470588236,
+                      "g": 0.8941176470588236,
+                      "b": 0.9058823529411765,
+                      "a": 1
+                    }
+                  }
+                ],
+                "strokeWeight": 1,
+                "cornerRadius": 12,
+                "effects": [
+                  {
+                    "type": "DROP_SHADOW",
+                    "visible": true,
+                    "radius": 12,
+                    "spread": 0,
+                    "offset": {
+                      "x": 0,
+                      "y": 4
+                    },
+                    "color": {
+                      "r": 0,
+                      "g": 0,
+                      "b": 0,
+                      "a": 0.1
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "id": "7:21",
+                    "name": "Card title",
+                    "type": "TEXT",
+                    "characters": "Team",
+                    "absoluteBoundingBox": {
+                      "x": 3045,
+                      "y": 2422,
+                      "width": 300,
+                      "height": 32
+                    },
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": {
+                          "r": 0.13333333333333333,
+                          "g": 0.13333333333333333,
+                          "b": 0.13333333333333333,
+                          "a": 1
+                        }
+                      }
+                    ],
+                    "style": {
+                      "fontFamily": "Arial",
+                      "fontWeight": 700,
+                      "fontSize": 24,
+                      "lineHeightPx": 32,
+                      "lineHeightUnit": "PIXELS",
+                      "letterSpacing": 0,
+                      "textAlignHorizontal": "LEFT"
+                    }
+                  },
+                  {
+                    "id": "7:22",
+                    "name": "Price",
+                    "type": "TEXT",
+                    "characters": "$29",
+                    "absoluteBoundingBox": {
+                      "x": 3045,
+                      "y": 2462,
+                      "width": 300,
+                      "height": 37
+                    },
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": {
+                          "r": 0.13333333333333333,
+                          "g": 0.13333333333333333,
+                          "b": 0.13333333333333333,
+                          "a": 1
+                        }
+                      }
+                    ],
+                    "style": {
+                      "fontFamily": "Arial",
+                      "fontWeight": 700,
+                      "fontSize": 32,
+                      "lineHeightPx": 37,
+                      "lineHeightUnit": "PIXELS",
+                      "letterSpacing": 0,
+                      "textAlignHorizontal": "LEFT"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "7:3",
+                "name": "Card",
+                "type": "FRAME",
+                "absoluteBoundingBox": {
+                  "x": 3020,
+                  "y": 2548,
+                  "width": 350,
+                  "height": 127
+                },
+                "layoutMode": "VERTICAL",
+                "itemSpacing": 8,
+                "paddingTop": 24,
+                "paddingRight": 24,
+                "paddingBottom": 24,
+                "paddingLeft": 24,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "color": {
+                      "r": 1.0,
+                      "g": 1.0,
+                      "b": 1.0,
+                      "a": 1
+                    }
+                  }
+                ],
+                "strokes": [
+                  {
+                    "type": "SOLID",
+                    "color": {
+                      "r": 0.8941176470588236,
+                      "g": 0.8941176470588236,
+                      "b": 0.9058823529411765,
+                      "a": 1
+                    }
+                  }
+                ],
+                "strokeWeight": 1,
+                "cornerRadius": 12,
+                "effects": [
+                  {
+                    "type": "DROP_SHADOW",
+                    "visible": true,
+                    "radius": 12,
+                    "spread": 0,
+                    "offset": {
+                      "x": 0,
+                      "y": 4
+                    },
+                    "color": {
+                      "r": 0,
+                      "g": 0,
+                      "b": 0,
+                      "a": 0.1
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "id": "7:31",
+                    "name": "Card title",
+                    "type": "TEXT",
+                    "characters": "Enterprise",
+                    "absoluteBoundingBox": {
+                      "x": 3045,
+                      "y": 2573,
+                      "width": 300,
+                      "height": 32
+                    },
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": {
+                          "r": 0.13333333333333333,
+                          "g": 0.13333333333333333,
+                          "b": 0.13333333333333333,
+                          "a": 1
+                        }
+                      }
+                    ],
+                    "style": {
+                      "fontFamily": "Arial",
+                      "fontWeight": 700,
+                      "fontSize": 24,
+                      "lineHeightPx": 32,
+                      "lineHeightUnit": "PIXELS",
+                      "letterSpacing": 0,
+                      "textAlignHorizontal": "LEFT"
+                    }
+                  },
+                  {
+                    "id": "7:32",
+                    "name": "Price",
+                    "type": "TEXT",
+                    "characters": "$99",
+                    "absoluteBoundingBox": {
+                      "x": 3045,
+                      "y": 2613,
+                      "width": 300,
+                      "height": 37
+                    },
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": {
+                          "r": 0.13333333333333333,
+                          "g": 0.13333333333333333,
+                          "b": 0.13333333333333333,
+                          "a": 1
+                        }
+                      }
+                    ],
+                    "style": {
+                      "fontFamily": "Arial",
+                      "fontWeight": 700,
+                      "fontSize": 32,
+                      "lineHeightPx": 37,
+                      "lineHeightUnit": "PIXELS",
+                      "letterSpacing": 0,
+                      "textAlignHorizontal": "LEFT"
+                    }
+                  }
+                ]
               }
             ]
           }
