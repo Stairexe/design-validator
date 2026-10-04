@@ -1,15 +1,70 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  /* One accent. Neutrals are zinc throughout. */
+  --color-brand-50: oklch(0.97 0.017 264);
+  --color-brand-100: oklch(0.93 0.035 264);
+  --color-brand-200: oklch(0.87 0.065 264);
+  --color-brand-500: oklch(0.6 0.17 264);
+  --color-brand-600: oklch(0.53 0.19 264);
+  --color-brand-700: oklch(0.47 0.18 264);
+
+  --shadow-card: 0 1px 2px 0 rgb(24 24 27 / 0.04), 0 1px 3px -1px rgb(24 24 27 / 0.06);
+  --shadow-raised: 0 4px 12px -2px rgb(24 24 27 / 0.08), 0 2px 4px -2px rgb(24 24 27 / 0.06);
+
+  --animate-fade-up: fade-up 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-shimmer: shimmer 1.6s ease-in-out infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes shimmer {
+    50% {
+      opacity: 0.55;
+    }
+  }
 }
 
 :root {
   color-scheme: light;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-feature-settings: 'cv11', 'ss01';
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-blue-600);
+  outline: 2px solid var(--color-brand-500);
   outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

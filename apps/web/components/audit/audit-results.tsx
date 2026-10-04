@@ -10,7 +10,9 @@ import {
   type ValidationReport,
 } from '@design-validator/design-spec';
 import type { VisualSummary } from '@design-validator/pipeline';
-import { useMemo, useState } from 'react';
+import { MagnifyingGlassIcon } from '@heroicons/react/16/solid';
+import { CursorArrowRaysIcon } from '@heroicons/react/20/solid';
+import { useMemo, useState, type ReactNode } from 'react';
 
 import { IssueAssistance } from '@/components/issues/issue-assistance';
 import { IssueDetail } from '@/components/issues/issue-detail';
@@ -19,9 +21,10 @@ import { VisualComparison } from '@/components/screenshots/visual-comparison';
 import { Card } from '@/components/ui/card';
 import { Input, Select } from '@/components/ui/field';
 import { cn } from '@/lib/cn';
-import { CATEGORY_LABELS, differenceCount } from '@/lib/labels';
+import { CATEGORY_LABELS, deviceKind, differenceCount } from '@/lib/labels';
 
 import { UnresolvedTable } from './unresolved-table';
+import { DEVICE_ICONS } from './viewport-chips';
 
 type Tab = 'differences' | 'visual' | 'unresolved';
 
@@ -32,6 +35,19 @@ export interface AuditResultsProps {
   visual: VisualSummary | null;
   aiAvailable: boolean;
   sourceAvailable: boolean;
+}
+
+function Count({ children, active }: { children: ReactNode; active: boolean }) {
+  return (
+    <span
+      className={cn(
+        'rounded-full px-1.5 py-px text-[11px] font-medium tabular-nums',
+        active ? 'bg-zinc-900 text-white' : 'bg-zinc-100 text-zinc-500',
+      )}
+    >
+      {children}
+    </span>
+  );
 }
 
 /** Difference-first results: what to change, per viewport, never a score. */
@@ -77,54 +93,70 @@ export function AuditResults({
   const categoryCounts = new Map<IssueCategory, number>();
   for (const issue of viewportIssues)
     categoryCounts.set(issue.category, (categoryCounts.get(issue.category) ?? 0) + 1);
+  const unresolvedCount = report.unresolved.filter(
+    (entry) => viewport === 'all' || entry.viewportId === viewport,
+  ).length;
 
   const TABS: { id: Tab; label: string; hidden?: boolean }[] = [
-    { id: 'differences', label: differenceCount(filtered.length) },
+    { id: 'differences', label: 'Differences' },
     { id: 'visual', label: 'Visual comparison', hidden: !visual || visual.viewports.length === 0 },
-    { id: 'unresolved', label: `Unresolved mappings (${report.unresolved.length})` },
+    { id: 'unresolved', label: 'Unresolved mappings' },
   ];
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap gap-2" role="group" aria-label="Viewports">
-        {report.viewports.map((entry) => (
-          <button
-            key={entry.viewportId}
-            type="button"
-            onClick={() => setViewport(entry.viewportId)}
-            aria-pressed={viewport === entry.viewportId}
-            className={cn(
-              'rounded-md border px-3 py-2 text-left text-sm',
-              viewport === entry.viewportId
-                ? 'border-zinc-900 bg-zinc-900 text-white'
-                : 'border-zinc-200 bg-white hover:bg-zinc-50',
-            )}
-          >
-            <span className="font-medium">
-              {audit.viewports.find((v) => v.id === entry.viewportId)?.label ?? entry.viewportId}{' '}
-              {entry.width}×{entry.height}
-            </span>
-            <span className="block text-xs opacity-80">{differenceCount(entry.issueCount)}</span>
-          </button>
-        ))}
-        {report.viewports.length > 1 ? (
-          <button
-            type="button"
-            onClick={() => setViewport('all')}
-            aria-pressed={viewport === 'all'}
-            className={cn(
-              'rounded-md border px-3 py-2 text-sm',
-              viewport === 'all'
-                ? 'border-zinc-900 bg-zinc-900 text-white'
-                : 'border-zinc-200 bg-white hover:bg-zinc-50',
-            )}
-          >
-            All viewports
-          </button>
-        ) : null}
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div
+          role="group"
+          aria-label="Viewports"
+          className="inline-flex flex-wrap gap-1 rounded-xl bg-zinc-950/[0.04] p-1"
+        >
+          {report.viewports.map((entry) => {
+            const Icon = DEVICE_ICONS[deviceKind(entry.width)];
+            const active = viewport === entry.viewportId;
+            return (
+              <button
+                key={entry.viewportId}
+                type="button"
+                onClick={() => setViewport(entry.viewportId)}
+                aria-pressed={active}
+                className={cn(
+                  'flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium transition-all',
+                  active
+                    ? 'bg-white text-zinc-950 shadow-card ring-1 ring-zinc-950/[0.06]'
+                    : 'text-zinc-500 hover:text-zinc-900',
+                )}
+              >
+                <Icon aria-hidden className="size-4 opacity-70" />
+                {audit.viewports.find((v) => v.id === entry.viewportId)?.label ?? entry.viewportId}
+                <span className="font-mono text-xs font-normal text-zinc-400">{entry.width}</span>
+                <Count active={active}>{entry.issueCount}</Count>
+              </button>
+            );
+          })}
+          {report.viewports.length > 1 ? (
+            <button
+              type="button"
+              onClick={() => setViewport('all')}
+              aria-pressed={viewport === 'all'}
+              className={cn(
+                'rounded-lg px-3 py-1.5 text-sm font-medium transition-all',
+                viewport === 'all'
+                  ? 'bg-white text-zinc-950 shadow-card ring-1 ring-zinc-950/[0.06]'
+                  : 'text-zinc-500 hover:text-zinc-900',
+              )}
+            >
+              All sizes
+            </button>
+          ) : null}
+        </div>
       </div>
 
-      <div role="tablist" aria-label="Result views" className="flex gap-1 border-b border-zinc-200">
+      <div
+        role="tablist"
+        aria-label="Result views"
+        className="flex gap-5 overflow-x-auto border-b border-zinc-950/[0.08]"
+      >
         {TABS.filter((item) => !item.hidden).map((item) => (
           <button
             key={item.id}
@@ -133,71 +165,87 @@ export function AuditResults({
             aria-selected={tab === item.id}
             onClick={() => setTab(item.id)}
             className={cn(
-              '-mb-px border-b-2 px-3 py-2 text-sm font-medium',
+              '-mb-px flex shrink-0 items-center gap-2 whitespace-nowrap border-b-2 pb-2.5 pt-1 text-sm font-medium transition-colors',
               tab === item.id
-                ? 'border-zinc-900 text-zinc-900'
+                ? 'border-zinc-950 text-zinc-950'
                 : 'border-transparent text-zinc-500 hover:text-zinc-800',
             )}
           >
-            {item.label}
+            {item.id === 'differences' ? differenceCount(filtered.length) : item.label}
+            {item.id === 'unresolved' ? (
+              <Count active={tab === item.id}>{unresolvedCount}</Count>
+            ) : null}
           </button>
         ))}
       </div>
 
       {tab === 'differences' ? (
-        <div className="flex flex-wrap items-center gap-2">
-          <div className="flex flex-wrap gap-1" role="group" aria-label="Category filter">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
+          <div className="relative lg:w-72">
+            <MagnifyingGlassIcon
+              aria-hidden
+              className="pointer-events-none absolute left-3 top-1/2 z-10 size-4 -translate-y-1/2 text-zinc-400"
+            />
+            <Input
+              aria-label="Search elements"
+              placeholder="Search element or selector"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              className="pl-9"
+            />
+          </div>
+          <Select
+            aria-label="Severity filter"
+            value={severity}
+            onChange={(event) => setSeverity(event.target.value as IssueSeverity | 'all')}
+            className="lg:w-44"
+          >
+            <option value="all">All severities</option>
+            {ISSUE_SEVERITIES.map((s) => (
+              <option key={s} value={s}>
+                {s.charAt(0).toUpperCase() + s.slice(1)}
+              </option>
+            ))}
+          </Select>
+          <div
+            className="-mx-1 flex gap-1.5 overflow-x-auto px-1 pb-1 lg:pb-0"
+            role="group"
+            aria-label="Category filter"
+          >
             <FilterChip
               active={category === 'all'}
               onClick={() => setCategory('all')}
-              label={`All (${viewportIssues.length})`}
+              label="All"
+              count={viewportIssues.length}
             />
             {ISSUE_CATEGORIES.filter((c) => categoryCounts.has(c)).map((c) => (
               <FilterChip
                 key={c}
                 active={category === c}
                 onClick={() => setCategory(c)}
-                label={`${CATEGORY_LABELS[c]} (${categoryCounts.get(c) ?? 0})`}
+                label={CATEGORY_LABELS[c]}
+                count={categoryCounts.get(c) ?? 0}
               />
             ))}
-          </div>
-          <div className="w-40">
-            <Select
-              aria-label="Severity filter"
-              value={severity}
-              onChange={(event) => setSeverity(event.target.value as IssueSeverity | 'all')}
-            >
-              <option value="all">All severities</option>
-              {ISSUE_SEVERITIES.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </Select>
-          </div>
-          <div className="w-64">
-            <Input
-              aria-label="Search elements"
-              placeholder="Search element or selector"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-            />
           </div>
         </div>
       ) : null}
 
       {tab === 'differences' ? (
-        <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
-          <Card className="max-h-[75vh] overflow-y-auto">
-            <IssueList
-              issues={filtered}
-              selectedId={selected?.id ?? null}
-              onSelect={setSelectedId}
-            />
+        <div className="grid grid-cols-[minmax(0,1fr)] items-start gap-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+          <Card className="overflow-hidden lg:sticky lg:top-6">
+            <div className="max-h-[70vh] overflow-y-auto overscroll-contain">
+              <IssueList
+                issues={filtered}
+                selectedId={selected?.id ?? null}
+                onSelect={setSelectedId}
+              />
+            </div>
           </Card>
-          <Card className="p-5">
+          <Card className="p-5 sm:p-6">
             {selected ? (
               <IssueDetail
+                key={selected.id}
                 issue={selected}
                 group={group}
                 onShowVisual={visual?.viewports.length ? () => setTab('visual') : undefined}
@@ -211,29 +259,32 @@ export function AuditResults({
                 }
               />
             ) : (
-              <p className="text-sm text-zinc-600">
-                {issues.length === 0
-                  ? 'No differences found: the implementation matches the design within tolerance.'
-                  : 'Select a difference.'}
-              </p>
+              <div className="flex flex-col items-center py-10 text-center">
+                <CursorArrowRaysIcon aria-hidden className="size-6 text-zinc-300" />
+                <p className="mt-3 text-sm text-zinc-500">
+                  {issues.length === 0
+                    ? 'No differences found: the implementation matches the design within tolerance.'
+                    : 'No difference matches these filters.'}
+                </p>
+              </div>
             )}
           </Card>
         </div>
       ) : null}
 
       {tab === 'visual' && visualForViewport ? (
-        <Card className="space-y-3 p-4">
-          <p className="text-sm text-zinc-600">
+        <Card className="space-y-4 p-4 sm:p-5">
+          <p className="text-sm text-zinc-500">
             {selected ? (
               <>
                 Highlighting{' '}
-                <span className="font-medium text-zinc-900">{selected.element.name}</span> —{' '}
-                {issueSummary(selected)}.{' '}
+                <span className="font-medium text-zinc-950">{selected.element.name}</span> ·{' '}
+                <span className="font-mono text-[13px]">{issueSummary(selected)}</span>.{' '}
               </>
             ) : null}
             <button
               type="button"
-              className="underline underline-offset-2"
+              className="font-medium text-brand-600 underline-offset-2 hover:underline"
               onClick={() => setTab('differences')}
             >
               Choose another difference
@@ -244,7 +295,7 @@ export function AuditResults({
       ) : null}
 
       {tab === 'unresolved' ? (
-        <Card>
+        <Card className="overflow-hidden">
           <UnresolvedTable
             unresolved={report.unresolved.filter(
               (entry) => viewport === 'all' || entry.viewportId === viewport,
@@ -260,10 +311,12 @@ function FilterChip({
   active,
   onClick,
   label,
+  count,
 }: {
   active: boolean;
   onClick: () => void;
   label: string;
+  count: number;
 }) {
   return (
     <button
@@ -271,13 +324,16 @@ function FilterChip({
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        'rounded-full border px-3 py-1 text-xs font-medium',
+        'flex shrink-0 items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[13px] font-medium ring-1 transition-colors',
         active
-          ? 'border-zinc-900 bg-zinc-900 text-white'
-          : 'border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50',
+          ? 'bg-zinc-900 text-white ring-zinc-900'
+          : 'bg-white text-zinc-600 ring-zinc-950/10 hover:bg-zinc-50 hover:text-zinc-950',
       )}
     >
       {label}
+      <span className={cn('tabular-nums', active ? 'text-zinc-300' : 'text-zinc-400')}>
+        {count}
+      </span>
     </button>
   );
 }

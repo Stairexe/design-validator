@@ -4,7 +4,7 @@ import type { SourceRepositoryConfig } from '@design-validator/database';
 import { useRouter } from 'next/navigation';
 import { useState, type SyntheticEvent } from 'react';
 
-import { Button } from '@/components/ui/button';
+import { Button, Spinner } from '@/components/ui/button';
 import { ErrorText, Field, Input } from '@/components/ui/field';
 import { apiRequest, errorMessage } from '@/lib/api-client';
 import { formText } from '@/lib/forms';
@@ -59,12 +59,13 @@ export function SourceRepositoryForm({
   if (repository) {
     return (
       <div className="space-y-3 text-sm">
-        <p>
-          Connected to{' '}
-          <span className="font-mono">
+        <p className="flex flex-wrap items-center gap-2 rounded-xl bg-emerald-50 px-3 py-2.5 text-emerald-900 ring-1 ring-inset ring-emerald-600/15">
+          <span aria-hidden className="size-1.5 rounded-full bg-emerald-500" />
+          Connected to
+          <span className="font-mono text-[13px] font-medium">
             {repository.owner}/{repository.repo}
-          </span>{' '}
-          at <span className="font-mono">{repository.ref}</span>.
+          </span>
+          on <span className="font-mono text-[13px]">{repository.ref}</span>
         </p>
         <ErrorText>{error}</ErrorText>
         <Button variant="secondary" size="sm" disabled={pending} onClick={() => void save(null)}>
@@ -78,7 +79,7 @@ export function SourceRepositoryForm({
       <Field
         label="GitHub repository"
         htmlFor="repository"
-        hint="Public repositories only, e.g. acme/website."
+        hint="Public repositories only, for example northwind/website."
       >
         <Input id="repository" name="repository" required placeholder="owner/repository" />
       </Field>
@@ -86,7 +87,8 @@ export function SourceRepositoryForm({
         <Input id="ref" name="ref" placeholder="main" />
       </Field>
       <ErrorText>{error}</ErrorText>
-      <Button type="submit" variant="secondary" size="sm" disabled={pending}>
+      <Button type="submit" variant="secondary" className="w-full" disabled={pending}>
+        {pending ? <Spinner /> : null}
         Connect repository
       </Button>
     </form>

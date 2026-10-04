@@ -1,11 +1,12 @@
 'use client';
 
 import type { AuditRecord, AuditStatus, StageRunRecord } from '@design-validator/database';
+import { CheckIcon } from '@heroicons/react/16/solid';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { Button } from '@/components/ui/button';
-import { Card, CardBody, CardHeader } from '@/components/ui/card';
+import { Button, Spinner } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import { apiRequest } from '@/lib/api-client';
 import { cn } from '@/lib/cn';
 
@@ -80,12 +81,25 @@ export function AuditProcessing({
     return () => clearTimeout(timer);
   }, [audit, router, initial]);
 
+  const percent = Math.round((audit.progress?.progress ?? 0) * 100);
+
   return (
-    <Card className="max-w-2xl">
-      <CardHeader
-        title="Running validation"
-        description={<span aria-live="polite">{audit.progress?.message ?? 'Queued'}</span>}
-        actions={
+    <div className="grid grid-cols-[minmax(0,1fr)] animate-fade-up items-start gap-6 lg:grid-cols-[minmax(0,1fr)_18rem]">
+      <Card className="overflow-hidden">
+        <div className="flex flex-wrap items-start justify-between gap-4 px-6 pb-5 pt-6">
+          <div className="flex items-start gap-4">
+            <span className="relative flex size-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
+              <Spinner className="size-5" />
+            </span>
+            <div>
+              <h2 className="text-[17px] font-semibold tracking-tight text-zinc-950">
+                Checking the page against the design
+              </h2>
+              <p className="mt-0.5 text-sm text-zinc-500" aria-live="polite">
+                {audit.progress?.message ?? 'Waiting to start'}
+              </p>
+            </div>
+          </div>
           <Button
             variant="secondary"
             size="sm"
@@ -97,53 +111,73 @@ export function AuditProcessing({
           >
             Cancel
           </Button>
-        }
-      />
-      <CardBody className="space-y-5">
-        <div
-          className="h-2 overflow-hidden rounded bg-zinc-100"
-          role="progressbar"
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-valuenow={Math.round((audit.progress?.progress ?? 0) * 100)}
-          aria-label="Audit progress"
-        >
-          <div
-            className="h-full bg-zinc-900 transition-all"
-            style={{ width: `${Math.round((audit.progress?.progress ?? 0) * 100)}%` }}
-          />
         </div>
-        {GROUPS.map((group) => (
-          <div key={group.title}>
-            <h3 className="text-sm font-semibold">{group.title}</h3>
-            <ul className="mt-1 space-y-1">
-              {group.steps
-                .filter((step) => step.stage !== 'VISUAL_DIFF' || audit.settings.visualDiff)
-                .map((step) => {
-                  const status = stepState(step.stage, audit.status, stageRuns);
-                  return (
-                    <li
-                      key={step.label}
-                      className={cn(
-                        'flex items-center gap-2 text-sm',
-                        status === 'pending' ? 'text-zinc-400' : 'text-zinc-800',
-                      )}
-                    >
-                      <span aria-hidden className="w-4 text-center">
-                        {status === 'done' ? '✓' : status === 'active' ? '●' : '○'}
-                      </span>
-                      {step.label}
-                      <span className="sr-only">({status})</span>
-                    </li>
-                  );
-                })}
-            </ul>
+        <div className="px-6">
+          <div
+            className="h-1.5 overflow-hidden rounded-full bg-zinc-100"
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={percent}
+            aria-label="Audit progress"
+          >
+            <div
+              className="h-full rounded-full bg-brand-600 transition-[width] duration-700 ease-out"
+              style={{ width: `${Math.max(percent, 4)}%` }}
+            />
           </div>
-        ))}
-        <p className="text-xs text-zinc-500">
-          Remaining time is not estimated; pages and designs vary widely.
+        </div>
+        <div className="grid gap-6 px-6 py-6 sm:grid-cols-3">
+          {GROUPS.map((group) => (
+            <div key={group.title}>
+              <h3 className="text-xs font-medium text-zinc-500">{group.title}</h3>
+              <ul className="mt-2.5 space-y-2.5">
+                {group.steps
+                  .filter((step) => step.stage !== 'VISUAL_DIFF' || audit.settings.visualDiff)
+                  .map((step) => {
+                    const status = stepState(step.stage, audit.status, stageRuns);
+                    return (
+                      <li
+                        key={step.label}
+                        className={cn(
+                          'flex items-center gap-2.5 text-sm',
+                          status === 'pending' ? 'text-zinc-400' : 'text-zinc-800',
+                          status === 'active' && 'font-medium text-zinc-950',
+                        )}
+                      >
+                        <span
+                          aria-hidden
+                          className={cn(
+                            'flex size-5 shrink-0 items-center justify-center rounded-full',
+                            status === 'done' && 'bg-emerald-500 text-white',
+                            status === 'active' && 'bg-brand-50 text-brand-600',
+                            status === 'pending' && 'ring-1 ring-inset ring-zinc-200',
+                          )}
+                        >
+                          {status === 'done' ? <CheckIcon className="size-3" /> : null}
+                          {status === 'active' ? <Spinner className="size-3" /> : null}
+                        </span>
+                        {step.label}
+                        <span className="sr-only">({status})</span>
+                      </li>
+                    );
+                  })}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </Card>
+      <Card className="p-5 text-sm text-zinc-600">
+        <h2 className="font-semibold text-zinc-950">While you wait</h2>
+        <ul className="mt-3 space-y-2.5 leading-relaxed">
+          <li>The page is opened in a real browser at each screen size.</li>
+          <li>Every element is matched to its layer in the design.</li>
+          <li>Each property is compared with exact values and tolerances.</li>
+        </ul>
+        <p className="mt-4 text-xs text-zinc-400">
+          This usually takes under a minute. You can leave this page; it keeps running.
         </p>
-      </CardBody>
-    </Card>
+      </Card>
+    </div>
   );
 }

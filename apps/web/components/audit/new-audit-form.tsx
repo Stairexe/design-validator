@@ -2,13 +2,20 @@
 
 import type { DesignSourceRecord } from '@design-validator/database';
 import { DEFAULT_TOLERANCES, type ComparisonTolerances } from '@design-validator/design-spec';
+import { CheckIcon, PlusIcon, XMarkIcon } from '@heroicons/react/16/solid';
+import { AdjustmentsHorizontalIcon, PlayIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
-import { useMemo, useState, type SyntheticEvent } from 'react';
+import { useMemo, useState, type ReactNode, type SyntheticEvent } from 'react';
 
-import { Button } from '@/components/ui/button';
+import { Button, Spinner } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import { ErrorText, Field, Input, Select } from '@/components/ui/field';
 import { apiRequest, errorMessage } from '@/lib/api-client';
+import { cn } from '@/lib/cn';
 import { formText } from '@/lib/forms';
+import { deviceKind, displayUrl } from '@/lib/labels';
+
+import { DEVICE_ICONS } from './viewport-chips';
 
 interface ViewportRow {
   key: number;
@@ -43,6 +50,33 @@ function closestFrame(source: DesignSourceRecord | undefined, width: number): st
   return best?.nodeId ?? '';
 }
 
+function Section({
+  step,
+  title,
+  description,
+  children,
+}: {
+  step: number;
+  title: string;
+  description?: string;
+  children: ReactNode;
+}) {
+  return (
+    <Card className="p-5 sm:p-6">
+      <fieldset>
+        <legend className="flex items-center gap-3">
+          <span className="flex size-6 items-center justify-center rounded-full bg-zinc-900 text-xs font-semibold text-white tabular-nums">
+            {step}
+          </span>
+          <span className="text-[15px] font-semibold tracking-tight text-zinc-950">{title}</span>
+        </legend>
+        {description ? <p className="mt-1.5 pl-9 text-sm text-zinc-500">{description}</p> : null}
+        <div className="mt-5 space-y-4">{children}</div>
+      </fieldset>
+    </Card>
+  );
+}
+
 export function NewAuditForm({
   projectId,
   websiteUrl,
@@ -53,6 +87,7 @@ export function NewAuditForm({
   sources: DesignSourceRecord[];
 }) {
   const router = useRouter();
+  const [url, setUrl] = useState(websiteUrl);
   const [sourceId, setSourceId] = useState(sources[0]?.id ?? '');
   const source = useMemo(
     () => sources.find((candidate) => candidate.id === sourceId),
@@ -80,17 +115,31 @@ export function NewAuditForm({
   const updateRow = (key: number, patch: Partial<ViewportRow>) => {
     setRows((current) => current.map((row) => (row.key === key ? { ...row, ...patch } : row)));
   };
-  const addRow = () => {
-    const preset = PRESETS.find((candidate) => !rows.some((row) => row.id === candidate.id)) ?? {
-      id: `custom-${rows.length + 1}`,
-      label: 'Custom',
-      width: 1280,
-      height: 800,
-    };
-    setRows((current) => [
-      ...current,
-      { key: Date.now(), ...preset, designNodeId: closestFrame(source, preset.width) },
-    ]);
+  const togglePreset = (preset: (typeof PRESETS)[number]) => {
+    setRows((current) => {
+      if (current.some((row) => row.id === preset.id)) {
+        return current.length > 1 ? current.filter((row) => row.id !== preset.id) : current;
+      }
+      const next = { key: Date.now(), ...preset, designNodeId: closestFrame(source, preset.width) };
+      return [...current, next].sort((a, b) => b.width - a.width);
+    });
+  };
+  const addCustom = () => {
+    setRows((current) => {
+      let index = 1;
+      while (current.some((row) => row.id === `custom-${index}`)) index += 1;
+      return [
+        ...current,
+        {
+          key: Date.now(),
+          id: `custom-${index}`,
+          label: `Custom ${index}`,
+          width: 1280,
+          height: 800,
+          designNodeId: closestFrame(source, 1280),
+        },
+      ];
+    });
   };
 
   const submit = async (event: SyntheticEvent<HTMLFormElement>) => {
@@ -122,151 +171,253 @@ export function NewAuditForm({
   };
 
   return (
-    <form onSubmit={(event) => void submit(event)} className="space-y-6">
-      <fieldset className="space-y-4">
-        <legend className="text-sm font-semibold">Website</legend>
-        <Field label="URL" htmlFor="websiteUrl">
-          <Input id="websiteUrl" name="websiteUrl" type="url" required defaultValue={websiteUrl} />
-        </Field>
-      </fieldset>
+    <form
+      onSubmit={(event) => void submit(event)}
+      className="grid grid-cols-[minmax(0,1fr)] items-start gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]"
+    >
+      <div className="space-y-5">
+        <Section step={1} title="Website" description="The live page to measure.">
+          <Field label="Page address" htmlFor="websiteUrl">
+            <Input
+              id="websiteUrl"
+              name="websiteUrl"
+              type="url"
+              required
+              value={url}
+              onChange={(event) => setUrl(event.target.value)}
+            />
+          </Field>
+        </Section>
 
-      <fieldset className="space-y-4">
-        <legend className="text-sm font-semibold">Design</legend>
-        <Field label="Design source" htmlFor="designSource">
-          <Select
-            id="designSource"
-            value={sourceId}
-            onChange={(event) => changeSource(event.target.value)}
-          >
-            {sources.map((candidate) => (
-              <option key={candidate.id} value={candidate.id}>
-                {candidate.name}
-              </option>
-            ))}
-          </Select>
-        </Field>
-      </fieldset>
+        <Section step={2} title="Design" description="What the page should look like.">
+          <Field label="Design" htmlFor="designSource">
+            <Select
+              id="designSource"
+              value={sourceId}
+              onChange={(event) => changeSource(event.target.value)}
+            >
+              {sources.map((candidate) => (
+                <option key={candidate.id} value={candidate.id}>
+                  {candidate.name} ({candidate.frames.length} frame
+                  {candidate.frames.length === 1 ? '' : 's'})
+                </option>
+              ))}
+            </Select>
+          </Field>
+        </Section>
 
-      <fieldset className="space-y-3">
-        <legend className="text-sm font-semibold">Viewports</legend>
-        <p className="text-xs text-zinc-500">
-          Each viewport is validated independently against its design frame. Results are never
-          averaged.
-        </p>
-        {rows.map((row) => (
-          <div
-            key={row.key}
-            className="grid grid-cols-2 gap-3 rounded-md border border-zinc-200 p-3 sm:grid-cols-5"
-          >
-            <Field label="ID" htmlFor={`vp-id-${row.key}`}>
-              <Input
-                id={`vp-id-${row.key}`}
-                value={row.id}
-                pattern="[a-z0-9-]+"
-                required
-                onChange={(event) => updateRow(row.key, { id: event.target.value })}
-              />
-            </Field>
-            <Field label="Width" htmlFor={`vp-w-${row.key}`}>
-              <Input
-                id={`vp-w-${row.key}`}
-                type="number"
-                min={240}
-                max={3840}
-                value={row.width}
-                required
-                onChange={(event) => updateRow(row.key, { width: Number(event.target.value) })}
-              />
-            </Field>
-            <Field label="Height" htmlFor={`vp-h-${row.key}`}>
-              <Input
-                id={`vp-h-${row.key}`}
-                type="number"
-                min={240}
-                max={4000}
-                value={row.height}
-                required
-                onChange={(event) => updateRow(row.key, { height: Number(event.target.value) })}
-              />
-            </Field>
-            <div className="col-span-2">
-              <Field label="Design frame" htmlFor={`vp-frame-${row.key}`}>
-                <div className="flex gap-2">
-                  <Select
-                    id={`vp-frame-${row.key}`}
-                    value={row.designNodeId}
-                    required
-                    onChange={(event) => updateRow(row.key, { designNodeId: event.target.value })}
-                  >
-                    {(source?.frames ?? []).map((frame) => (
-                      <option key={frame.nodeId} value={frame.nodeId}>
-                        {frame.name} {frame.width ? `(${frame.width}×${frame.height ?? '?'})` : ''}
-                      </option>
-                    ))}
-                  </Select>
-                  {rows.length > 1 ? (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-10"
-                      aria-label={`Remove viewport ${row.id}`}
-                      onClick={() => setRows((current) => current.filter((r) => r.key !== row.key))}
-                    >
-                      Remove
-                    </Button>
+        <Section
+          step={3}
+          title="Screen sizes"
+          description="Each size is checked on its own against the matching design frame."
+        >
+          <div className="grid gap-2 sm:grid-cols-3" role="group" aria-label="Screen size presets">
+            {PRESETS.map((preset) => {
+              const active = rows.some((row) => row.id === preset.id);
+              const Icon = DEVICE_ICONS[deviceKind(preset.width)];
+              return (
+                <button
+                  key={preset.id}
+                  type="button"
+                  aria-pressed={active}
+                  onClick={() => togglePreset(preset)}
+                  className={cn(
+                    'relative flex items-center gap-3 rounded-xl px-3.5 py-3 text-left ring-1 transition-[box-shadow,background-color]',
+                    active
+                      ? 'bg-brand-50/70 ring-2 ring-brand-500'
+                      : 'bg-white ring-zinc-950/10 hover:bg-zinc-50 hover:ring-zinc-950/20',
+                  )}
+                >
+                  <Icon
+                    aria-hidden
+                    className={cn('size-5', active ? 'text-brand-600' : 'text-zinc-400')}
+                  />
+                  <span>
+                    <span className="block text-sm font-medium text-zinc-950">{preset.label}</span>
+                    <span className="block font-mono text-xs text-zinc-500">
+                      {preset.width}×{preset.height}
+                    </span>
+                  </span>
+                  {active ? (
+                    <CheckIcon
+                      aria-hidden
+                      className="absolute right-3 top-3 size-4 text-brand-600"
+                    />
                   ) : null}
-                </div>
-              </Field>
-            </div>
+                </button>
+              );
+            })}
           </div>
-        ))}
-        {rows.length < 6 ? (
-          <Button variant="secondary" size="sm" onClick={addRow}>
-            Add viewport
-          </Button>
-        ) : null}
-      </fieldset>
 
-      <details className="rounded-md border border-zinc-200 p-3">
-        <summary className="cursor-pointer text-sm font-semibold">Comparison settings</summary>
-        <p className="mt-2 text-xs text-zinc-500">
-          Differences at or below a tolerance are treated as rendering noise.
-        </p>
-        <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
-          {TOLERANCE_FIELDS.map((field) => (
-            <Field key={field.key} label={field.label} htmlFor={`tol-${field.key}`}>
-              <Input
-                id={`tol-${field.key}`}
-                type="number"
-                min={0}
-                max={100}
-                step={field.step}
-                value={tolerances[field.key]}
-                onChange={(event) =>
-                  setTolerances((current) => ({
-                    ...current,
-                    [field.key]: Number(event.target.value),
-                  }))
-                }
+          <ul className="space-y-2">
+            {rows.map((row) => {
+              const Icon = DEVICE_ICONS[deviceKind(row.width)];
+              return (
+                <li
+                  key={row.key}
+                  className="grid items-end gap-3 rounded-xl bg-zinc-50 p-3 ring-1 ring-inset ring-zinc-950/5 sm:grid-cols-[8rem_5.5rem_5.5rem_minmax(0,1fr)_auto]"
+                >
+                  <div className="flex h-9 items-center gap-2 text-sm font-medium text-zinc-800">
+                    <Icon aria-hidden className="size-4 text-zinc-400" />
+                    {row.label}
+                  </div>
+                  <Field label="Width" htmlFor={`vp-w-${row.key}`}>
+                    <Input
+                      id={`vp-w-${row.key}`}
+                      type="number"
+                      min={240}
+                      max={3840}
+                      value={row.width}
+                      required
+                      onChange={(event) =>
+                        updateRow(row.key, { width: Number(event.target.value) })
+                      }
+                    />
+                  </Field>
+                  <Field label="Height" htmlFor={`vp-h-${row.key}`}>
+                    <Input
+                      id={`vp-h-${row.key}`}
+                      type="number"
+                      min={240}
+                      max={4000}
+                      value={row.height}
+                      required
+                      onChange={(event) =>
+                        updateRow(row.key, { height: Number(event.target.value) })
+                      }
+                    />
+                  </Field>
+                  <Field label="Design frame" htmlFor={`vp-frame-${row.key}`}>
+                    <Select
+                      id={`vp-frame-${row.key}`}
+                      value={row.designNodeId}
+                      required
+                      onChange={(event) => updateRow(row.key, { designNodeId: event.target.value })}
+                    >
+                      {(source?.frames ?? []).map((frame) => (
+                        <option key={frame.nodeId} value={frame.nodeId}>
+                          {frame.name}{' '}
+                          {frame.width ? `(${frame.width}×${frame.height ?? '?'})` : ''}
+                        </option>
+                      ))}
+                    </Select>
+                  </Field>
+                  <Button
+                    variant="ghost"
+                    size="md"
+                    className="px-2"
+                    disabled={rows.length === 1}
+                    aria-label={`Remove ${row.label}`}
+                    onClick={() => setRows((current) => current.filter((r) => r.key !== row.key))}
+                  >
+                    <XMarkIcon aria-hidden />
+                  </Button>
+                </li>
+              );
+            })}
+          </ul>
+          {rows.length < 6 ? (
+            <Button variant="ghost" size="sm" onClick={addCustom}>
+              <PlusIcon aria-hidden />
+              Add a custom size
+            </Button>
+          ) : null}
+        </Section>
+
+        <Card>
+          <details className="group">
+            <summary className="flex cursor-pointer list-none items-center gap-3 px-5 py-4 sm:px-6 [&::-webkit-details-marker]:hidden">
+              <AdjustmentsHorizontalIcon aria-hidden className="size-5 text-zinc-400" />
+              <span className="flex-1">
+                <span className="block text-[15px] font-semibold tracking-tight text-zinc-950">
+                  Advanced settings
+                </span>
+                <span className="block text-sm text-zinc-500">
+                  Tolerances and visual comparison. The defaults suit most pages.
+                </span>
+              </span>
+              <PlusIcon
+                aria-hidden
+                className="size-4 text-zinc-400 transition-transform group-open:rotate-45"
               />
-            </Field>
-          ))}
-        </div>
-        <label className="mt-4 flex items-center gap-2 text-sm">
-          <input
-            type="checkbox"
-            checked={visualDiff}
-            onChange={(event) => setVisualDiff(event.target.checked)}
-            className="size-4"
-          />
-          Build visual comparison (screenshots, overlay, difference image)
-        </label>
-      </details>
+            </summary>
+            <div className="space-y-5 border-t border-zinc-950/[0.06] px-5 py-5 sm:px-6">
+              <p className="text-sm text-zinc-500">
+                Differences at or below a tolerance are treated as rendering noise and not reported.
+              </p>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                {TOLERANCE_FIELDS.map((field) => (
+                  <Field key={field.key} label={field.label} htmlFor={`tol-${field.key}`}>
+                    <Input
+                      id={`tol-${field.key}`}
+                      type="number"
+                      min={0}
+                      max={100}
+                      step={field.step}
+                      value={tolerances[field.key]}
+                      onChange={(event) =>
+                        setTolerances((current) => ({
+                          ...current,
+                          [field.key]: Number(event.target.value),
+                        }))
+                      }
+                    />
+                  </Field>
+                ))}
+              </div>
+              <label className="flex items-start gap-3 text-sm">
+                <input
+                  type="checkbox"
+                  checked={visualDiff}
+                  onChange={(event) => setVisualDiff(event.target.checked)}
+                  className="mt-0.5 size-4 rounded accent-brand-600"
+                />
+                <span>
+                  <span className="block font-medium text-zinc-900">Visual comparison</span>
+                  <span className="block text-zinc-500">
+                    Screenshots side by side, overlay and a pixel difference image.
+                  </span>
+                </span>
+              </label>
+            </div>
+          </details>
+        </Card>
+      </div>
 
-      <ErrorText>{error}</ErrorText>
-      <Button type="submit" disabled={pending || !sourceId}>
-        {pending ? 'Starting…' : 'Run validation'}
-      </Button>
+      <Card className="space-y-5 p-5 lg:sticky lg:top-10">
+        <h2 className="text-[15px] font-semibold tracking-tight text-zinc-950">Summary</h2>
+        <dl className="space-y-3 text-sm">
+          <div>
+            <dt className="text-xs text-zinc-500">Website</dt>
+            <dd className="truncate font-medium text-zinc-900">{displayUrl(url) || '—'}</dd>
+          </div>
+          <div>
+            <dt className="text-xs text-zinc-500">Design</dt>
+            <dd className="truncate font-medium text-zinc-900">{source?.name ?? '—'}</dd>
+          </div>
+          <div>
+            <dt className="text-xs text-zinc-500">Screen sizes</dt>
+            <dd className="mt-1 flex flex-wrap gap-1.5">
+              {rows.map((row) => (
+                <span
+                  key={row.key}
+                  className="rounded-md bg-zinc-100 px-1.5 py-0.5 font-mono text-[11px] text-zinc-600"
+                >
+                  {row.width}×{row.height}
+                </span>
+              ))}
+            </dd>
+          </div>
+        </dl>
+        <ErrorText>{error}</ErrorText>
+        <Button type="submit" size="lg" className="w-full" disabled={pending || !sourceId}>
+          {pending ? <Spinner /> : <PlayIcon aria-hidden />}
+          {pending ? 'Starting…' : 'Run audit'}
+        </Button>
+        <p className="text-center text-xs text-zinc-400">
+          You can leave this page; the audit keeps running.
+        </p>
+      </Card>
     </form>
   );
 }

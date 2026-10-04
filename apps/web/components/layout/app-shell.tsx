@@ -1,30 +1,25 @@
-import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 import { MainNav } from './main-nav';
+import { SidebarStatus } from './sidebar-status';
 import { StorageWarning } from './storage-warning';
 
 export function AppShell({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-zinc-50 text-zinc-900">
+    <div className="min-h-dvh">
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded-md focus:bg-white focus:px-3 focus:py-2"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-3 focus:py-2 focus:shadow-raised"
       >
         Skip to content
       </a>
-      <StorageWarning />
-      <header className="border-b border-zinc-200 bg-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-3">
-          <Link href="/dashboard" className="text-base font-semibold tracking-tight">
-            Design Validator
-          </Link>
-          <MainNav />
-        </div>
-      </header>
-      <main id="main" className="mx-auto max-w-6xl px-6 py-8">
-        {children}
-      </main>
+      <MainNav footer={<SidebarStatus />} />
+      <div className="lg:pl-60">
+        <main id="main" className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6 lg:px-10 lg:pt-10">
+          <StorageWarning />
+          {children}
+        </main>
+      </div>
     </div>
   );
 }

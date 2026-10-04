@@ -4,7 +4,7 @@ import type { ValidationIssue } from '@design-validator/design-spec';
 import type { IssueSourceResult } from '@design-validator/pipeline';
 import { useState } from 'react';
 
-import { Button } from '@/components/ui/button';
+import { Button, Spinner } from '@/components/ui/button';
 import { CopyButton } from '@/components/ui/copy-button';
 import { apiRequest, errorMessage } from '@/lib/api-client';
 
@@ -43,11 +43,12 @@ export function SourceLocation({
   return (
     <section aria-labelledby="source-title" className="space-y-2">
       <div className="flex items-center justify-between gap-2">
-        <h3 id="source-title" className="text-sm font-semibold">
+        <h3 id="source-title" className="text-sm font-semibold text-zinc-950">
           Source code
         </h3>
         {!current ? (
           <Button variant="secondary" size="sm" disabled={pending} onClick={() => void locate()}>
+            {pending ? <Spinner /> : null}
             {pending ? 'Searching…' : 'Find in repository'}
           </Button>
         ) : null}
@@ -65,14 +66,14 @@ export function SourceLocation({
       {current?.matches.map((match) => (
         <div
           key={`${match.path}:${match.line}`}
-          className="space-y-1 rounded-md border border-zinc-200 p-3 text-sm"
+          className="space-y-2 rounded-xl p-3.5 text-sm ring-1 ring-inset ring-zinc-950/[0.07]"
         >
           <div className="flex flex-wrap items-center justify-between gap-2">
             <a
               href={match.url}
               target="_blank"
               rel="noreferrer"
-              className="font-mono text-xs underline underline-offset-2"
+              className="font-mono text-xs font-medium text-brand-600 underline-offset-2 hover:underline"
             >
               {match.path}:{match.line}
             </a>
@@ -82,7 +83,7 @@ export function SourceLocation({
             <code>{match.selector}</code>
             {match.atRules.length ? ` inside ${match.atRules.join(' ')}` : ''} — {match.note}
           </p>
-          <pre className="overflow-x-auto rounded bg-zinc-900 p-2 text-xs text-zinc-100">
+          <pre className="overflow-x-auto rounded-lg bg-zinc-950 p-3 font-mono text-xs leading-relaxed text-zinc-100">
             {match.patch.split('\n').map((line, index) => (
               <span
                 key={index}

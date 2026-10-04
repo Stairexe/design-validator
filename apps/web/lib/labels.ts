@@ -57,3 +57,38 @@ export function formatDateTime(iso: string): string {
 }
 
 export const differenceCount = (count: number) => `${count} difference${count === 1 ? '' : 's'}`;
+
+const TERMINAL_STATUSES = new Set<AuditStatus>(['COMPLETED', 'FAILED', 'CANCELLED']);
+
+export const isRunning = (status: AuditStatus) => !TERMINAL_STATUSES.has(status);
+
+/** `https://www.example.com/pricing` → `example.com/pricing`. */
+export function displayUrl(url: string): string {
+  try {
+    const parsed = new URL(url);
+    const path = parsed.pathname === '/' ? '' : parsed.pathname;
+    return `${parsed.hostname.replace(/^www\./, '')}${path}`;
+  } catch {
+    return url;
+  }
+}
+
+/** "5 min ago", falling back to a date after a week. Server components only (uses now). */
+export function formatRelative(iso: string, now = Date.now()): string {
+  const seconds = Math.round((now - new Date(iso).getTime()) / 1000);
+  if (seconds < 45) return 'just now';
+  const minutes = Math.round(seconds / 60);
+  if (minutes < 60) return `${minutes} min ago`;
+  const hours = Math.round(minutes / 60);
+  if (hours < 24) return `${hours} h ago`;
+  const days = Math.round(hours / 24);
+  if (days < 7) return days === 1 ? 'yesterday' : `${days} days ago`;
+  return new Intl.DateTimeFormat('en', { dateStyle: 'medium', timeZone: 'UTC' }).format(
+    new Date(iso),
+  );
+}
+
+export type DeviceKind = 'desktop' | 'tablet' | 'mobile';
+
+export const deviceKind = (width: number): DeviceKind =>
+  width < 600 ? 'mobile' : width < 1024 ? 'tablet' : 'desktop';

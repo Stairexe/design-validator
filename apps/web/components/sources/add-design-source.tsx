@@ -1,21 +1,23 @@
 'use client';
 
+import { CheckCircleIcon } from '@heroicons/react/16/solid';
 import { useRouter } from 'next/navigation';
 import { useState, type SyntheticEvent } from 'react';
 
-import { Button } from '@/components/ui/button';
+import { Button, Spinner } from '@/components/ui/button';
 import { ErrorText, Field, Input } from '@/components/ui/field';
+import { FileDrop } from '@/components/ui/file-drop';
 import { apiRequest, errorMessage } from '@/lib/api-client';
-import { formFile, formText } from '@/lib/forms';
 import { cn } from '@/lib/cn';
+import { formFile, formText } from '@/lib/forms';
 
 type Mode = 'figma-url' | 'figma-export' | 'xd' | 'sample';
 
-const MODES: { id: Mode; label: string }[] = [
-  { id: 'figma-url', label: 'Figma URL' },
-  { id: 'figma-export', label: 'Figma export' },
-  { id: 'xd', label: 'Adobe XD' },
-  { id: 'sample', label: 'Sample' },
+const MODES: { id: Mode; label: string; description: string }[] = [
+  { id: 'figma-url', label: 'Figma link', description: 'Paste a file URL' },
+  { id: 'figma-export', label: 'Figma export', description: 'Upload a JSON export' },
+  { id: 'xd', label: 'Adobe XD', description: 'Upload a plugin manifest' },
+  { id: 'sample', label: 'Sample design', description: 'Try it with our example' },
 ];
 
 async function readJsonFile(file: File | null): Promise<unknown> {
@@ -39,13 +41,16 @@ export function AddDesignSource({
   const [mode, setMode] = useState<Mode>(figmaTokenConfigured ? 'figma-url' : 'figma-export');
   const [pending, setPending] = useState(false);
   const [error, setError] = useState('');
+  const [added, setAdded] = useState(false);
 
   const submit = async (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const form = new FormData(event.currentTarget);
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
     const name = formText(form, 'name').trim() || undefined;
     setPending(true);
     setError('');
+    setAdded(false);
     try {
       if (mode === 'figma-url') {
         await apiRequest('/api/design-sources/figma', {
@@ -68,7 +73,8 @@ export function AddDesignSource({
       } else {
         await apiRequest('/api/design-sources/sample', { body: { projectId } });
       }
-      event.currentTarget.reset();
+      formElement.reset();
+      setAdded(true);
       router.refresh();
     } catch (caught) {
       setError(errorMessage(caught));
@@ -78,45 +84,44 @@ export function AddDesignSource({
   };
 
   return (
-    <div className="space-y-4">
-      <div
-        role="tablist"
-        aria-label="Design source type"
-        className="flex flex-wrap gap-1 rounded-md bg-zinc-100 p-1"
-      >
-        {MODES.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            role="tab"
-            aria-selected={mode === item.id}
-            onClick={() => {
-              setMode(item.id);
-              setError('');
-            }}
-            className={cn(
-              'rounded px-3 py-1.5 text-sm font-medium',
-              mode === item.id ? 'bg-white shadow-sm' : 'text-zinc-600 hover:text-zinc-900',
-            )}
-          >
-            {item.label}
-          </button>
-        ))}
+    <div className="space-y-5">
+      <div role="radiogroup" aria-label="Design source type" className="grid grid-cols-2 gap-2">
+        {MODES.map((item) => {
+          const active = mode === item.id;
+          return (
+            <button
+              key={item.id}
+              type="button"
+              role="radio"
+              aria-checked={active}
+              onClick={() => {
+                setMode(item.id);
+                setError('');
+                setAdded(false);
+              }}
+              className={cn(
+                'rounded-xl px-3 py-2.5 text-left ring-1 transition-[box-shadow,background-color]',
+                active
+                  ? 'bg-brand-50/70 ring-2 ring-brand-500'
+                  : 'bg-white ring-zinc-950/10 hover:bg-zinc-50 hover:ring-zinc-950/20',
+              )}
+            >
+              <span className="block text-[13px] font-medium text-zinc-950">{item.label}</span>
+              <span className="block text-xs text-zinc-500">{item.description}</span>
+            </button>
+          );
+        })}
       </div>
+
       <form onSubmit={(event) => void submit(event)} className="space-y-4">
-        {mode !== 'sample' ? (
-          <Field label="Name (optional)" htmlFor="source-name">
-            <Input id="source-name" name="name" maxLength={120} placeholder="Pricing page v2" />
-          </Field>
-        ) : null}
         {mode === 'figma-url' ? (
           <Field
-            label="Figma file URL"
+            label="Figma file link"
             htmlFor="figmaUrl"
             hint={
               figmaTokenConfigured
-                ? 'The server token must have access to the file.'
-                : 'No Figma token is configured on this server; use a Figma export instead.'
+                ? 'Copy the link from Figma’s Share button. The server token needs access to the file.'
+                : 'Figma links need a Figma token on the server (see Settings). Upload a Figma export instead.'
             }
           >
             <Input
@@ -124,46 +129,64 @@ export function AddDesignSource({
               name="figmaUrl"
               type="url"
               required
-              placeholder="https://www.figma.com/design/FILEKEY/Name"
+              disabled={!figmaTokenConfigured}
+              placeholder="https://www.figma.com/design/…"
             />
           </Field>
         ) : null}
         {mode === 'figma-export' ? (
           <>
             <Field
-              label="Figma nodes export (JSON)"
+              label="Figma nodes export"
               htmlFor="file"
-              hint="The response of GET /v1/files/:key/nodes?ids=… for the frames to validate."
+              hint="The JSON response of GET /v1/files/:key/nodes for the frames to check."
             >
-              <Input id="file" name="file" type="file" accept="application/json,.json" required />
+              <FileDrop id="file" name="file" accept="application/json,.json" required />
             </Field>
-            <Field label="Figma file URL (optional)" htmlFor="figmaUrl">
+            <Field label="Figma file link (optional)" htmlFor="figmaUrl">
               <Input
                 id="figmaUrl"
                 name="figmaUrl"
                 type="url"
-                placeholder="https://www.figma.com/design/FILEKEY/Name"
+                placeholder="https://www.figma.com/design/…"
               />
             </Field>
           </>
         ) : null}
         {mode === 'xd' ? (
           <Field
-            label="XD manifest (JSON)"
+            label="Adobe XD manifest"
             htmlFor="file"
-            hint="Exported with the Design Validator Adobe XD plugin (plugins/adobe-xd)."
+            hint="Exported with the Design Validator plugin for Adobe XD."
           >
-            <Input id="file" name="file" type="file" accept="application/json,.json" required />
+            <FileDrop id="file" name="file" accept="application/json,.json" required />
           </Field>
         ) : null}
         {mode === 'sample' ? (
-          <p className="text-sm text-zinc-600">
-            Adds the bundled sample pricing design (desktop and mobile frames).
+          <p className="rounded-xl bg-zinc-50 px-4 py-3 text-sm text-zinc-600 ring-1 ring-inset ring-zinc-950/5">
+            Adds our sample pricing-page design with desktop and mobile frames. Useful for trying
+            the flow end to end.
           </p>
         ) : null}
+        {mode !== 'sample' ? (
+          <Field label="Name (optional)" htmlFor="source-name">
+            <Input id="source-name" name="name" maxLength={120} placeholder="Pricing page v2" />
+          </Field>
+        ) : null}
         <ErrorText>{error}</ErrorText>
-        <Button type="submit" disabled={pending}>
-          {pending ? 'Adding…' : 'Add design source'}
+        {added ? (
+          <p role="status" className="flex items-center gap-1.5 text-sm text-emerald-700">
+            <CheckCircleIcon aria-hidden className="size-4" />
+            Design added. You can start an audit now.
+          </p>
+        ) : null}
+        <Button
+          type="submit"
+          className="w-full"
+          disabled={pending || (mode === 'figma-url' && !figmaTokenConfigured)}
+        >
+          {pending ? <Spinner /> : null}
+          {pending ? 'Adding…' : 'Add design'}
         </Button>
       </form>
     </div>

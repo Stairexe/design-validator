@@ -41,13 +41,13 @@ export function AnnotatedImage({
         <div
           ref={boxRef}
           aria-hidden
-          className="pointer-events-none absolute rounded-sm outline outline-2 outline-offset-2 outline-red-600"
+          className="pointer-events-none absolute rounded-sm outline outline-2 outline-offset-2 outline-brand-500"
           style={{
             left: `${(highlight.x / natural.width) * 100}%`,
             top: `${(highlight.y / natural.height) * 100}%`,
             width: `${(highlight.width / natural.width) * 100}%`,
             height: `${(highlight.height / natural.height) * 100}%`,
-            boxShadow: '0 0 0 9999px rgba(0,0,0,0.12)',
+            boxShadow: '0 0 0 9999px rgb(24 24 27 / 0.18)',
           }}
         />
       ) : null}

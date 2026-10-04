@@ -1,15 +1,20 @@
 'use client';
 
-import { formatValue, propertyLabel, type ValidationIssue } from '@design-validator/design-spec';
+import {
+  formatDelta,
+  formatValue,
+  propertyLabel,
+  type ValidationIssue,
+} from '@design-validator/design-spec';
 
 import { cn } from '@/lib/cn';
 
-const SEVERITY_DOT: Record<ValidationIssue['severity'], string> = {
+export const SEVERITY_DOT: Record<ValidationIssue['severity'], string> = {
   critical: 'bg-red-600',
-  high: 'bg-red-500',
-  medium: 'bg-amber-500',
-  low: 'bg-zinc-400',
-  info: 'bg-blue-400',
+  high: 'bg-red-400',
+  medium: 'bg-amber-400',
+  low: 'bg-zinc-300',
+  info: 'bg-brand-200',
 };
 
 /** One-line "what changes" summary: `Padding X 20px → 24px`. */
@@ -34,44 +39,69 @@ export function IssueList({
   }
 
   if (issues.length === 0) {
-    return <p className="p-4 text-sm text-zinc-600">No differences match the current filters.</p>;
+    return <p className="p-5 text-sm text-zinc-500">No differences match the current filters.</p>;
   }
   return (
-    <ul aria-label="Differences" className="divide-y divide-zinc-100">
+    <ul aria-label="Differences" className="divide-y divide-zinc-950/[0.05]">
       {[...groups.entries()].map(([key, members]) => {
         const first = members[0];
         if (!first) return null;
         return (
-          <li key={key} className="py-2">
-            <div className="flex items-baseline justify-between gap-2 px-3">
-              <span className="truncate text-sm font-semibold" title={first.element.name}>
+          <li key={key} className="pb-1.5">
+            <div className="sticky top-0 z-[1] flex items-center justify-between gap-2 bg-white/95 px-4 pb-1.5 pt-3 backdrop-blur">
+              <span
+                className="truncate text-[13px] font-semibold text-zinc-950"
+                title={first.element.name}
+              >
                 {first.element.name}
               </span>
-              <span className="shrink-0 text-xs text-zinc-500">{first.viewportId}</span>
+              <span className="shrink-0 font-mono text-[11px] text-zinc-400">
+                {first.viewportId}
+              </span>
             </div>
-            <ul className="mt-1">
-              {members.map((issue) => (
-                <li key={issue.id}>
-                  <button
-                    type="button"
-                    onClick={() => onSelect(issue.id)}
-                    aria-current={issue.id === selectedId ? 'true' : undefined}
-                    className={cn(
-                      'flex w-full items-center gap-2 px-3 py-1.5 text-left font-mono text-xs',
-                      issue.id === selectedId
-                        ? 'bg-zinc-900 text-white'
-                        : 'text-zinc-800 hover:bg-zinc-100',
-                    )}
-                  >
-                    <span
-                      aria-hidden
-                      className={cn('size-2 shrink-0 rounded-full', SEVERITY_DOT[issue.severity])}
-                    />
-                    <span className="sr-only">{issue.severity} severity:</span>
-                    <span className="truncate">{issueSummary(issue)}</span>
-                  </button>
-                </li>
-              ))}
+            <ul className="px-1.5">
+              {members.map((issue) => {
+                const selected = issue.id === selectedId;
+                return (
+                  <li key={issue.id}>
+                    <button
+                      type="button"
+                      onClick={() => onSelect(issue.id)}
+                      aria-current={selected ? 'true' : undefined}
+                      aria-label={`${issue.severity} severity: ${issueSummary(issue)}`}
+                      className={cn(
+                        'flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-[13px] transition-colors',
+                        selected
+                          ? 'bg-brand-50 text-zinc-950 ring-1 ring-inset ring-brand-500/30'
+                          : 'text-zinc-700 hover:bg-zinc-950/[0.035]',
+                      )}
+                    >
+                      <span
+                        aria-hidden
+                        className={cn('size-2 shrink-0 rounded-full', SEVERITY_DOT[issue.severity])}
+                      />
+                      <span className="min-w-0 flex-1 truncate font-medium">
+                        {propertyLabel(issue.property)}
+                      </span>
+                      <span className="hidden min-w-0 truncate font-mono text-xs text-zinc-500 sm:block">
+                        {formatValue(issue.current)}
+                        <span className="px-1 text-zinc-300">→</span>
+                        <span className="text-zinc-900">{formatValue(issue.required)}</span>
+                      </span>
+                      {issue.delta ? (
+                        <span
+                          className={cn(
+                            'shrink-0 rounded-md px-1.5 py-0.5 font-mono text-[11px] font-medium',
+                            selected ? 'bg-white text-brand-700' : 'bg-zinc-100 text-zinc-600',
+                          )}
+                        >
+                          {formatDelta(issue.delta)}
+                        </span>
+                      ) : null}
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
           </li>
         );

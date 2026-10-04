@@ -64,7 +64,7 @@ export function VisualComparison({
         <div
           role="tablist"
           aria-label="Comparison mode"
-          className="flex flex-wrap gap-1 rounded-md bg-zinc-100 p-1"
+          className="inline-flex flex-wrap gap-1 rounded-xl bg-zinc-950/[0.04] p-1"
         >
           {MODES.map((item) => (
             <button
@@ -74,15 +74,17 @@ export function VisualComparison({
               aria-selected={mode === item.id}
               onClick={() => setMode(item.id)}
               className={cn(
-                'rounded px-3 py-1.5 text-sm font-medium',
-                mode === item.id ? 'bg-white shadow-sm' : 'text-zinc-600 hover:text-zinc-900',
+                'rounded-lg px-3 py-1.5 text-sm font-medium transition-all',
+                mode === item.id
+                  ? 'bg-white text-zinc-950 shadow-card ring-1 ring-zinc-950/[0.06]'
+                  : 'text-zinc-500 hover:text-zinc-900',
               )}
             >
               {item.label}
             </button>
           ))}
         </div>
-        <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-600">
+        <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-500">
           <Badge tone={visual.designImage === 'figma-export' ? 'success' : 'warning'}>
             Design image:{' '}
             {visual.designImage === 'figma-export' ? 'Figma export' : 'rendered from design data'}
@@ -94,17 +96,17 @@ export function VisualComparison({
       </div>
 
       {issue && !reliable ? (
-        <p className="text-xs text-amber-700">
+        <p className="rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-800 ring-1 ring-inset ring-amber-600/15">
           The selected issue is not highlighted: its element mapping is not reliable enough or it
           belongs to another viewport.
         </p>
       ) : null}
 
-      <div className="max-h-[70vh] overflow-auto rounded-md border border-zinc-200 bg-zinc-50">
+      <div className="max-h-[75vh] overflow-auto rounded-xl bg-zinc-100 ring-1 ring-inset ring-zinc-950/[0.07]">
         {mode === 'side-by-side' ? (
-          <div className="grid grid-cols-2 gap-px bg-zinc-200">
+          <div className="grid grid-cols-2 gap-px bg-zinc-950/[0.08]">
             <figure className="bg-white">
-              <figcaption className="sticky top-0 z-10 bg-white/90 px-2 py-1 text-xs font-medium">
+              <figcaption className="sticky top-0 z-10 border-b border-zinc-950/[0.06] bg-white/90 px-3 py-2 text-xs font-medium text-zinc-700 backdrop-blur">
                 Website (current)
               </figcaption>
               <AnnotatedImage
@@ -114,7 +116,7 @@ export function VisualComparison({
               />
             </figure>
             <figure className="bg-white">
-              <figcaption className="sticky top-0 z-10 bg-white/90 px-2 py-1 text-xs font-medium">
+              <figcaption className="sticky top-0 z-10 border-b border-zinc-950/[0.06] bg-white/90 px-3 py-2 text-xs font-medium text-zinc-700 backdrop-blur">
                 Design (required)
               </figcaption>
               <AnnotatedImage src={`${base}/design.png`} alt="Design image" highlight={designBox} />
@@ -165,7 +167,7 @@ export function VisualComparison({
             max={100}
             value={opacity}
             onChange={(event) => setOpacity(Number(event.target.value))}
-            className="w-48"
+            className="w-48 accent-brand-600"
             aria-valuetext={`${opacity}%`}
           />
           <span className="w-10 font-mono text-xs">{opacity}%</span>

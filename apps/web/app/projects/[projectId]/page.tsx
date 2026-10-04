@@ -1,14 +1,24 @@
+import {
+  ArrowTopRightOnSquareIcon,
+  ClipboardDocumentCheckIcon,
+  CodeBracketIcon,
+  PlusIcon,
+  SwatchIcon,
+} from '@heroicons/react/20/solid';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { AuditTable } from '@/components/audit/audit-table';
+import { EmptyState } from '@/components/layout/empty-state';
 import { PageHeader } from '@/components/layout/page-header';
 import { DeleteProjectButton } from '@/components/projects/delete-project-button';
+import { ProjectAvatar } from '@/components/projects/project-avatar';
 import { SourceRepositoryForm } from '@/components/projects/source-repository-form';
 import { AddDesignSource } from '@/components/sources/add-design-source';
 import { DesignSourceList } from '@/components/sources/design-source-list';
 import { ButtonLink } from '@/components/ui/button';
 import { Card, CardBody, CardHeader } from '@/components/ui/card';
+import { displayUrl } from '@/lib/labels';
 import { getDeps } from '@/lib/server/runtime';
 
 export const metadata: Metadata = { title: 'Project' };
@@ -26,44 +36,77 @@ export default async function ProjectPage({ params }: { params: Promise<{ projec
 
   return (
     <>
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <PageHeader
-          title={project.name}
-          description={<span className="break-all font-mono text-xs">{project.websiteUrl}</span>}
-        />
-        <div className="flex gap-2">
-          {sources.length > 0 ? (
-            <ButtonLink href={`/audits/new?projectId=${project.id}`}>New audit</ButtonLink>
-          ) : null}
-          <DeleteProjectButton projectId={project.id} name={project.name} />
-        </div>
-      </div>
-      <div className="grid gap-6 lg:grid-cols-3">
-        <div className="space-y-6 lg:col-span-2">
+      <PageHeader
+        breadcrumbs={[{ label: 'Projects', href: '/projects' }]}
+        title={
+          <span className="flex items-center gap-3">
+            <ProjectAvatar name={project.name} size="lg" />
+            {project.name}
+          </span>
+        }
+        description={
+          <a
+            href={project.websiteUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1 break-all text-sm font-medium text-zinc-600 underline decoration-zinc-300 underline-offset-4 hover:text-zinc-950"
+          >
+            {displayUrl(project.websiteUrl)}
+            <ArrowTopRightOnSquareIcon aria-hidden className="size-3.5 shrink-0 text-zinc-400" />
+          </a>
+        }
+        actions={
+          <>
+            <DeleteProjectButton projectId={project.id} name={project.name} />
+            {sources.length > 0 ? (
+              <ButtonLink href={`/audits/new?projectId=${project.id}`}>
+                <PlusIcon aria-hidden />
+                New audit
+              </ButtonLink>
+            ) : null}
+          </>
+        }
+      />
+      <div className="grid grid-cols-[minmax(0,1fr)] items-start gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <div className="space-y-6">
           <Card>
             <CardHeader
+              icon={<ClipboardDocumentCheckIcon />}
               title="Audits"
-              description="Each audit lists measured differences per viewport."
+              description="Each audit lists the measured differences per screen size."
             />
             {audits.length > 0 ? (
               <AuditTable audits={audits} />
             ) : (
-              <CardBody className="text-sm text-zinc-600">No audits yet.</CardBody>
+              <EmptyState
+                title={sources.length > 0 ? 'Ready for the first audit' : 'Add a design first'}
+                action={
+                  sources.length > 0 ? (
+                    <ButtonLink href={`/audits/new?projectId=${project.id}`}>
+                      <PlusIcon aria-hidden />
+                      Start an audit
+                    </ButtonLink>
+                  ) : null
+                }
+              >
+                {sources.length > 0
+                  ? 'Audits check the live page against the design and list every difference.'
+                  : 'Audits compare the website with a design. Add a Figma or Adobe XD design using the panel on the right.'}
+              </EmptyState>
             )}
           </Card>
           <Card>
             <CardHeader
-              title="Design sources"
-              description="Figma files, Figma exports and Adobe XD manifests."
+              icon={<SwatchIcon />}
+              title="Designs"
+              description="The Figma and Adobe XD files this page should match."
             />
-            <CardBody>
-              <DesignSourceList sources={sources} />
-            </CardBody>
+            <DesignSourceList sources={sources} />
           </Card>
         </div>
-        <div className="space-y-6">
+        <div className="space-y-6 lg:sticky lg:top-10">
           <Card>
-            <CardHeader title="Add design source" />
+            <CardHeader title="Add a design" description="Choose where the design comes from." />
             <CardBody>
               <AddDesignSource
                 projectId={project.id}
@@ -73,8 +116,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ projec
           </Card>
           <Card>
             <CardHeader
+              icon={<CodeBracketIcon />}
               title="Source code"
-              description="Optional: map issues to CSS in a public GitHub repository."
+              description="Optional. Point each difference to the CSS line to change."
             />
             <CardBody>
               <SourceRepositoryForm projectId={project.id} repository={project.sourceRepository} />
