@@ -45,3 +45,37 @@ test('responses carry security headers', async ({ request }) => {
 test('cron cleanup requires its secret', async ({ request }) => {
   expect((await request.get('/api/cron/cleanup')).status()).toBe(401);
 });
+
+test('new audit without a project asks which project to check', async ({ page }) => {
+  await page.goto('/audits/new');
+  await expect(page.getByRole('heading', { level: 1, name: 'New audit' })).toBeVisible();
+  await expect(page.getByText(/Create a project first|Choose a project/)).toBeVisible();
+});
+
+test('unknown pages show a not-found page with a way back', async ({ page }) => {
+  const response = await page.goto('/does-not-exist');
+  expect(response?.status()).toBe(404);
+  await expect(page.getByRole('heading', { name: 'Page not found' })).toBeVisible();
+  await page.getByRole('link', { name: 'Go to dashboard' }).click();
+  await expect(page).toHaveURL(/\/dashboard$/);
+});
+
+test.describe('on a phone', () => {
+  test.use({ viewport: { width: 390, height: 844 } });
+
+  test('pages fit the screen and the menu opens', async ({ page }) => {
+    for (const path of ['/dashboard', '/projects', '/audits', '/settings']) {
+      await page.goto(path);
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - window.innerWidth,
+      );
+      expect(overflow, path).toBeLessThanOrEqual(0);
+    }
+    await page.getByRole('button', { name: 'Open navigation' }).click();
+    await page
+      .getByRole('navigation', { name: 'Primary' })
+      .getByRole('link', { name: 'Projects' })
+      .click();
+    await expect(page.getByRole('heading', { level: 1, name: 'Projects' })).toBeVisible();
+  });
+});
