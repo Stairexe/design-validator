@@ -27,7 +27,11 @@ export interface PipelineRuntime {
   redisUrl: string | undefined;
 }
 
-let memoryStorage: ObjectStorage | undefined;
+// Bundlers may load this module more than once per process (e.g. Next.js
+// route handlers and pages); the in-memory store must still be shared.
+const globalStore = globalThis as typeof globalThis & {
+  __designValidatorMemoryStorage?: ObjectStorage;
+};
 
 /**
  * Composition root shared by the web app and workers: builds pipeline
@@ -41,7 +45,7 @@ export function createRuntime(
   const storage = env['STORAGE_DRIVER']
     ? createObjectStorage(parseEnv(storageEnvSchema, env))
     : // No storage configured: in-process memory (single-process development only).
-      (memoryStorage ??= new MemoryObjectStorage());
+      (globalStore.__designValidatorMemoryStorage ??= new MemoryObjectStorage());
   const execution = config.AUDIT_EXECUTION ?? 'inline';
   if (execution === 'queue' && !config.REDIS_URL) {
     throw new Error('AUDIT_EXECUTION=queue requires REDIS_URL.');

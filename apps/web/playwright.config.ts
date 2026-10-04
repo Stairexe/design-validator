@@ -20,5 +20,13 @@ export default defineConfig({
     url: `${baseURL}/api/health`,
     reuseExistingServer: !process.env['CI'],
     timeout: 120_000,
+    // The sample page is served by the app itself on localhost, so private targets are allowed here only.
+    env: {
+      INSPECTOR_ALLOW_PRIVATE_HOSTS: 'true',
+      STORAGE_DRIVER: 'memory',
+      DATABASE_URL: '',
+      AUDIT_EXECUTION: 'inline',
+      APP_URL: baseURL,
+    },
   },
 });

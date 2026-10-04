@@ -15,6 +15,8 @@ export interface ViewportVisual {
   designImage: 'figma-export' | 'rendered';
   width: number;
   height: number;
+  /** Design frame → viewport scale, for placing design-bounds highlights. */
+  designScale: number;
   mismatchedPixels: number;
   mismatchRatio: number;
 }
@@ -100,6 +102,7 @@ export async function runVisualDiff(
         designImage: source_,
         width: diff.width,
         height: diff.height,
+        designScale: scale,
         mismatchedPixels: diff.mismatchedPixels,
         mismatchRatio: diff.mismatchRatio,
       };
