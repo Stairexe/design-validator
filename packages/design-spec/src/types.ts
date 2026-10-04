@@ -1,12 +1,17 @@
 /**
- * Canonical, source-independent design representation.
+ * Canonical, source-independent design representation (design-spec.md).
  *
- * This file mirrors `design-spec.md`. It is the contract between source
- * adapters (website, Figma, Adobe XD) and the matcher/comparator, so it must
- * never reference browser DOM objects or design-tool API shapes.
+ * This is the contract between source adapters (website, Figma, Adobe XD)
+ * and the matcher/comparator, so it never references browser DOM objects or
+ * design-tool API shapes.
  *
- * All distances are CSS pixels after normalization.
+ * All lengths are CSS pixels after normalization. A `null` length means the
+ * source could not provide or resolve the value (for example a percentage
+ * without a known containing size); it is never fabricated as 0.
  */
+
+/** CSS pixels, or `null` when unavailable/unresolved. */
+export type Length = number | null;
 
 export interface DesignSpec {
   schemaVersion: string;
@@ -43,21 +48,26 @@ export interface DesignViewport {
   label?: string;
 }
 
+/**
+ * One page/frame. For a website this is one rendered viewport of the URL;
+ * for Figma/XD it is the target frame/artboard. `viewportId` links it to
+ * `DesignSpec.viewports` when the page represents a specific viewport.
+ */
 export interface DesignPage {
   id: string;
   name: string;
+  viewportId?: string;
+  width?: number;
+  height?: number;
   rootIds: string[];
   elements: DesignElement[];
 }
 
-/**
- * Named design value (colour, spacing, type scale, ...). Referenced by
- * `design-spec.md` but not yet specified there; the shape is finalised in the
- * DesignSpec phase.
- */
+export type DesignTokenType = 'color' | 'dimension' | 'typography' | 'shadow' | 'other';
+
 export interface DesignToken {
   name: string;
-  type: string;
+  type: DesignTokenType;
   value: unknown;
 }
 
@@ -82,45 +92,56 @@ export interface DesignElement {
   responsive?: ResponsiveProperties;
 }
 
-export type DesignElementType =
-  | 'page'
-  | 'frame'
-  | 'section'
-  | 'container'
-  | 'component'
-  | 'instance'
-  | 'text'
-  | 'button'
-  | 'image'
-  | 'shape'
-  | 'icon'
-  | 'input'
-  | 'link'
-  | 'list'
-  | 'unknown';
+export const DESIGN_ELEMENT_TYPES = [
+  'page',
+  'frame',
+  'section',
+  'container',
+  'component',
+  'instance',
+  'text',
+  'button',
+  'image',
+  'shape',
+  'icon',
+  'input',
+  'link',
+  'list',
+  'unknown',
+] as const;
 
-export type DesignRole =
-  | 'heading'
-  | 'paragraph'
-  | 'button'
-  | 'navigation'
-  | 'card'
-  | 'image'
-  | 'input'
-  | 'label'
-  | 'link'
-  | 'section'
-  | 'container'
-  | 'unknown';
+export type DesignElementType = (typeof DESIGN_ELEMENT_TYPES)[number];
 
-/**
- * Referenced by `design-spec.md` but not yet specified there; the shape is
- * finalised in the DesignSpec phase.
- */
+export const DESIGN_ROLES = [
+  'heading',
+  'paragraph',
+  'button',
+  'navigation',
+  'card',
+  'image',
+  'input',
+  'label',
+  'link',
+  'section',
+  'container',
+  'unknown',
+] as const;
+
+export type DesignRole = (typeof DESIGN_ROLES)[number];
+
+export type HiddenReason =
+  | 'display-none'
+  | 'visibility-hidden'
+  | 'opacity-zero'
+  | 'zero-size'
+  | 'hidden-in-design';
+
 export interface Visibility {
   visible: boolean;
+  reason?: HiddenReason;
 }
 
+/** Absolute position relative to the page/frame origin, in CSS pixels. */
 export interface Bounds {
   x: number;
   y: number;
@@ -131,29 +152,37 @@ export interface Bounds {
 export interface SpacingProperties {
   margin?: BoxSpacing;
   padding?: BoxSpacing;
-  gap?: number | null;
-  rowGap?: number | null;
-  columnGap?: number | null;
+  gap?: Length;
+  rowGap?: Length;
+  columnGap?: Length;
 }
 
 export interface BoxSpacing {
-  top: number;
-  right: number;
-  bottom: number;
-  left: number;
+  top: Length;
+  right: Length;
+  bottom: Length;
+  left: Length;
 }
 
+/** Line height in px, or `'normal'` when the source reports the font default. */
+export type LineHeight = number | 'normal';
+
 export interface TypographyProperties {
+  /** Primary family as authored (quotes stripped). Compare case-insensitively. */
   fontFamily?: string | null;
-  fontSize?: number | null;
-  fontWeight?: number | string | null;
-  lineHeight?: number | string | null;
-  letterSpacing?: number | null;
+  fontSize?: Length;
+  /** Numeric weight on the 100–900 scale. */
+  fontWeight?: number | null;
+  lineHeight?: LineHeight | null;
+  letterSpacing?: Length;
   textTransform?: string | null;
   textAlign?: string | null;
+  textDecoration?: string | null;
+  fontStyle?: string | null;
   color?: ColorValue | null;
 }
 
+/** Canonical colour: lowercase `#rrggbb` plus alpha in [0, 1]. */
 export interface ColorValue {
   hex: string;
   alpha: number;
@@ -185,14 +214,23 @@ export interface BorderProperties {
 }
 
 export interface RadiusProperties {
-  topLeft?: number | null;
-  topRight?: number | null;
-  bottomRight?: number | null;
-  bottomLeft?: number | null;
+  topLeft?: Length;
+  topRight?: Length;
+  bottomRight?: Length;
+  bottomLeft?: Length;
+}
+
+export interface ShadowValue {
+  x: number;
+  y: number;
+  blur: number;
+  spread: number;
+  color: ColorValue;
+  inset: boolean;
 }
 
 export interface EffectProperties {
-  boxShadow?: string | null;
+  shadows?: ShadowValue[] | null;
   opacity?: number | null;
   filter?: string | null;
   transform?: string | null;
@@ -207,7 +245,10 @@ export interface ResponsiveProperties {
 export interface SourceElementMetadata {
   provider: DesignSourceType;
   sourceId?: string;
+  /** Hierarchical path, e.g. a DOM path or Figma layer path. */
   sourcePath?: string;
+  /** Unique CSS selector for website elements. */
+  selector?: string;
   originalType?: string;
   classNames?: string[];
   attributes?: Record<string, string>;

@@ -325,3 +325,16 @@ Where a browser reports `normal`, preserve a special normalized state rather tha
 `schemaVersion` is mandatory.
 
 Changes that remove or reinterpret fields require a schema version increment and migration path.
+
+## Implementation notes (schema 1.0.0)
+
+The types above are implemented in `packages/design-spec/src/types.ts` with these refinements, made because the original shapes could not represent the normalization rules in this document:
+
+- **Unresolved lengths.** `Length = number | null`. Spacing sides, gaps, radii, font size and letter spacing use it; `null` means the source could not provide or resolve the value, never 0.
+- **Line height** is `number | 'normal'` (px), preserving the browser's `normal` state.
+- **Font weight** is always numeric (100–900); names such as `bold` or Figma's `SemiBold` are normalized.
+- **Shadows** are structured (`effects.shadows: ShadowValue[]`) instead of a raw `boxShadow` string, so they can be compared.
+- **Pages** may carry `viewportId`, `width` and `height`; **visibility** may carry a `reason`; **source metadata** may carry a CSS `selector`.
+- **Comparison contracts** (`ValidationIssue`, `ValidationReport`, `NormalizedValue`, tolerances) and **matcher contracts** (`ElementMatch`, `MatchResult`) live in `packages/design-spec` (`report.ts`, `matching.ts`). The comparator, AI layer, persistence and UI all consume them, so they must not live in any one of those packages.
+- `NormalizedValue` keeps the value kind (`length`, `color`, `keyword`, ...); display strings such as `20px` and `+4px` are derived by `format.ts`, never stored as the source of truth.
+- `migrateDesignSpec` upgrades `0.1.0` documents to `1.0.0`.
