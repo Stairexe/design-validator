@@ -1,3 +1,4 @@
+import type { RecommendationModel } from '@design-validator/ai';
 import type { AuditRepository } from '@design-validator/database';
 import type { Logger } from '@design-validator/jobs';
 import type { ObjectStorage } from '@design-validator/storage';
@@ -14,4 +15,8 @@ export interface PipelineDependencies {
   /** Server-side Figma token (personal access token). Optional. */
   figmaAccessToken?: string | undefined;
   fetch?: typeof fetch;
+  /** Claude, when ANTHROPIC_API_KEY is configured. Optional by design. */
+  recommendationModel?: RecommendationModel | undefined;
+  /** Optional GitHub token for source mapping (raises rate limits). */
+  githubToken?: string | undefined;
 }

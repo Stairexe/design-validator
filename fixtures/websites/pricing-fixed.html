@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fixture Pricing</title>
+    <style>
+      :root {
+        --brand: #111111;
+        --radius: 8px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #222222;
+        background: #ffffff;
+      }
+      .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 64px 80px;
+      }
+      .hero h1 {
+        margin: 0;
+        font-size: 44px;
+        line-height: 52px;
+        font-weight: 700;
+        color: var(--brand);
+      }
+      .hero p {
+        margin: 0;
+        font-size: 18px;
+        line-height: 28px;
+      }
+      .primary-cta {
+        display: inline-block;
+        border: 0;
+        padding: 12px 24px;
+        border-radius: var(--radius);
+        background: var(--brand);
+        color: #ffffff;
+        font: inherit;
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 600;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 0 80px 64px;
+      }
+      .card {
+        padding: 24px;
+        border: 1px solid #e4e4e7;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .card h2 {
+        margin: 0 0 8px;
+        font-size: 24px;
+        line-height: 32px;
+      }
+      .card .price {
+        margin: 0;
+        font-size: 32px;
+        font-weight: 700;
+      }
+      .hidden-on-desktop {
+        display: none;
+      }
+      @media (max-width: 600px) {
+        .hero {
+          padding: 32px 20px;
+        }
+        .hero h1 {
+          font-size: 32px;
+          line-height: 40px;
+        }
+        .cards {
+          grid-template-columns: 1fr;
+          padding: 0 20px 32px;
+        }
+        .hidden-on-desktop {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="hero" data-testid="hero">
+      <h1 id="hero-title">Simple pricing</h1>
+      <p>Pick the plan that fits your team.</p>
+      <button class="primary-cta" type="button">Get started</button>
+      <span class="hidden-on-desktop">Swipe to compare</span>
+    </section>
+    <section class="cards">
+      <article class="card">
+        <h2>Starter</h2>
+        <p class="price">$9</p>
+      </article>
+      <article class="card">
+        <h2>Team</h2>
+        <p class="price">$29</p>
+      </article>
+      <article class="card">
+        <h2>Enterprise</h2>
+        <p class="price">$99</p>
+      </article>
+    </section>
+    <img
+      class="lazy"
+      alt="Decorative"
+      loading="lazy"
+      width="200"
+      height="100"
+      style="display: block; margin: 1200px 80px 40px"
+      src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='100'/%3E"
+    />
+    <script>
+      // Runtime style update: the inspector must wait for it to settle.
+      setTimeout(() => {
+        document.getElementById('hero-title').style.letterSpacing = '-0.5px';
+      }, 300);
+    </script>
+  </body>
+</html>

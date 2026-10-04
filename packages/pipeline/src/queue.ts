@@ -11,6 +11,7 @@ import {
 
 import type { PipelineDependencies } from './deps';
 import { toPipelineError } from './failures';
+import { recommendAudit } from './recommendations';
 import { runComparison } from './stages/compare';
 import { runDesignImport } from './stages/design';
 import { runWebsiteInspection } from './stages/inspect';
@@ -95,10 +96,16 @@ async function failAudit(
 
 const isFinalAttempt = (attemptsMade: number) => attemptsMade + 1 >= RETRY.attempts;
 
+export interface StageProcessorOptions {
+  /** Hands the optional AI_RECOMMENDATIONS stage to the ai-explanation worker. */
+  enqueueAiExplanation?: (envelope: JobEnvelope) => Promise<void>;
+}
+
 /** Stage processors for the `workers/*` packages. */
 export function stageProcessors(
   deps: PipelineDependencies,
-): Record<'websiteInspection' | 'designImport' | 'comparison', StageProcessor> {
+  options: StageProcessorOptions = {},
+): Record<'websiteInspection' | 'designImport' | 'comparison' | 'aiExplanation', StageProcessor> {
   return {
     websiteInspection: async ({ envelope, job }) => {
       const audit = await loadAudit(deps, envelope);
@@ -158,6 +165,23 @@ export function stageProcessors(
             }
           }
         }
+        if (
+          audit.settings.aiRecommendations &&
+          deps.recommendationModel &&
+          options.enqueueAiExplanation
+        ) {
+          await deps.repository.updateAudit(audit.id, {
+            status: 'AI_RECOMMENDATIONS',
+            warnings,
+            progress: {
+              stage: 'AI_RECOMMENDATIONS',
+              message: 'Generating recommendations',
+              progress: 0.95,
+            },
+          });
+          await options.enqueueAiExplanation(envelope);
+          return { completed: false };
+        }
         await deps.repository.updateAudit(audit.id, {
           status: 'COMPLETED',
           warnings,
@@ -168,6 +192,20 @@ export function stageProcessors(
       } catch (error) {
         return failAudit(deps, audit.id, error, isFinalAttempt(job.attemptsMade));
       }
+    },
+    aiExplanation: async ({ envelope }) => {
+      const audit = await loadAudit(deps, envelope);
+      // AI never fails an audit: provider problems become warnings.
+      const warnings = await recommendAudit(deps, audit.id).catch((error: unknown) => [
+        `AI recommendations unavailable: ${toPipelineError(error).message}`,
+      ]);
+      await deps.repository.updateAudit(audit.id, {
+        status: 'COMPLETED',
+        warnings: [...audit.warnings, ...warnings],
+        completedAt: new Date().toISOString(),
+        progress: { stage: 'COMPLETED', message: 'Completed', progress: 1 },
+      });
+      return { warnings };
     },
   };
 }

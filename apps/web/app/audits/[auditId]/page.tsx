@@ -1,5 +1,10 @@
 import type { ValidationReport } from '@design-validator/design-spec';
-import { artifactKeys, getJson, type VisualSummary } from '@design-validator/pipeline';
+import {
+  artifactKeys,
+  getJson,
+  revalidationSummary,
+  type VisualSummary,
+} from '@design-validator/pipeline';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -7,6 +12,7 @@ import { notFound } from 'next/navigation';
 import { AuditProcessing } from '@/components/audit/audit-processing';
 import { AuditResults } from '@/components/audit/audit-results';
 import { AuditActions } from '@/components/audit/audit-actions';
+import { RevalidationSummary } from '@/components/audit/revalidation-summary';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardBody, CardHeader } from '@/components/ui/card';
 import { STATUS_LABELS, formatDateTime, statusTone } from '@/lib/labels';
@@ -89,15 +95,19 @@ export default async function AuditPage({ params }: { params: Promise<{ auditId:
     );
   }
 
-  const [issues, report, visual] = await Promise.all([
+  const [issues, report, visual, revalidation] = await Promise.all([
     deps.repository.listIssues(audit.id),
     getJson(deps.storage, artifactKeys.report(audit.id)) as Promise<ValidationReport | null>,
     getJson(deps.storage, artifactKeys.visual(audit.id)) as Promise<VisualSummary | null>,
+    revalidationSummary(deps, audit.id),
   ]);
 
   return (
     <>
       {header}
+      {revalidation ? (
+        <RevalidationSummary parentId={revalidation.parent.id} diff={revalidation} />
+      ) : null}
       {audit.warnings.length > 0 ? (
         <details className="mb-4 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900">
           <summary className="cursor-pointer">
@@ -119,7 +129,7 @@ export default async function AuditPage({ params }: { params: Promise<{ auditId:
           viewports: report?.viewports ?? [],
         }}
         visual={visual}
-        aiAvailable={Boolean(process.env['ANTHROPIC_API_KEY'])}
+        aiAvailable={Boolean(deps.recommendationModel)}
         sourceAvailable={Boolean(project?.sourceRepository)}
       />
     </>

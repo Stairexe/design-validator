@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@design-validator/ai": "workspace:*",
     "@design-validator/comparator": "workspace:*",
     "@design-validator/config": "workspace:*",
     "@design-validator/database": "workspace:*",
@@ -17,6 +18,7 @@
     "@design-validator/figma-parser": "workspace:*",
     "@design-validator/jobs": "workspace:*",
     "@design-validator/matcher": "workspace:*",
+    "@design-validator/source-mapper": "workspace:*",
     "@design-validator/storage": "workspace:*",
     "@design-validator/visual-diff": "workspace:*",
     "@design-validator/web-inspector": "workspace:*",

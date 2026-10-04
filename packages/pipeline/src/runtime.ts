@@ -1,4 +1,5 @@
 import { parseEnv, storageEnvSchema } from '@design-validator/config';
+import { createClaudeModel } from '@design-validator/ai';
 import { createAuditRepository } from '@design-validator/database';
 import { createLogger } from '@design-validator/jobs';
 import {
@@ -19,6 +20,9 @@ const runtimeSchema = z.object({
   AUDIT_EXECUTION: z.enum(['inline', 'queue']).optional(),
   INSPECTOR_ALLOW_PRIVATE_HOSTS: z.enum(['true', 'false']).default('false'),
   FIGMA_ACCESS_TOKEN: z.string().min(1).optional(),
+  ANTHROPIC_API_KEY: z.string().min(1).optional(),
+  ANTHROPIC_MODEL: z.string().min(1).optional(),
+  GITHUB_TOKEN: z.string().min(1).optional(),
 });
 
 export interface PipelineRuntime {
@@ -60,6 +64,10 @@ export function createRuntime(
       logger: createLogger({ service }, { level: config.LOG_LEVEL }),
       allowPrivateHosts: config.INSPECTOR_ALLOW_PRIVATE_HOSTS === 'true',
       figmaAccessToken: config.FIGMA_ACCESS_TOKEN,
+      githubToken: config.GITHUB_TOKEN,
+      recommendationModel: config.ANTHROPIC_API_KEY
+        ? createClaudeModel({ apiKey: config.ANTHROPIC_API_KEY, model: config.ANTHROPIC_MODEL })
+        : undefined,
     },
   };
 }

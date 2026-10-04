@@ -40,8 +40,8 @@ export default function SettingsPage() {
     ],
     [
       'Claude recommendations',
-      <Status key="ai" ok={Boolean(process.env['ANTHROPIC_API_KEY'])}>
-        {process.env['ANTHROPIC_API_KEY'] ? 'Enabled' : 'Disabled'}
+      <Status key="ai" ok={Boolean(deps.recommendationModel)}>
+        {deps.recommendationModel ? `Enabled (${deps.recommendationModel.model})` : 'Disabled'}
       </Status>,
       'ANTHROPIC_API_KEY enables optional explanations. Measured differences never depend on it.',
     ],

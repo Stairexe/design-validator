@@ -3,6 +3,7 @@ import { PipelineError } from '@design-validator/jobs';
 
 import type { PipelineDependencies } from './deps';
 import { toPipelineError } from './failures';
+import { recommendAudit } from './recommendations';
 import { runComparison } from './stages/compare';
 import { runDesignImport } from './stages/design';
 import { runWebsiteInspection } from './stages/inspect';
@@ -98,6 +99,11 @@ export async function runAudit(
         // Visual evidence is optional; measured differences stand without it.
         warnings.push(`Visual comparison unavailable: ${toPipelineError(error).message}`);
       }
+    }
+
+    if (audit.settings.aiRecommendations) {
+      await advance(deps, auditId, 'AI_RECOMMENDATIONS', 'Generating recommendations', 0.95);
+      warnings.push(...(await recommendAudit(deps, auditId)));
     }
 
     await deps.repository.updateAudit(auditId, {
