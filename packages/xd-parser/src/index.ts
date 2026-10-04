@@ -1,2 +1,5 @@
-// Package boundary only. Implementation arrives in Phase 9 — Adobe XD (see phases.md).
-export {};
+export { XD_MANIFEST_VERSION, xdManifestSchema } from './manifest-schema';
+export type { XdArtboard, XdManifest, XdNode } from './manifest-schema';
+export { xdManifestToDesignSpec } from './normalize';
+export type { XdTarget } from './normalize';
+export { XdManifestError, validateXdManifest } from './validate';
