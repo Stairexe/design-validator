@@ -73,14 +73,14 @@ jobs:
       - name: Check schema matches migrations
         run: pnpm db:check
 
+      - name: Install Playwright browser
+        run: pnpm --filter @design-validator/web exec playwright install --with-deps chromium
+
       - name: Unit and integration tests
         run: pnpm test
 
       - name: Build
         run: pnpm build
-
-      - name: Install Playwright browser
-        run: pnpm --filter @design-validator/web exec playwright install --with-deps chromium
 
       - name: E2E tests
         run: pnpm test:e2e

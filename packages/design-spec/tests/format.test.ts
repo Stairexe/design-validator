@@ -27,9 +27,16 @@ describe('formatting', () => {
 
   it('renders CSS values', () => {
     expect(cssValue({ kind: 'length', value: 24 })).toBe('24px');
-    expect(cssValue({ kind: 'color', value: { hex: '#000000', alpha: 0.5 } })).toBe('rgba(0, 0, 0, 0.5)');
+    expect(cssValue({ kind: 'color', value: { hex: '#000000', alpha: 0.5 } })).toBe(
+      'rgba(0, 0, 0, 0.5)',
+    );
     expect(
-      cssValue({ kind: 'shadow', value: [{ x: 0, y: 4, blur: 12, spread: 0, inset: false, color: { hex: '#000000', alpha: 0.1 } }] }),
+      cssValue({
+        kind: 'shadow',
+        value: [
+          { x: 0, y: 4, blur: 12, spread: 0, inset: false, color: { hex: '#000000', alpha: 0.1 } },
+        ],
+      }),
     ).toBe('0px 4px 12px 0px rgba(0, 0, 0, 0.1)');
   });
 });

@@ -36,7 +36,10 @@ export function normalizeFontWeight(input: string | number | null | undefined): 
   if (trimmed !== '' && Number.isFinite(numeric)) {
     return numeric;
   }
-  const key = trimmed.toLowerCase().replace(/[\s_-]+/g, '').replace(/italic|oblique/g, '');
+  const key = trimmed
+    .toLowerCase()
+    .replace(/[\s_-]+/g, '')
+    .replace(/italic|oblique/g, '');
   return WEIGHT_NAMES[key === '' ? 'regular' : key] ?? null;
 }
 
@@ -45,12 +48,21 @@ export function normalizeFontFamily(input: string | null | undefined): string | 
   if (!input) {
     return null;
   }
-  const first = input.split(',')[0]?.trim().replace(/^["']|["']$/g, '').trim();
+  const first = input
+    .split(',')[0]
+    ?.trim()
+    .replace(/^["']|["']$/g, '')
+    .trim();
   return first ? first : null;
 }
 
-export function fontFamiliesEqual(a: string | null | undefined, b: string | null | undefined): boolean {
-  return (normalizeFontFamily(a) ?? '').toLowerCase() === (normalizeFontFamily(b) ?? '').toLowerCase();
+export function fontFamiliesEqual(
+  a: string | null | undefined,
+  b: string | null | undefined,
+): boolean {
+  return (
+    (normalizeFontFamily(a) ?? '').toLowerCase() === (normalizeFontFamily(b) ?? '').toLowerCase()
+  );
 }
 
 /**

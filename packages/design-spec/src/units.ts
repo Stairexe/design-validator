@@ -18,7 +18,10 @@ const LENGTH_PATTERN = /^(-?(?:\d+\.?\d*|\.\d+)(?:e-?\d+)?)\s*(px|rem|em|%)?$/i;
  * (e.g. `50%` with no known containing size, `em` with no font size) or is not
  * a length at all (`auto`, `normal`). Never guesses.
  */
-export function toPx(input: string | number | null | undefined, context: LengthContext = {}): Length {
+export function toPx(
+  input: string | number | null | undefined,
+  context: LengthContext = {},
+): Length {
   if (input === null || input === undefined) {
     return null;
   }
@@ -44,7 +47,9 @@ export function toPx(input: string | number | null | undefined, context: LengthC
     case 'em':
       return context.fontSize === undefined ? null : roundPx(value * context.fontSize);
     case '%':
-      return context.percentBase === undefined ? null : roundPx((value / 100) * context.percentBase);
+      return context.percentBase === undefined
+        ? null
+        : roundPx((value / 100) * context.percentBase);
     default:
       return null;
   }

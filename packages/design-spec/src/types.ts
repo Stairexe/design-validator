@@ -130,11 +130,7 @@ export const DESIGN_ROLES = [
 export type DesignRole = (typeof DESIGN_ROLES)[number];
 
 export type HiddenReason =
-  | 'display-none'
-  | 'visibility-hidden'
-  | 'opacity-zero'
-  | 'zero-size'
-  | 'hidden-in-design';
+  'display-none' | 'visibility-hidden' | 'opacity-zero' | 'zero-size' | 'hidden-in-design';
 
 export interface Visibility {
   visible: boolean;

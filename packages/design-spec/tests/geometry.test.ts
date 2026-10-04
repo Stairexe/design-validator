@@ -16,7 +16,9 @@ describe('geometry', () => {
   });
 
   it('computes relative and scaled bounds', () => {
-    expect(relativeBounds(box(110, 60, 20, 20), box(100, 50, 200, 200))).toEqual(box(10, 10, 20, 20));
+    expect(relativeBounds(box(110, 60, 20, 20), box(100, 50, 200, 200))).toEqual(
+      box(10, 10, 20, 20),
+    );
     expect(scaleBounds(box(10, 10, 20, 20), 0.5)).toEqual(box(5, 5, 10, 10));
   });
 });

@@ -12,7 +12,11 @@ import { makeElement, makeSpec } from '../src/testing';
 /** One spec exercising every concept Phase 1 must represent. */
 function representativeSpec(): DesignSpec {
   return makeSpec('figma', [
-    makeElement('frame', { type: 'frame', role: 'section', bounds: { x: 0, y: 0, width: 1440, height: 900 } }),
+    makeElement('frame', {
+      type: 'frame',
+      role: 'section',
+      bounds: { x: 0, y: 0, width: 1440, height: 900 },
+    }),
     makeElement('card', {
       type: 'container',
       role: 'card',
@@ -20,9 +24,18 @@ function representativeSpec(): DesignSpec {
       layout: { display: 'flex', flexDirection: 'column', alignItems: 'flex-start' },
       spacing: { padding: { top: 24, right: 24, bottom: 24, left: 24 }, gap: 16 },
       colors: { background: { hex: '#ffffff', alpha: 1 } },
-      border: { width: { top: 1, right: 1, bottom: 1, left: 1 }, style: 'solid', color: { hex: '#e4e4e7', alpha: 1 } },
+      border: {
+        width: { top: 1, right: 1, bottom: 1, left: 1 },
+        style: 'solid',
+        color: { hex: '#e4e4e7', alpha: 1 },
+      },
       radius: { topLeft: 12, topRight: 12, bottomRight: 12, bottomLeft: 12 },
-      effects: { shadows: [{ x: 0, y: 4, blur: 12, spread: 0, color: { hex: '#000000', alpha: 0.1 }, inset: false }], opacity: 1 },
+      effects: {
+        shadows: [
+          { x: 0, y: 4, blur: 12, spread: 0, color: { hex: '#000000', alpha: 0.1 }, inset: false },
+        ],
+        opacity: 1,
+      },
       responsive: { visibilityByViewport: { desktop: true, mobile: false } },
     }),
     makeElement('heading', {
@@ -30,12 +43,33 @@ function representativeSpec(): DesignSpec {
       role: 'heading',
       parentId: 'card',
       text: 'Pricing',
-      typography: { fontFamily: 'Inter', fontSize: 48, fontWeight: 700, lineHeight: 56, letterSpacing: -0.5, color: { hex: '#000000', alpha: 1 } },
+      typography: {
+        fontFamily: 'Inter',
+        fontSize: 48,
+        fontWeight: 700,
+        lineHeight: 56,
+        letterSpacing: -0.5,
+        color: { hex: '#000000', alpha: 1 },
+      },
     }),
-    makeElement('cta', { type: 'button', role: 'button', parentId: 'card', text: 'Buy', spacing: { padding: { top: 12, right: 24, bottom: 12, left: 24 } } }),
+    makeElement('cta', {
+      type: 'button',
+      role: 'button',
+      parentId: 'card',
+      text: 'Buy',
+      spacing: { padding: { top: 12, right: 24, bottom: 12, left: 24 } },
+    }),
     makeElement('hero', { type: 'image', role: 'image', parentId: 'card' }),
-    makeElement('body', { type: 'text', role: 'paragraph', parentId: 'card', typography: { lineHeight: 'normal' } }),
-    makeElement('unresolved', { parentId: 'card', spacing: { margin: { top: null, right: 0, bottom: null, left: 0 } } }),
+    makeElement('body', {
+      type: 'text',
+      role: 'paragraph',
+      parentId: 'card',
+      typography: { lineHeight: 'normal' },
+    }),
+    makeElement('unresolved', {
+      parentId: 'card',
+      spacing: { margin: { top: null, right: 0, bottom: null, left: 0 } },
+    }),
   ]);
 }
 
@@ -73,11 +107,15 @@ describe('designSpecSchema', () => {
   });
 
   it('rejects other schema versions and throws a typed error', () => {
-    expect(() => parseDesignSpec({ ...representativeSpec(), schemaVersion: '9.9.9' })).toThrow(DesignSpecValidationError);
+    expect(() => parseDesignSpec({ ...representativeSpec(), schemaVersion: '9.9.9' })).toThrow(
+      DesignSpecValidationError,
+    );
   });
 
   it('rejects raw payloads in rawReference', () => {
-    const spec = makeSpec('website', [makeElement('a', { source: { provider: 'website', rawReference: 'x'.repeat(5000) } })]);
+    const spec = makeSpec('website', [
+      makeElement('a', { source: { provider: 'website', rawReference: 'x'.repeat(5000) } }),
+    ]);
     expect(validateDesignSpec(spec).success).toBe(false);
   });
 });

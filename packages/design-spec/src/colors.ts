@@ -32,7 +32,10 @@ export interface Rgba {
 }
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
-const toHexByte = (value: number) => Math.round(clamp(value, 0, 255)).toString(16).padStart(2, '0');
+const toHexByte = (value: number) =>
+  Math.round(clamp(value, 0, 255))
+    .toString(16)
+    .padStart(2, '0');
 const roundAlpha = (value: number) => Math.round(clamp(value, 0, 1) * 1000) / 1000;
 
 export function rgbaToColor({ r, g, b, a }: Rgba): ColorValue {
@@ -121,7 +124,7 @@ export function parseColor(input: string | null | undefined): ColorValue | null 
       return null;
     }
     if (hex.length <= 4) {
-      hex = [...hex].map((char) => char + char).join('');
+      hex = Array.from(hex).map((char) => char + char).join('');
     }
     const alpha = hex.length === 8 ? Number.parseInt(hex.slice(6, 8), 16) / 255 : 1;
     return { hex: `#${hex.slice(0, 6)}`, alpha: roundAlpha(alpha) };
@@ -159,15 +162,21 @@ export function parseColor(input: string | null | undefined): ColorValue | null 
   return rgbaToColor({ r, g, b, a: alpha });
 }
 
-export function colorsEqual(a: ColorValue | null | undefined, b: ColorValue | null | undefined): boolean {
+export function colorsEqual(
+  a: ColorValue | null | undefined,
+  b: ColorValue | null | undefined,
+): boolean {
   if (!a || !b) {
-    return a == b;
+    return (a ?? null) === (b ?? null);
   }
   return a.hex === b.hex && Math.abs(a.alpha - b.alpha) < 0.005;
 }
 
 /** Composites a translucent colour over an opaque background. */
-export function flattenColor(color: ColorValue, background: ColorValue = { hex: '#ffffff', alpha: 1 }): ColorValue {
+export function flattenColor(
+  color: ColorValue,
+  background: ColorValue = { hex: '#ffffff', alpha: 1 },
+): ColorValue {
   const fg = colorToRgba(color);
   const bg = colorToRgba(background);
   const mix = (f: number, b: number) => f * fg.a + b * (1 - fg.a);

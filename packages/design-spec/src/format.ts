@@ -129,7 +129,12 @@ export function cssValue(value: NormalizedValue): string | undefined {
       return value.value.length === 0
         ? 'none'
         : value.value
-            .map((s) => formatShadow(s).replace(/#[0-9a-f]{6}( \/ \d+%)?/, cssValue({ kind: 'color', value: s.color }) ?? ''))
+            .map((s) =>
+              formatShadow(s).replace(
+                /#[0-9a-f]{6}( \/ \d+%)?/,
+                cssValue({ kind: 'color', value: s.color }) ?? '',
+              ),
+            )
             .join(', ');
     case 'count':
     case 'none':

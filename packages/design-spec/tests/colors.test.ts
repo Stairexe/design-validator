@@ -11,7 +11,16 @@ import {
 
 describe('parseColor', () => {
   it('normalizes equivalent notations to one canonical value', () => {
-    const forms = ['#fff', '#ffffff', '#FFFFFFFF', 'rgb(255,255,255)', 'rgba(255, 255, 255, 1)', 'rgb(255 255 255 / 100%)', 'hsl(0, 0%, 100%)', 'white'];
+    const forms = [
+      '#fff',
+      '#ffffff',
+      '#FFFFFFFF',
+      'rgb(255,255,255)',
+      'rgba(255, 255, 255, 1)',
+      'rgb(255 255 255 / 100%)',
+      'hsl(0, 0%, 100%)',
+      'white',
+    ];
     for (const form of forms) {
       expect(parseColor(form)).toEqual({ hex: '#ffffff', alpha: 1 });
     }

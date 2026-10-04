@@ -53,9 +53,15 @@ export default tseslint.config(
       '@typescript-eslint/consistent-type-imports': ['error', { fixStyle: 'inline-type-imports' }],
       '@typescript-eslint/no-import-type-side-effects': 'error',
       '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
-      eqeqeq: ['error', 'always'],
+      eqeqeq: ['error', 'always', { null: 'ignore' }],
       'no-console': 'error',
     },
+  },
+  {
+    // Serialized into the inspected page: DOM lib types claim `document.body`
+    // etc. are always present, but real pages can lack them.
+    files: ['packages/web-inspector/src/dom.ts', 'packages/web-inspector/src/stability.ts'],
+    rules: { '@typescript-eslint/no-unnecessary-condition': 'off' },
   },
   {
     files: ['**/*.mjs'],

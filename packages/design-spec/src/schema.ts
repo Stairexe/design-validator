@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { DESIGN_ELEMENT_TYPES, DESIGN_ROLES, type DesignSpec } from './types';
 import { DESIGN_SPEC_SCHEMA_VERSION } from './version';
 
-const length = z.number().finite().nullable();
+const length = z.number().nullable();
 const optionalLength = length.optional();
 const nullableString = z.string().nullable().optional();
 
@@ -20,17 +20,20 @@ const boxSpacingSchema = z.object({
 });
 
 export const boundsSchema = z.object({
-  x: z.number().finite(),
-  y: z.number().finite(),
-  width: z.number().finite().min(0),
-  height: z.number().finite().min(0),
+  x: z.number(),
+  y: z.number(),
+  width: z.number().min(0),
+  height: z.number().min(0),
 });
 
 const typographySchema = z.object({
   fontFamily: nullableString,
   fontSize: optionalLength,
   fontWeight: z.number().min(1).max(1000).nullable().optional(),
-  lineHeight: z.union([z.number().finite(), z.literal('normal')]).nullable().optional(),
+  lineHeight: z
+    .union([z.number(), z.literal('normal')])
+    .nullable()
+    .optional(),
   letterSpacing: optionalLength,
   textTransform: nullableString,
   textAlign: nullableString,
@@ -40,10 +43,10 @@ const typographySchema = z.object({
 });
 
 const shadowSchema = z.object({
-  x: z.number().finite(),
-  y: z.number().finite(),
-  blur: z.number().finite(),
-  spread: z.number().finite(),
+  x: z.number(),
+  y: z.number(),
+  blur: z.number(),
+  spread: z.number(),
   color: colorValueSchema,
   inset: z.boolean(),
 });
@@ -206,15 +209,19 @@ export class DesignSpecValidationError extends Error {
   readonly issues: readonly string[];
 
   constructor(issues: readonly string[]) {
-    super(`Invalid DesignSpec:\n${issues.slice(0, 20).map((issue) => `  - ${issue}`).join('\n')}`);
+    super(
+      `Invalid DesignSpec:\n${issues
+        .slice(0, 20)
+        .map((issue) => `  - ${issue}`)
+        .join('\n')}`,
+    );
     this.name = 'DesignSpecValidationError';
     this.issues = issues;
   }
 }
 
 export type ValidationResult =
-  | { success: true; spec: DesignSpec }
-  | { success: false; issues: string[] };
+  { success: true; spec: DesignSpec } | { success: false; issues: string[] };
 
 export function validateDesignSpec(input: unknown): ValidationResult {
   const result = designSpecSchema.safeParse(input);
@@ -223,7 +230,9 @@ export function validateDesignSpec(input: unknown): ValidationResult {
   }
   return {
     success: false,
-    issues: result.error.issues.map((issue) => `${issue.path.join('.') || '(root)'}: ${issue.message}`),
+    issues: result.error.issues.map(
+      (issue) => `${issue.path.join('.') || '(root)'}: ${issue.message}`,
+    ),
   };
 }
 
