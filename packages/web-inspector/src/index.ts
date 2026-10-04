@@ -8,6 +8,7 @@ export type { BrowserProvider } from './browser';
 export { InspectorError } from './errors';
 export type { InspectorErrorCode } from './errors';
 export { inspectWebsite } from './inspect';
+export { renderHtmlToPng } from './render-html';
 export type { InspectWebsiteInput, InspectionOptions, ViewportInspection } from './inspect';
 export { parseBoxShadow, toWebsiteDesignSpec } from './normalize';
 export type { RawElement, RawExtraction } from './raw-types';

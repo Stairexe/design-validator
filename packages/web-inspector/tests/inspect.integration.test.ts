@@ -149,3 +149,16 @@ describe('inspectWebsite (Chromium integration)', { timeout: 90_000 }, () => {
     ).rejects.toBeInstanceOf(InspectorError);
   });
 });
+
+describe('renderHtmlToPng', { timeout: 60_000 }, () => {
+  it('renders self-contained HTML to a PNG of the page size', async () => {
+    const { renderHtmlToPng } = await import('../src');
+    const png = await renderHtmlToPng(
+      localBrowserProvider(),
+      '<html><body style="margin:0"><div style="width:300px;height:500px;background:#111"></div></body></html>',
+      { width: 300, height: 200 },
+    );
+    const view = new DataView(png.buffer, png.byteOffset);
+    expect([view.getUint32(16), view.getUint32(20)]).toEqual([300, 500]);
+  });
+});

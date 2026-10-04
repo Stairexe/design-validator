@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 import type { Page } from 'playwright-core';
 
 export interface StabilityOptions {

@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 import type { CapturedStyleProperty, RawElement, RawExtraction } from './raw-types';
 
 export interface ExtractOptions {
