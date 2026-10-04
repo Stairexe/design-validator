@@ -64,6 +64,11 @@ export default tseslint.config(
     rules: { '@typescript-eslint/no-unnecessary-condition': 'off' },
   },
   {
+    // Developer scripts report progress on stdout.
+    files: ['scripts/**/*.ts'],
+    rules: { 'no-console': 'off' },
+  },
+  {
     files: ['**/*.mjs'],
     ...tseslint.configs.disableTypeChecked,
   },

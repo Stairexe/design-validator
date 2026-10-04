@@ -1,0 +1,227 @@
+{
+  "counts": {
+    "position": 6,
+    "size": 7,
+    "spacing": 4,
+    "typography": 2,
+    "color": 0,
+    "border": 0,
+    "radius": 2,
+    "effect": 0,
+    "layout": 0,
+    "responsive": 0,
+    "structure": 2
+  },
+  "issues": [
+    {
+      "viewport": "desktop",
+      "element": "Button / Primary",
+      "property": "Width",
+      "current": "124.47px",
+      "required": "141px",
+      "change": "+16.53px",
+      "severity": "high"
+    },
+    {
+      "viewport": "desktop",
+      "element": "Hero title",
+      "property": "Font size",
+      "current": "44px",
+      "required": "48px",
+      "change": "+4px",
+      "severity": "high"
+    },
+    {
+      "viewport": "desktop",
+      "element": "Button / Primary",
+      "property": "Y position",
+      "current": "176px",
+      "required": "180px",
+      "change": "+4px",
+      "severity": "medium"
+    },
+    {
+      "viewport": "desktop",
+      "element": "Cards",
+      "property": "Y position",
+      "current": "288px",
+      "required": "292px",
+      "change": "+4px",
+      "severity": "medium"
+    },
+    {
+      "viewport": "desktop",
+      "element": "Subtitle",
+      "property": "Y position",
+      "current": "132px",
+      "required": "136px",
+      "change": "+4px",
+      "severity": "medium"
+    },
+    {
+      "viewport": "desktop",
+      "element": "Hero",
+      "property": "Height",
+      "current": "288px",
+      "required": "292px",
+      "change": "+4px",
+      "severity": "medium"
+    },
+    {
+      "viewport": "desktop",
+      "element": "Cards",
+      "property": "Gap",
+      "current": "20px",
+      "required": "24px",
+      "change": "+4px",
+      "severity": "medium"
+    },
+    {
+      "viewport": "desktop",
+      "element": "Button / Primary",
+      "property": "Padding X",
+      "current": "20px",
+      "required": "24px",
+      "change": "+4px",
+      "severity": "medium"
+    },
+    {
+      "viewport": "desktop",
+      "element": "Hero title",
+      "property": "Line height",
+      "current": "52px",
+      "required": "56px",
+      "change": "+4px",
+      "severity": "medium"
+    },
+    {
+      "viewport": "desktop",
+      "element": "Button / Primary",
+      "property": "Radius",
+      "current": "8px",
+      "required": "12px",
+      "change": "+4px",
+      "severity": "medium"
+    },
+    {
+      "viewport": "desktop",
+      "element": "Card",
+      "property": "X position",
+      "current": "946.66px",
+      "required": "949.33px",
+      "change": "+2.67px",
+      "severity": "low"
+    },
+    {
+      "viewport": "desktop",
+      "element": "Card",
+      "property": "Width",
+      "current": "413.33px",
+      "required": "410.67px",
+      "change": "-2.66px",
+      "severity": "low"
+    },
+    {
+      "viewport": "desktop",
+      "element": "Card",
+      "property": "Width",
+      "current": "413.34px",
+      "required": "410.67px",
+      "change": "-2.67px",
+      "severity": "low"
+    },
+    {
+      "viewport": "desktop",
+      "element": "Card",
+      "property": "Width",
+      "current": "413.33px",
+      "required": "410.67px",
+      "change": "-2.66px",
+      "severity": "low"
+    },
+    {
+      "viewport": "desktop",
+      "element": "Decorative",
+      "property": "Presence",
+      "current": "present",
+      "required": "none",
+      "severity": "low"
+    },
+    {
+      "viewport": "mobile",
+      "element": "Card",
+      "property": "Y position",
+      "current": "294px",
+      "required": "302px",
+      "change": "+8px",
+      "severity": "high"
+    },
+    {
+      "viewport": "mobile",
+      "element": "Cards",
+      "property": "Height",
+      "current": "453px",
+      "required": "461px",
+      "change": "+8px",
+      "severity": "high"
+    },
+    {
+      "viewport": "mobile",
+      "element": "Button / Primary",
+      "property": "Width",
+      "current": "124.47px",
+      "required": "141px",
+      "change": "+16.53px",
+      "severity": "high"
+    },
+    {
+      "viewport": "mobile",
+      "element": "Card",
+      "property": "Y position",
+      "current": "147px",
+      "required": "151px",
+      "change": "+4px",
+      "severity": "medium"
+    },
+    {
+      "viewport": "mobile",
+      "element": "Cards",
+      "property": "Gap",
+      "current": "20px",
+      "required": "24px",
+      "change": "+4px",
+      "severity": "medium"
+    },
+    {
+      "viewport": "mobile",
+      "element": "Button / Primary",
+      "property": "Padding X",
+      "current": "20px",
+      "required": "24px",
+      "change": "+4px",
+      "severity": "medium"
+    },
+    {
+      "viewport": "mobile",
+      "element": "Button / Primary",
+      "property": "Radius",
+      "current": "8px",
+      "required": "12px",
+      "change": "+4px",
+      "severity": "medium"
+    },
+    {
+      "viewport": "mobile",
+      "element": "Decorative",
+      "property": "Presence",
+      "current": "present",
+      "required": "none",
+      "severity": "low"
+    }
+  ],
+  "rootCauses": [
+    "desktop: Likely root change: Hero title line height 52px → 56px (4 explained)",
+    "desktop: Likely root change: Cards gap 20px → 24px (4 explained)",
+    "mobile: Likely root change: Cards gap 20px → 24px (3 explained)"
+  ]
+}

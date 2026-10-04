@@ -339,3 +339,18 @@ The report may contain counts, but no page-quality score is required.
   "status": "difference"
 }
 ```
+
+## 15. Implementation notes
+
+Implemented in `packages/matcher` and `packages/comparator`; contracts live in `packages/design-spec` (`report.ts`, `matching.ts`).
+
+- **Values.** `current`, `required` and `delta` are `NormalizedValue`/`IssueDelta` objects (`{ kind: 'length', value: 20 }`), not strings. `delta = required − current`, the change to apply. Display strings (`20px`, `+4px`) come from `formatValue`/`formatDelta`.
+- **Property paths** follow the DesignSpec structure (`padding.left`, `typography.fontSize`, `color.background`). Equal per-side differences are merged into `padding.inline` / `padding.block` / `padding` (likewise margin, border width and radius), matching how CSS is written.
+- **Position** is compared relative to the matched parent on each side, so one container change is not repeated on every descendant. Text boxes skip width/height (font metrics) but keep position and typography.
+- **Unknown values are never compared.** A Figma frame without auto layout has unknown padding (`undefined`), not 0; `line-height: normal` is never compared numerically.
+- **Backgrounds** are compared as the colour the viewer sees (own fill composited over ancestors), so "no fill on a white page" equals "white fill".
+- **Gap.** When the implementation spaces children with margins rather than `gap`, the gap is measured from child positions.
+- **Matching** pre-matches the root frame to `body`, applies explicit mappings and `data-dv-id`, then scores pairs by role, text (Dice on bigrams), hierarchy, geometry and visual similarity over several passes. Ambiguous or low-confidence matches never produce differences; they appear under `unresolved`.
+- **Structure.** Unmatched design elements become `structure.presence` issues (top-most only); a design element present but hidden at this viewport becomes a `visibility` issue in the `responsive` category; repeated-count mismatches become `structure.count` on the parent.
+- **Grouping** (§11) is deterministic: padding, gap, sibling growth and container growth rules link child deltas to a likely root change only when the measured deltas add up.
+- The regression fixture `fixtures/expected-reports/pricing.json` locks the end-to-end output of the pricing fixtures.
