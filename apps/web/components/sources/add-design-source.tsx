@@ -100,10 +100,10 @@ export function AddDesignSource({
                 setAdded(false);
               }}
               className={cn(
-                'rounded-xl px-3 py-2.5 text-left ring-1 transition-[box-shadow,background-color]',
+                'rounded-2xl border-2 px-3 py-2.5 text-left transition-all',
                 active
-                  ? 'bg-brand-50/70 ring-2 ring-brand-500'
-                  : 'bg-white ring-zinc-950/10 hover:bg-zinc-50 hover:ring-zinc-950/20',
+                  ? 'border-zinc-950 bg-zest-300 shadow-hard-sm'
+                  : 'border-zinc-950/15 bg-white hover:-translate-y-0.5 hover:border-zinc-950',
               )}
             >
               <span className="block text-[13px] font-medium text-zinc-950">{item.label}</span>

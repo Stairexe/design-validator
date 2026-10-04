@@ -65,12 +65,14 @@ function Section({
     <Card className="p-5 sm:p-6">
       <fieldset>
         <legend className="flex items-center gap-3">
-          <span className="flex size-6 items-center justify-center rounded-full bg-zinc-900 text-xs font-semibold text-white tabular-nums">
+          <span className="flex size-8 -rotate-6 items-center justify-center rounded-xl border-2 border-zinc-950 bg-pop-500 font-display text-sm font-bold text-zinc-950 shadow-hard-sm tabular-nums">
             {step}
           </span>
-          <span className="text-[15px] font-semibold tracking-tight text-zinc-950">{title}</span>
+          <span className="font-display text-lg font-bold tracking-tight text-zinc-950">
+            {title}
+          </span>
         </legend>
-        {description ? <p className="mt-1.5 pl-9 text-sm text-zinc-500">{description}</p> : null}
+        {description ? <p className="mt-1.5 pl-11 text-sm text-zinc-500">{description}</p> : null}
         <div className="mt-5 space-y-4">{children}</div>
       </fieldset>
     </Card>
@@ -222,15 +224,15 @@ export function NewAuditForm({
                   aria-pressed={active}
                   onClick={() => togglePreset(preset)}
                   className={cn(
-                    'relative flex items-center gap-3 rounded-xl px-3.5 py-3 text-left ring-1 transition-[box-shadow,background-color]',
+                    'relative flex items-center gap-3 rounded-2xl border-2 px-3.5 py-3 text-left transition-all',
                     active
-                      ? 'bg-brand-50/70 ring-2 ring-brand-500'
-                      : 'bg-white ring-zinc-950/10 hover:bg-zinc-50 hover:ring-zinc-950/20',
+                      ? 'border-zinc-950 bg-zest-300 shadow-hard'
+                      : 'border-zinc-950/15 bg-white hover:-translate-y-0.5 hover:border-zinc-950',
                   )}
                 >
                   <Icon
                     aria-hidden
-                    className={cn('size-5', active ? 'text-brand-600' : 'text-zinc-400')}
+                    className={cn('size-5', active ? 'text-zinc-950' : 'text-zinc-400')}
                   />
                   <span>
                     <span className="block text-sm font-medium text-zinc-950">{preset.label}</span>
@@ -241,7 +243,7 @@ export function NewAuditForm({
                   {active ? (
                     <CheckIcon
                       aria-hidden
-                      className="absolute right-3 top-3 size-4 text-brand-600"
+                      className="absolute right-3 top-3 size-4 text-zinc-950"
                     />
                   ) : null}
                 </button>
@@ -255,7 +257,7 @@ export function NewAuditForm({
               return (
                 <li
                   key={row.key}
-                  className="grid items-end gap-3 rounded-xl bg-zinc-50 p-3 ring-1 ring-inset ring-zinc-950/5 sm:grid-cols-[8rem_5.5rem_5.5rem_minmax(0,1fr)_auto]"
+                  className="grid items-end gap-3 rounded-2xl border-2 border-dashed border-zinc-950/20 bg-zinc-50 p-3 sm:grid-cols-[8rem_5.5rem_5.5rem_minmax(0,1fr)_auto]"
                 >
                   <div className="flex h-9 items-center gap-2 text-sm font-medium text-zinc-800">
                     <Icon aria-hidden className="size-4 text-zinc-400" />
@@ -329,7 +331,7 @@ export function NewAuditForm({
             <summary className="flex cursor-pointer list-none items-center gap-3 px-5 py-4 sm:px-6 [&::-webkit-details-marker]:hidden">
               <AdjustmentsHorizontalIcon aria-hidden className="size-5 text-zinc-400" />
               <span className="flex-1">
-                <span className="block text-[15px] font-semibold tracking-tight text-zinc-950">
+                <span className="block font-display text-lg font-bold tracking-tight text-zinc-950">
                   Advanced settings
                 </span>
                 <span className="block text-sm text-zinc-500">
@@ -384,8 +386,10 @@ export function NewAuditForm({
         </Card>
       </div>
 
-      <Card className="space-y-5 p-5 lg:sticky lg:top-10">
-        <h2 className="text-[15px] font-semibold tracking-tight text-zinc-950">Summary</h2>
+      <Card className="space-y-5 border-2 border-zinc-950 p-5 shadow-hard-lg lg:sticky lg:top-10">
+        <h2 className="font-display text-xl font-bold tracking-tight text-zinc-950">
+          Ready to run
+        </h2>
         <dl className="space-y-3 text-sm">
           <div>
             <dt className="text-xs text-zinc-500">Website</dt>

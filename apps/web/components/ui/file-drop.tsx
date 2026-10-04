@@ -25,18 +25,18 @@ export function FileDrop({
       onDragEnter={() => setDragging(true)}
       onDragLeave={() => setDragging(false)}
       onDrop={() => setDragging(false)}
-      className={`relative flex cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl border border-dashed px-4 py-6 text-center transition-colors focus-within:ring-2 focus-within:ring-brand-500 ${
+      className={`relative flex cursor-pointer flex-col items-center justify-center gap-1.5 rounded-2xl border-2 border-dashed px-4 py-7 text-center transition-all focus-within:border-zinc-950 focus-within:shadow-hard-sm ${
         dragging
-          ? 'border-brand-500 bg-brand-50'
-          : 'border-zinc-300 bg-zinc-50/60 hover:border-zinc-400 hover:bg-zinc-50'
+          ? 'border-zinc-950 bg-zest-200'
+          : 'border-zinc-950/25 bg-zinc-50 hover:border-zinc-950 hover:bg-zest-50'
       }`}
     >
       {fileName ? (
-        <DocumentTextIcon aria-hidden className="size-5 text-brand-600" />
+        <DocumentTextIcon aria-hidden className="size-6 text-brand-600" />
       ) : (
-        <ArrowUpTrayIcon aria-hidden className="size-5 text-zinc-400" />
+        <ArrowUpTrayIcon aria-hidden className="size-6 animate-float text-pop-500" />
       )}
-      <span className="text-sm font-medium text-zinc-800">{fileName || prompt}</span>
+      <span className="font-display text-[15px] font-bold text-zinc-950">{fileName || prompt}</span>
       <span className="text-xs text-zinc-500">
         {fileName
           ? 'Click to choose another file'

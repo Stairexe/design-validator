@@ -37,12 +37,12 @@ export function ConfirmButton({
     <div
       role="group"
       aria-label={question}
-      className="flex animate-fade-up flex-wrap items-center gap-2 rounded-lg bg-red-50 py-1 pl-3 pr-1 ring-1 ring-inset ring-red-600/15"
+      className="flex animate-fade-up flex-wrap items-center gap-2 rounded-xl border-2 border-red-700 bg-red-50 py-1 pl-3 pr-1"
       onKeyDown={(event) => {
         if (event.key === 'Escape') setState('idle');
       }}
     >
-      <span className="text-[13px] font-medium text-red-800">{error || question}</span>
+      <span className="text-[13px] font-semibold text-red-800">{error || question}</span>
       <Button
         variant="danger"
         size="sm"

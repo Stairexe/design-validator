@@ -1,5 +1,7 @@
-import { GeistMono } from 'geist/font/mono';
-import { GeistSans } from 'geist/font/sans';
+import '@fontsource-variable/bricolage-grotesque';
+import '@fontsource-variable/instrument-sans';
+import '@fontsource/space-mono/400.css';
+import '@fontsource/space-mono/700.css';
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 
@@ -15,12 +17,12 @@ export const metadata: Metadata = {
   description: 'Exact differences between a live website and its Figma or Adobe XD design.',
 };
 
-export const viewport: Viewport = { themeColor: '#fafafa' };
+export const viewport: Viewport = { themeColor: '#16131b' };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <body className="bg-zinc-50 font-sans text-zinc-900 antialiased">
+    <html lang="en">
+      <body className="font-sans text-zinc-900 antialiased">
         <AppShell>{children}</AppShell>
       </body>
     </html>

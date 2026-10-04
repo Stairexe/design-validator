@@ -64,7 +64,7 @@ export function VisualComparison({
         <div
           role="tablist"
           aria-label="Comparison mode"
-          className="inline-flex flex-wrap gap-1 rounded-xl bg-zinc-950/[0.04] p-1"
+          className="inline-flex flex-wrap gap-1 rounded-2xl border-2 border-zinc-950 bg-white p-1 shadow-hard-sm"
         >
           {MODES.map((item) => (
             <button
@@ -74,10 +74,10 @@ export function VisualComparison({
               aria-selected={mode === item.id}
               onClick={() => setMode(item.id)}
               className={cn(
-                'rounded-lg px-3 py-1.5 text-sm font-medium transition-all',
+                'rounded-xl px-3 py-1.5 text-sm font-semibold transition-all',
                 mode === item.id
-                  ? 'bg-white text-zinc-950 shadow-card ring-1 ring-zinc-950/[0.06]'
-                  : 'text-zinc-500 hover:text-zinc-900',
+                  ? 'bg-zinc-950 text-white'
+                  : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-950',
               )}
             >
               {item.label}
@@ -102,7 +102,7 @@ export function VisualComparison({
         </p>
       ) : null}
 
-      <div className="max-h-[75vh] overflow-auto rounded-xl bg-zinc-100 ring-1 ring-inset ring-zinc-950/[0.07]">
+      <div className="max-h-[75vh] overflow-auto rounded-2xl border-2 border-zinc-950 bg-zinc-100">
         {mode === 'side-by-side' ? (
           <div className="grid grid-cols-2 gap-px bg-zinc-950/[0.08]">
             <figure className="bg-white">

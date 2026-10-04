@@ -41,7 +41,7 @@ export function AnnotatedImage({
         <div
           ref={boxRef}
           aria-hidden
-          className="pointer-events-none absolute rounded-sm outline outline-2 outline-offset-2 outline-brand-500"
+          className="pointer-events-none absolute rounded-sm outline outline-2 outline-offset-2 outline-pop-500"
           style={{
             left: `${(highlight.x / natural.width) * 100}%`,
             top: `${(highlight.y / natural.height) * 100}%`,

@@ -6,26 +6,37 @@ import { cn } from '@/lib/cn';
 type Variant = 'primary' | 'brand' | 'secondary' | 'ghost' | 'danger';
 type Size = 'sm' | 'md' | 'lg';
 
+/** Chunky buttons: ink outline and a hard offset shadow that lifts on hover and presses on click. */
+const RAISED =
+  'border-2 border-zinc-950 hover:-translate-x-px hover:-translate-y-px active:translate-x-[2px] active:translate-y-[2px] active:shadow-none';
+
 const VARIANTS: Record<Variant, string> = {
-  primary:
-    'bg-zinc-900 text-white shadow-card hover:bg-zinc-800 disabled:bg-zinc-300 disabled:text-zinc-500',
-  brand:
-    'bg-brand-600 text-white shadow-card hover:bg-brand-700 disabled:bg-brand-200 disabled:text-white',
-  secondary:
-    'bg-white text-zinc-800 shadow-card ring-1 ring-zinc-950/10 hover:bg-zinc-50 hover:text-zinc-950 disabled:text-zinc-400',
-  ghost: 'text-zinc-600 hover:bg-zinc-950/5 hover:text-zinc-950 disabled:text-zinc-400',
+  primary: cn(
+    RAISED,
+    'bg-pop-500 text-zinc-950 shadow-hard hover:bg-pop-300 hover:shadow-hard-lg disabled:bg-zinc-200 disabled:text-zinc-500 disabled:shadow-none',
+  ),
+  brand: cn(
+    RAISED,
+    'bg-brand-600 text-white shadow-hard hover:bg-brand-500 hover:shadow-hard-lg disabled:bg-brand-200 disabled:shadow-none',
+  ),
+  secondary: cn(
+    RAISED,
+    'bg-white text-zinc-950 shadow-hard-sm hover:bg-zest-100 hover:shadow-hard disabled:text-zinc-400 disabled:shadow-none',
+  ),
+  ghost:
+    'border-2 border-transparent text-zinc-600 hover:bg-zinc-950/[0.06] hover:text-zinc-950 disabled:text-zinc-400',
   danger:
-    'bg-white text-red-700 shadow-card ring-1 ring-red-600/20 hover:bg-red-50 disabled:text-red-300',
+    'border-2 border-red-700 bg-white text-red-700 shadow-[2px_2px_0_0_var(--color-red-700)] hover:-translate-x-px hover:-translate-y-px hover:bg-red-50 hover:shadow-[3px_3px_0_0_var(--color-red-700)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none',
 };
 const SIZES: Record<Size, string> = {
   sm: 'h-8 gap-1.5 rounded-lg px-3 text-[13px]',
-  md: 'h-9 gap-2 rounded-lg px-3.5 text-sm',
-  lg: 'h-11 gap-2 rounded-xl px-5 text-[15px]',
+  md: 'h-10 gap-2 rounded-xl px-4 text-sm',
+  lg: 'h-12 gap-2 rounded-xl px-6 text-[15px]',
 };
 
 export function buttonClass(variant: Variant = 'primary', size: Size = 'md', className?: string) {
   return cn(
-    'inline-flex shrink-0 select-none items-center justify-center whitespace-nowrap font-medium transition-[background-color,color,box-shadow,transform] duration-150 active:scale-[0.98] disabled:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+    'inline-flex shrink-0 select-none items-center justify-center whitespace-nowrap font-semibold transition-[transform,box-shadow,background-color,color] duration-150 ease-out disabled:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
     VARIANTS[variant],
     SIZES[size],
     className,

@@ -48,7 +48,7 @@ const TOLERANCE_LABELS: Record<string, [string, string]> = {
 };
 
 const Env = ({ children }: { children: string }) => (
-  <code className="rounded bg-zinc-100 px-1 py-px font-mono text-[11px] text-zinc-700">
+  <code className="rounded-md border border-zinc-950/15 bg-zinc-100 px-1 py-px font-mono text-[11px] text-zinc-800">
     {children}
   </code>
 );
@@ -68,7 +68,7 @@ function Section({
       <ul className="divide-y divide-zinc-950/[0.05]">
         {rows.map((row) => (
           <li key={row.label} className="flex items-start gap-3.5 px-5 py-4">
-            <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-zinc-100 text-zinc-500 [&_svg]:size-4">
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-xl border-2 border-zinc-950 bg-zest-300 text-zinc-950 shadow-hard-sm [&_svg]:size-4">
               {row.icon}
             </span>
             <div className="min-w-0 flex-1">

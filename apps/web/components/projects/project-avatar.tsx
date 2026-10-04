@@ -1,14 +1,14 @@
 import { cn } from '@/lib/cn';
 
 const TINTS = [
-  'bg-sky-100 text-sky-700',
-  'bg-amber-100 text-amber-800',
-  'bg-emerald-100 text-emerald-700',
-  'bg-rose-100 text-rose-700',
-  'bg-violet-100 text-violet-700',
-  'bg-lime-100 text-lime-800',
-  'bg-orange-100 text-orange-700',
-  'bg-teal-100 text-teal-700',
+  'bg-sky-200',
+  'bg-pop-200',
+  'bg-zest-300',
+  'bg-pink-200',
+  'bg-brand-200',
+  'bg-amber-200',
+  'bg-teal-200',
+  'bg-fuchsia-200',
 ];
 
 function hash(value: string): number {
@@ -29,11 +29,11 @@ export function ProjectAvatar({ name, size = 'md' }: { name: string; size?: 'sm'
     <span
       aria-hidden
       className={cn(
-        'flex shrink-0 items-center justify-center rounded-lg font-semibold ring-1 ring-inset ring-zinc-950/5',
+        'flex shrink-0 -rotate-3 items-center justify-center rounded-xl border-2 border-zinc-950 font-display font-bold text-zinc-950 shadow-hard-sm',
         TINTS[hash(name) % TINTS.length],
         size === 'sm' && 'size-7 text-xs',
-        size === 'md' && 'size-9 text-sm',
-        size === 'lg' && 'size-12 rounded-xl text-lg',
+        size === 'md' && 'size-10 text-base',
+        size === 'lg' && 'size-14 rounded-2xl text-2xl',
       )}
     >
       {initial}

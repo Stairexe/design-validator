@@ -21,7 +21,7 @@ import { VisualComparison } from '@/components/screenshots/visual-comparison';
 import { Card } from '@/components/ui/card';
 import { Input, Select } from '@/components/ui/field';
 import { cn } from '@/lib/cn';
-import { CATEGORY_LABELS, deviceKind, differenceCount } from '@/lib/labels';
+import { CATEGORY_COLORS, CATEGORY_LABELS, deviceKind, differenceCount } from '@/lib/labels';
 
 import { UnresolvedTable } from './unresolved-table';
 import { DEVICE_ICONS } from './viewport-chips';
@@ -41,8 +41,8 @@ function Count({ children, active }: { children: ReactNode; active: boolean }) {
   return (
     <span
       className={cn(
-        'rounded-full px-1.5 py-px text-[11px] font-medium tabular-nums',
-        active ? 'bg-zinc-900 text-white' : 'bg-zinc-100 text-zinc-500',
+        'rounded-full px-1.5 py-px font-mono text-[11px] font-bold tabular-nums',
+        active ? 'bg-zest-300 text-zinc-950' : 'bg-zinc-200 text-zinc-600',
       )}
     >
       {children}
@@ -109,7 +109,7 @@ export function AuditResults({
         <div
           role="group"
           aria-label="Viewports"
-          className="inline-flex flex-wrap gap-1 rounded-xl bg-zinc-950/[0.04] p-1"
+          className="inline-flex flex-wrap gap-1 rounded-2xl border-2 border-zinc-950 bg-white p-1 shadow-hard-sm"
         >
           {report.viewports.map((entry) => {
             const Icon = DEVICE_ICONS[deviceKind(entry.width)];
@@ -121,15 +121,15 @@ export function AuditResults({
                 onClick={() => setViewport(entry.viewportId)}
                 aria-pressed={active}
                 className={cn(
-                  'flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium transition-all',
+                  'flex items-center gap-2 rounded-xl px-3 py-1.5 text-sm font-semibold transition-all',
                   active
-                    ? 'bg-white text-zinc-950 shadow-card ring-1 ring-zinc-950/[0.06]'
-                    : 'text-zinc-500 hover:text-zinc-900',
+                    ? 'bg-zinc-950 text-white'
+                    : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-950',
                 )}
               >
                 <Icon aria-hidden className="size-4 opacity-70" />
                 {audit.viewports.find((v) => v.id === entry.viewportId)?.label ?? entry.viewportId}
-                <span className="font-mono text-xs font-normal text-zinc-400">{entry.width}</span>
+                <span className="font-mono text-xs font-normal opacity-60">{entry.width}</span>
                 <Count active={active}>{entry.issueCount}</Count>
               </button>
             );
@@ -140,10 +140,10 @@ export function AuditResults({
               onClick={() => setViewport('all')}
               aria-pressed={viewport === 'all'}
               className={cn(
-                'rounded-lg px-3 py-1.5 text-sm font-medium transition-all',
+                'rounded-xl px-3 py-1.5 text-sm font-semibold transition-all',
                 viewport === 'all'
-                  ? 'bg-white text-zinc-950 shadow-card ring-1 ring-zinc-950/[0.06]'
-                  : 'text-zinc-500 hover:text-zinc-900',
+                  ? 'bg-zinc-950 text-white'
+                  : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-950',
               )}
             >
               All sizes
@@ -155,7 +155,7 @@ export function AuditResults({
       <div
         role="tablist"
         aria-label="Result views"
-        className="flex gap-5 overflow-x-auto border-b border-zinc-950/[0.08]"
+        className="flex gap-6 overflow-x-auto border-b-2 border-zinc-950/10"
       >
         {TABS.filter((item) => !item.hidden).map((item) => (
           <button
@@ -165,10 +165,10 @@ export function AuditResults({
             aria-selected={tab === item.id}
             onClick={() => setTab(item.id)}
             className={cn(
-              '-mb-px flex shrink-0 items-center gap-2 whitespace-nowrap border-b-2 pb-2.5 pt-1 text-sm font-medium transition-colors',
+              '-mb-[2px] flex shrink-0 items-center gap-2 whitespace-nowrap border-b-[3px] pb-2.5 pt-1 font-display text-[15px] font-semibold transition-colors',
               tab === item.id
-                ? 'border-zinc-950 text-zinc-950'
-                : 'border-transparent text-zinc-500 hover:text-zinc-800',
+                ? 'border-pop-500 text-zinc-950'
+                : 'border-transparent text-zinc-500 hover:border-zinc-300 hover:text-zinc-900',
             )}
           >
             {item.id === 'differences' ? differenceCount(filtered.length) : item.label}
@@ -225,6 +225,7 @@ export function AuditResults({
                 onClick={() => setCategory(c)}
                 label={CATEGORY_LABELS[c]}
                 count={categoryCounts.get(c) ?? 0}
+                color={CATEGORY_COLORS[c]}
               />
             ))}
           </div>
@@ -284,7 +285,7 @@ export function AuditResults({
             ) : null}
             <button
               type="button"
-              className="font-medium text-brand-600 underline-offset-2 hover:underline"
+              className="font-semibold text-brand-600 underline decoration-2 underline-offset-4 hover:text-pop-600"
               onClick={() => setTab('differences')}
             >
               Choose another difference
@@ -312,11 +313,13 @@ function FilterChip({
   onClick,
   label,
   count,
+  color = 'bg-white',
 }: {
   active: boolean;
   onClick: () => void;
   label: string;
   count: number;
+  color?: string;
 }) {
   return (
     <button
@@ -324,16 +327,20 @@ function FilterChip({
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        'flex shrink-0 items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[13px] font-medium ring-1 transition-colors',
+        'flex shrink-0 items-center gap-1.5 rounded-full border-2 px-3 py-1 text-[13px] font-semibold transition-all',
         active
-          ? 'bg-zinc-900 text-white ring-zinc-900'
-          : 'bg-white text-zinc-600 ring-zinc-950/10 hover:bg-zinc-50 hover:text-zinc-950',
+          ? cn(
+              'border-zinc-950 text-zinc-950 shadow-hard-sm',
+              color === 'bg-white' ? 'bg-zest-300' : color,
+            )
+          : 'border-zinc-950/15 bg-white text-zinc-600 hover:border-zinc-950 hover:text-zinc-950',
       )}
     >
+      {color !== 'bg-white' ? (
+        <span aria-hidden className={cn('size-2.5 rounded-full border border-zinc-950', color)} />
+      ) : null}
       {label}
-      <span className={cn('tabular-nums', active ? 'text-zinc-300' : 'text-zinc-400')}>
-        {count}
-      </span>
+      <span className="font-mono text-xs tabular-nums opacity-60">{count}</span>
     </button>
   );
 }

@@ -12,7 +12,7 @@ export function SourceKindTile({ kind }: { kind: DesignSourceRecord['kind'] }) {
   return (
     <span
       aria-hidden
-      className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-zinc-900 font-mono text-[11px] font-semibold text-white"
+      className="flex size-10 shrink-0 -rotate-3 items-center justify-center rounded-xl border-2 border-zinc-950 bg-brand-600 font-mono text-[11px] font-bold text-white shadow-hard-sm"
     >
       {kind === 'figma' ? 'Fig' : 'Xd'}
     </span>

@@ -67,13 +67,13 @@ export default async function ProjectsPage() {
                 className="animate-fade-up"
                 style={{ animationDelay: `${Math.min(index, 8) * 40}ms` }}
               >
-                <Card className="group relative h-full transition-shadow hover:shadow-raised">
+                <Card className="group relative h-full border-2 border-zinc-950 shadow-hard transition-all duration-200 hover:-translate-y-1 hover:shadow-hard-lg">
                   <div className="flex items-start gap-3 p-5">
                     <ProjectAvatar name={project.name} />
                     <div className="min-w-0">
                       <Link
                         href={`/projects/${project.id}`}
-                        className="font-semibold text-zinc-950 after:absolute after:inset-0 after:rounded-xl focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-brand-500"
+                        className="font-display text-lg font-bold text-zinc-950 after:absolute after:inset-0 after:rounded-2xl focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-brand-500"
                       >
                         {project.name}
                       </Link>
@@ -83,7 +83,7 @@ export default async function ProjectsPage() {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between gap-3 border-t border-zinc-950/[0.05] px-5 py-3 text-[13px]">
+                  <div className="flex items-center justify-between gap-3 border-t-2 border-zinc-950 bg-zinc-50 px-5 py-3 text-[13px] rounded-b-2xl">
                     <LatestAudit audit={latest.get(project.id)} />
                     <span className="shrink-0 text-zinc-400 tabular-nums">
                       {counts.get(project.id) ?? 0} audit{counts.get(project.id) === 1 ? '' : 's'}
@@ -94,7 +94,7 @@ export default async function ProjectsPage() {
             ))}
           </ul>
         )}
-        <Card className="lg:sticky lg:top-10">
+        <Card className="border-2 border-zinc-950 bg-zest-100 shadow-hard-lg lg:sticky lg:top-10">
           <CardHeader title="New project" description="Start with the page you want to check." />
           <CardBody>
             <CreateProjectForm />

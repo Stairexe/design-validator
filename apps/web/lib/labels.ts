@@ -92,3 +92,18 @@ export type DeviceKind = 'desktop' | 'tablet' | 'mobile';
 
 export const deviceKind = (width: number): DeviceKind =>
   width < 600 ? 'mobile' : width < 1024 ? 'tablet' : 'desktop';
+
+/** One colour per category so differences scan at a glance. */
+export const CATEGORY_COLORS: Record<IssueCategory, string> = {
+  position: 'bg-sky-200',
+  size: 'bg-pop-200',
+  spacing: 'bg-brand-200',
+  typography: 'bg-pink-200',
+  color: 'bg-zest-300',
+  border: 'bg-amber-200',
+  radius: 'bg-teal-200',
+  effect: 'bg-fuchsia-200',
+  layout: 'bg-indigo-200',
+  responsive: 'bg-cyan-200',
+  structure: 'bg-zinc-200',
+};

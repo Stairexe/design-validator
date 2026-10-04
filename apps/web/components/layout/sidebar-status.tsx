@@ -7,10 +7,10 @@ function Row({ ok, label, value }: { ok: boolean; label: string; value: string }
   return (
     <div className="flex items-center justify-between gap-2">
       <span className="text-zinc-500">{label}</span>
-      <span className="flex items-center gap-1.5 font-medium text-zinc-700">
+      <span className="flex items-center gap-1.5 font-semibold text-zinc-200">
         <span
           aria-hidden
-          className={cn('size-1.5 rounded-full', ok ? 'bg-emerald-500' : 'bg-amber-500')}
+          className={cn('size-1.5 rounded-full', ok ? 'bg-zest-300' : 'bg-pop-500')}
         />
         {value}
       </span>
@@ -25,7 +25,7 @@ export function SidebarStatus() {
   return (
     <Link
       href="/settings"
-      className="block space-y-1.5 rounded-xl bg-white/70 p-3 text-xs shadow-card ring-1 ring-zinc-950/[0.06] transition-colors hover:bg-white"
+      className="block space-y-2 rounded-xl border-2 border-zinc-800 p-3 text-xs transition-colors hover:border-zinc-600 hover:bg-white/[0.03]"
     >
       <Row ok={persistent} label="Storage" value={persistent ? 'Saved' : 'Temporary'} />
       <Row

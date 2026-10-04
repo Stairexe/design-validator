@@ -14,8 +14,8 @@ export function AppShell({ children }: { children: ReactNode }) {
         Skip to content
       </a>
       <MainNav footer={<SidebarStatus />} />
-      <div className="lg:pl-60">
-        <main id="main" className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6 lg:px-10 lg:pt-10">
+      <div className="lg:pl-64">
+        <main id="main" className="mx-auto max-w-6xl px-4 pb-20 pt-6 sm:px-6 lg:px-10 lg:pt-10">
           <StorageWarning />
           {children}
         </main>

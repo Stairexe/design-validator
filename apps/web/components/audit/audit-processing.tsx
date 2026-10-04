@@ -60,6 +60,29 @@ function stepState(
   return done || ORDER.indexOf(stage) < ORDER.indexOf(current) ? 'done' : 'pending';
 }
 
+type Step = (typeof GROUPS)[number]['steps'][number];
+
+/**
+ * Several steps can share one pipeline stage (website loading, extraction and
+ * screenshots). While that stage runs, the progress message names the current
+ * step; earlier ones read as done and later ones as pending.
+ */
+function subStepState(
+  steps: readonly Step[],
+  step: Step,
+  state: 'done' | 'active' | 'pending',
+  message: string,
+): 'done' | 'active' | 'pending' {
+  const siblings = steps.filter((candidate) => candidate.stage === step.stage);
+  if (state !== 'active' || siblings.length < 2) return state;
+  const current = Math.max(
+    0,
+    siblings.findIndex((candidate) => message.startsWith(candidate.label.split(' ')[0] ?? '')),
+  );
+  const index = siblings.indexOf(step);
+  return index < current ? 'done' : index === current ? 'active' : 'pending';
+}
+
 /** Live pipeline progress; polls the audit until it reaches a terminal state. */
 export function AuditProcessing({
   initial,
@@ -85,14 +108,14 @@ export function AuditProcessing({
 
   return (
     <div className="grid grid-cols-[minmax(0,1fr)] animate-fade-up items-start gap-6 lg:grid-cols-[minmax(0,1fr)_18rem]">
-      <Card className="overflow-hidden">
+      <Card className="overflow-hidden border-2 border-zinc-950 shadow-hard-lg">
         <div className="flex flex-wrap items-start justify-between gap-4 px-6 pb-5 pt-6">
           <div className="flex items-start gap-4">
-            <span className="relative flex size-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
+            <span className="relative flex size-12 animate-wiggle items-center justify-center rounded-2xl border-2 border-zinc-950 bg-pop-500 text-zinc-950 shadow-hard-sm">
               <Spinner className="size-5" />
             </span>
             <div>
-              <h2 className="text-[17px] font-semibold tracking-tight text-zinc-950">
+              <h2 className="font-display text-2xl font-bold tracking-tight text-zinc-950">
                 Checking the page against the design
               </h2>
               <p className="mt-0.5 text-sm text-zinc-500" aria-live="polite">
@@ -114,7 +137,7 @@ export function AuditProcessing({
         </div>
         <div className="px-6">
           <div
-            className="h-1.5 overflow-hidden rounded-full bg-zinc-100"
+            className="h-5 overflow-hidden rounded-full border-2 border-zinc-950 bg-white"
             role="progressbar"
             aria-valuemin={0}
             aria-valuemax={100}
@@ -122,7 +145,7 @@ export function AuditProcessing({
             aria-label="Audit progress"
           >
             <div
-              className="h-full rounded-full bg-brand-600 transition-[width] duration-700 ease-out"
+              className="h-full animate-stripes rounded-full border-r-2 border-zinc-950 bg-zest-300 bg-[linear-gradient(45deg,rgb(22_19_27/0.14)_25%,transparent_25%,transparent_50%,rgb(22_19_27/0.14)_50%,rgb(22_19_27/0.14)_75%,transparent_75%)] bg-[length:28px_28px] transition-[width] duration-700 ease-out"
               style={{ width: `${Math.max(percent, 4)}%` }}
             />
           </div>
@@ -130,12 +153,17 @@ export function AuditProcessing({
         <div className="grid gap-6 px-6 py-6 sm:grid-cols-3">
           {GROUPS.map((group) => (
             <div key={group.title}>
-              <h3 className="text-xs font-medium text-zinc-500">{group.title}</h3>
+              <h3 className="font-display text-sm font-bold text-zinc-950">{group.title}</h3>
               <ul className="mt-2.5 space-y-2.5">
                 {group.steps
                   .filter((step) => step.stage !== 'VISUAL_DIFF' || audit.settings.visualDiff)
                   .map((step) => {
-                    const status = stepState(step.stage, audit.status, stageRuns);
+                    const status = subStepState(
+                      group.steps,
+                      step,
+                      stepState(step.stage, audit.status, stageRuns),
+                      audit.progress?.message ?? '',
+                    );
                     return (
                       <li
                         key={step.label}
@@ -148,10 +176,10 @@ export function AuditProcessing({
                         <span
                           aria-hidden
                           className={cn(
-                            'flex size-5 shrink-0 items-center justify-center rounded-full',
-                            status === 'done' && 'bg-emerald-500 text-white',
-                            status === 'active' && 'bg-brand-50 text-brand-600',
-                            status === 'pending' && 'ring-1 ring-inset ring-zinc-200',
+                            'flex size-6 shrink-0 items-center justify-center rounded-full border-2',
+                            status === 'done' && 'border-zinc-950 bg-zest-300 text-zinc-950',
+                            status === 'active' && 'border-zinc-950 bg-pop-500 text-zinc-950',
+                            status === 'pending' && 'border-zinc-950/15',
                           )}
                         >
                           {status === 'done' ? <CheckIcon className="size-3" /> : null}
@@ -167,14 +195,14 @@ export function AuditProcessing({
           ))}
         </div>
       </Card>
-      <Card className="p-5 text-sm text-zinc-600">
-        <h2 className="font-semibold text-zinc-950">While you wait</h2>
+      <Card className="border-2 border-zinc-950 bg-brand-600 p-5 text-sm text-white shadow-hard-lg">
+        <h2 className="font-display text-lg font-bold text-white">While you wait</h2>
         <ul className="mt-3 space-y-2.5 leading-relaxed">
           <li>The page is opened in a real browser at each screen size.</li>
           <li>Every element is matched to its layer in the design.</li>
           <li>Each property is compared with exact values and tolerances.</li>
         </ul>
-        <p className="mt-4 text-xs text-zinc-400">
+        <p className="mt-4 text-xs text-brand-100">
           This usually takes under a minute. You can leave this page; it keeps running.
         </p>
       </Card>

@@ -14,7 +14,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { CopyButton } from '@/components/ui/copy-button';
 import { cn } from '@/lib/cn';
-import { CATEGORY_LABELS, SEVERITY_TONE } from '@/lib/labels';
+import { CATEGORY_COLORS, CATEGORY_LABELS, SEVERITY_TONE } from '@/lib/labels';
 
 function ValueTile({
   label,
@@ -28,24 +28,26 @@ function ValueTile({
   return (
     <div
       className={cn(
-        'min-w-0 rounded-xl px-4 py-3 ring-1 ring-inset',
-        tone === 'change' ? 'bg-brand-50 ring-brand-500/20' : 'bg-zinc-50 ring-zinc-950/[0.06]',
+        'min-w-0 rounded-2xl border-2 px-4 py-3',
+        tone === 'neutral' && 'border-zinc-950/10 bg-zinc-100',
+        tone === 'strong' && 'border-zinc-950 bg-white',
+        tone === 'change' && '-rotate-1 border-zinc-950 bg-zest-300 shadow-hard',
       )}
     >
       <dt
         className={cn(
-          'text-xs font-medium',
-          tone === 'change' ? 'text-brand-700' : 'text-zinc-500',
+          'text-[11px] font-bold uppercase tracking-wider',
+          tone === 'change' ? 'text-zinc-950/70' : 'text-zinc-500',
         )}
       >
         {label}
       </dt>
       <dd
         className={cn(
-          'mt-1 break-words font-mono text-lg font-medium leading-snug',
-          tone === 'neutral' && 'text-zinc-500',
+          'mt-1 break-words font-mono text-xl font-bold leading-snug',
+          tone === 'neutral' && 'text-zinc-500 line-through decoration-pop-500 decoration-2',
           tone === 'strong' && 'text-zinc-950',
-          tone === 'change' && 'text-brand-700',
+          tone === 'change' && 'text-zinc-950',
         )}
       >
         {children}
@@ -56,9 +58,16 @@ function ValueTile({
 
 function CodeBlock({ code, label, actions }: { code: string; label: string; actions?: ReactNode }) {
   return (
-    <div className="overflow-hidden rounded-xl bg-zinc-950 ring-1 ring-zinc-950">
+    <div className="overflow-hidden rounded-2xl border-2 border-zinc-950 bg-zinc-950 shadow-hard">
       <div className="flex items-center justify-between gap-2 border-b border-white/10 px-3 py-1.5">
-        <span className="font-mono text-[11px] uppercase tracking-wide text-zinc-500">{label}</span>
+        <span className="flex items-center gap-2 font-mono text-[11px] font-bold uppercase tracking-wider text-zest-300">
+          <span aria-hidden className="flex gap-1">
+            <span className="size-2 rounded-full bg-pop-500" />
+            <span className="size-2 rounded-full bg-zest-300" />
+            <span className="size-2 rounded-full bg-brand-500" />
+          </span>
+          {label}
+        </span>
         {actions}
       </div>
       <pre className="overflow-x-auto p-3.5 font-mono text-[13px] leading-relaxed text-zinc-100">
@@ -91,10 +100,10 @@ export function IssueDetail({
     <article aria-labelledby="issue-title" className="animate-fade-up space-y-6">
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="truncate text-[13px] font-medium text-zinc-500">{issue.element.name}</p>
+          <p className="truncate text-[13px] font-semibold text-pop-600">{issue.element.name}</p>
           <h2
             id="issue-title"
-            className="mt-0.5 text-xl font-semibold tracking-tight text-zinc-950"
+            className="mt-0.5 font-display text-[28px] font-bold leading-tight tracking-tight text-zinc-950"
           >
             {propertyLabel(issue.property)}
           </h2>
@@ -102,7 +111,11 @@ export function IssueDetail({
             <Badge tone={SEVERITY_TONE[issue.severity]} dot>
               <span className="capitalize">{issue.severity}</span>
             </Badge>
-            <Badge>{CATEGORY_LABELS[issue.category]}</Badge>
+            <Badge
+              className={cn(CATEGORY_COLORS[issue.category], 'border-zinc-950/20 text-zinc-950')}
+            >
+              {CATEGORY_LABELS[issue.category]}
+            </Badge>
             <Badge>
               <span className="font-mono">{issue.viewportId}</span>
             </Badge>
@@ -110,14 +123,14 @@ export function IssueDetail({
         </div>
         {onShowVisual ? (
           <Button variant="secondary" size="sm" onClick={onShowVisual}>
-            <PhotoIcon aria-hidden className="text-zinc-400" />
+            <PhotoIcon aria-hidden />
             Show on screenshots
           </Button>
         ) : null}
       </header>
 
       <div className="space-y-2">
-        <dl className="grid gap-2 sm:grid-cols-3">
+        <dl className="grid gap-3 sm:grid-cols-3">
           <ValueTile label="Current">{formatValue(issue.current)}</ValueTile>
           <ValueTile label="Required" tone="strong">
             {formatValue(issue.required)}
@@ -137,8 +150,8 @@ export function IssueDetail({
       </div>
 
       {group?.kind === 'likely-root-cause' ? (
-        <p className="flex gap-2.5 rounded-xl bg-amber-50 px-4 py-3 text-sm text-amber-900 ring-1 ring-inset ring-amber-600/15">
-          <LightBulbIcon aria-hidden className="mt-0.5 size-4 shrink-0 text-amber-500" />
+        <p className="flex gap-2.5 rounded-2xl border-2 border-zinc-950 bg-pop-100 px-4 py-3 text-sm font-medium text-zinc-900 shadow-hard-sm">
+          <LightBulbIcon aria-hidden className="mt-0.5 size-4 shrink-0 text-pop-600" />
           <span>
             {group.rootIssueId === issue.id
               ? `Fix this first: it likely explains ${group.issueIds.length - 1} other difference${group.issueIds.length === 2 ? '' : 's'}.`
@@ -149,7 +162,7 @@ export function IssueDetail({
 
       {recommendation ? (
         <section aria-labelledby="fix-title" className="space-y-2.5">
-          <h3 id="fix-title" className="text-sm font-semibold text-zinc-950">
+          <h3 id="fix-title" className="font-display text-base font-bold text-zinc-950">
             Suggested change{' '}
             <span className="font-normal text-zinc-400">(from measured values)</span>
           </h3>
@@ -169,10 +182,10 @@ export function IssueDetail({
       {slots}
 
       <section aria-labelledby="evidence-title" className="space-y-2">
-        <h3 id="evidence-title" className="text-sm font-semibold text-zinc-950">
+        <h3 id="evidence-title" className="font-display text-base font-bold text-zinc-950">
           Evidence
         </h3>
-        <dl className="divide-y divide-zinc-950/[0.05] rounded-xl text-[13px] ring-1 ring-inset ring-zinc-950/[0.07]">
+        <dl className="divide-y-2 divide-zinc-950/[0.06] rounded-2xl border-2 border-zinc-950/10 text-[13px]">
           {issue.element.selector ? (
             <div className="grid gap-1 px-4 py-2.5 sm:grid-cols-[8rem_minmax(0,1fr)]">
               <dt className="text-zinc-500">Selector</dt>

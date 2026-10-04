@@ -10,11 +10,11 @@ export function StorageWarning() {
   return (
     <div
       role="status"
-      className="mb-6 flex items-start gap-3 rounded-xl bg-amber-50 px-4 py-3 text-sm text-amber-900 ring-1 ring-inset ring-amber-600/20"
+      className="mb-8 flex items-start gap-3 rounded-2xl border-2 border-zinc-950 bg-pop-100 px-4 py-3 text-sm text-zinc-900 shadow-hard-sm"
     >
-      <ExclamationTriangleIcon aria-hidden className="mt-0.5 size-4 shrink-0 text-amber-500" />
+      <ExclamationTriangleIcon aria-hidden className="mt-0.5 size-4 shrink-0 text-pop-600" />
       <p>
-        <span className="font-medium">Temporary storage.</span> Projects and audits are kept in
+        <span className="font-semibold">Temporary storage.</span> Projects and audits are kept in
         server memory and may disappear. Connect a Vercel Blob store (or set DATABASE_URL and a
         storage driver) to keep them.{' '}
         <Link href="/settings" className="font-medium underline underline-offset-2">

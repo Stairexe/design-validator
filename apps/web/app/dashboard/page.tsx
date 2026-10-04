@@ -51,7 +51,7 @@ export default async function DashboardPage() {
           audits.length > 0 ? (
             <>
               <ButtonLink href="/projects" variant="secondary">
-                <FolderIcon aria-hidden className="text-zinc-400" />
+                <FolderIcon aria-hidden />
                 Projects
               </ButtonLink>
               <ButtonLink href="/audits/new">
@@ -68,12 +68,13 @@ export default async function DashboardPage() {
       ) : (
         <div className="space-y-6">
           <div className="grid animate-fade-up gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <Stat label="Projects" value={projects.length} icon={<FolderIcon />} />
+            <Stat label="Projects" value={projects.length} icon={<FolderIcon />} tilt={-1} />
             <Stat
               label="Audits completed"
               value={completed}
               icon={<ClipboardDocumentCheckIcon />}
               tone="success"
+              tilt={1}
             />
             <Stat
               label="Open differences"
@@ -81,12 +82,14 @@ export default async function DashboardPage() {
               hint="In the latest audit of each project"
               icon={<WrenchScrewdriverIcon />}
               tone="warning"
+              tilt={-0.6}
             />
             <Stat
               label="Running now"
               value={running}
               icon={<ArrowPathIcon />}
-              tone={running > 0 ? 'brand' : 'neutral'}
+              tone="brand"
+              tilt={0.8}
             />
           </div>
 
@@ -111,7 +114,7 @@ export default async function DashboardPage() {
                   and mobile widths.
                 </p>
                 <SampleIssuePreview compact />
-                <RunSampleButton variant="secondary" />
+                <RunSampleButton variant="brand" />
               </CardBody>
             </Card>
           </div>
